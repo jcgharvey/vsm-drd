@@ -1,8 +1,12 @@
 package se761.bestgroup.vsm;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -14,8 +18,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class NewItemActivity extends Activity {
 
@@ -29,7 +35,6 @@ public class NewItemActivity extends Activity {
 
 		    //url with the post data
 		    HttpPost httpost = new HttpPost("http://vsm.herokuapp.com/new");
-
 		    JSONObject data = new JSONObject();
 			
 			try {
@@ -57,7 +62,16 @@ public class NewItemActivity extends Activity {
 		
 		    
 		    try {
-				httpclient.execute(httpost);
+				HttpResponse response = httpclient.execute(httpost);
+				InputStream content = response.getEntity().getContent();
+				BufferedReader br = new BufferedReader(new InputStreamReader(content));
+				String line;
+				StringBuilder sb = new StringBuilder();
+				while((line = br.readLine())!= null){
+					sb.append(line);
+				}
+				
+				Log.d("VSM WHAT!", sb.toString());
 			} catch (ClientProtocolException e) {
 				
 				e.printStackTrace();
@@ -68,10 +82,8 @@ public class NewItemActivity extends Activity {
 			}			
 			
 			return true;
-		}
-		
+		}		
 	}
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
