@@ -3,11 +3,12 @@ package se761.bestgroup.vsm;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.Toast;
 
 public class MainActivity extends ListActivity {
@@ -22,6 +23,8 @@ public class MainActivity extends ListActivity {
         
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 		setListAdapter(adapter);
+		
+		registerForContextMenu(getListView());
         
     }
 
@@ -52,6 +55,16 @@ public class MainActivity extends ListActivity {
     	String lastName = data.getStringExtra("lastName");
     	adapter.add(firstName + " " + lastName);
     	Toast.makeText(this, "First name: " + firstName + ", Last name: " + lastName, Toast.LENGTH_LONG).show();
+    	
+    }
+    
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+    		ContextMenuInfo menuInfo) {
+
+    	super.onCreateContextMenu(menu, v, menuInfo);
+    	
+    	Toast.makeText(this, "SNAG", Toast.LENGTH_SHORT).show();
     	
     }
     

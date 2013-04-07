@@ -3,12 +3,9 @@ package se761.bestgroup.vsm;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,7 +28,7 @@ public class NewItemActivity extends Activity {
 		    DefaultHttpClient httpclient = new DefaultHttpClient();
 
 		    //url with the post data
-		    HttpPost httpost = new HttpPost("vsm.herokuapp.com/new");
+		    HttpPost httpost = new HttpPost("http://vsm.herokuapp.com/new");
 
 		    JSONObject data = new JSONObject();
 			
