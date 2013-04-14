@@ -15,6 +15,7 @@ public class CountriesListDialogFragment extends DialogFragment {
 
 	public CountriesListDialogFragment() {
 		_selectedItems = new ArrayList<Integer>();  // Where we track the selected items
+		_listeners = new ArrayList<CountriesListDialogFragment.CountriesListDialogListener>();
 	}
 	
 	public interface CountriesListDialogListener{
