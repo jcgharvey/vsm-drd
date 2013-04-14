@@ -71,7 +71,7 @@ public class NewItemActivity extends Activity {
 					sb.append(line);
 				}
 				
-				Log.d("VSM WHAT!", sb.toString());
+				Log.d("VSM", sb.toString());
 			} catch (ClientProtocolException e) {
 				
 				e.printStackTrace();
