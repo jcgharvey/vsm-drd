@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-   
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"  
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
@@ -11,223 +10,200 @@
     android:orientation="vertical"
     android:padding="5dp" >
 
-    <TextView
-        android:id="@+id/firstNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/firstNameLabel" />
-
     <EditText
         android:id="@+id/firstName"
         android:layout_width="fill_parent"
+        android:hint="@string/firstNameLabel"
         android:layout_height="wrap_content"
         android:inputType="textPersonName" />
-
-    <TextView
-        android:id="@+id/lastNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lastNameLabel" />
 
     <EditText
         android:id="@+id/lastName"
+        android:hint="@string/lastNameLabel"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName" />
 
-    <TextView
-        android:id="@+id/nhiLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/nhiLabel" />
-
     <EditText
         android:id="@+id/nhi"
+        android:hint="@string/nhiLabel"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="text" />
-
-    <TextView
-        android:id="@+id/occupationLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/occupationLabel" />
 
     <EditText
         android:id="@+id/occupation"
+        android:hint="@string/occupationLabel"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="text" />
-
-    <TextView
-        android:id="@+id/citizenOrResidentLabel"
-        android:layout_width="wrap_content"
+    
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/citizenOrResidentLabel" />
+        android:orientation="horizontal">
+        
+    	<TextView android:id="@+id/citizenOrResidentLabel"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:text="@string/citizenOrResidentLabel" />
 
-    <Switch
-        android:id="@+id/citizenOrResident"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textOff="No"
-        android:textOn="Yes" />
-
-    <TextView
-        android:id="@+id/contactNumberLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/contactNumberLabel" />
+    	<Switch android:id="@+id/citizenOrResident"
+    		android:layout_width="fill_parent"
+    		android:layout_height="wrap_content" 
+    		android:textOff="No"
+    		android:textOn="Yes" />
+    
+    </LinearLayout>
 
     <EditText
+        android:hint="@string/contactNumberLabel"
         android:id="@+id/contactNumber"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="phone" />
 
-    <TextView
-        android:id="@+id/genderLabel"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/genderLabel" />
+        android:orientation="horizontal">
+    	
+    	<TextView android:id="@+id/genderLabel"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:text="@string/genderLabel" />
 
-    <Spinner
-        android:id="@+id/gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/dobLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/dobLabel" />
-
+    	<Spinner android:id="@+id/gender"
+    	    android:layout_gravity="right"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content" />
+    	
+    </LinearLayout>
+    
     <EditText
+        android:hint="@string/dobLabel"
         android:id="@+id/dob"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
     
-    <TextView
-        android:id="@+id/weightLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/weightLabel"
-        />
-    
     <EditText android:id="@+id/weight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"/>
-    
-     <TextView
-        android:id="@+id/heightLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/heightLabel"
-        />
+        android:inputType="number"
+        android:hint="@string/weightLabel"/>
     
     <EditText android:id="@+id/height"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"/>
+        android:inputType="number"
+        android:hint="@string/heightLabel"/>
     
-    <TextView
-        android:id="@+id/bloodTypeLabel"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/genderLabel" />
+        android:orientation="horizontal">
+    	
+    	<TextView android:id="@+id/bloodTypeLabel"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:text="@string/genderLabel" />
 
-    <Spinner
-        android:id="@+id/bloodType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-        
-	 <TextView
-        android:id="@+id/smokerLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/smokerLabel" />
+    	<Spinner android:id="@+id/bloodType"
+    	    android:layout_gravity="right"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content" />
+    	
+    </LinearLayout>
 
-    <Switch
-        android:id="@+id/smoker"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textOff="No"
-        android:textOn="Yes" />
-     <TextView
-        android:id="@+id/drinkerLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/drinkerLabel" />
+        android:orientation="horizontal">
+    	
+    	<TextView android:id="@+id/smokerLabel"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:text="@string/smokerLabel" />
 
-    <Switch
-        android:id="@+id/drinker"
-        android:layout_width="fill_parent"
+    	<Switch android:id="@+id/smoker"
+    		android:layout_width="fill_parent"
+    		android:layout_height="wrap_content" android:textOff="No"
+    		android:textOn="Yes" />
+    	
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textOff="No"
-        android:textOn="Yes" />
-    
-    <TextView
-        android:id="@+id/familyHistoryLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/familyHistoryLabel" />
-    
+        android:orientation="horizontal">
+    	
+    	<TextView android:id="@+id/drinkerLabel"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:text="@string/drinkerLabel" />
+
+    	<Switch android:id="@+id/drinker"
+    		android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:textOff="No"
+    		android:textOn="Yes" />
+    	
+    </LinearLayout>
+
     <EditText android:id="@+id/familyHistory"
         android:layout_width="match_parent"
+        android:hint="@string/familyHistoryLabel"
         android:layout_height="wrap_content"
         android:singleLine="false"
         android:inputType="textMultiLine"/>
     
-    <TextView
-        android:id="@+id/overseasLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/overseasLabel" />
-
-    <Switch
-        android:id="@+id/overseas"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textOff="No"
-        android:textOn="Yes" />
-    
-    <TextView
-        android:id="@+id/countriesLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/countriesLabel" />
-    
-    <TextView 
-        android:id="@+id/countries"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="..."
-        />
-    
-    <TextView
-        android:id="@+id/medicalConditionsLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/medicalConditionsLabel" />
-    
+        android:orientation="horizontal">
+    	
+    	<TextView android:id="@+id/overseasLabel"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:text="@string/overseasLabel" />
 
-    
+    	<Switch android:id="@+id/overseas"
+    		android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:textOff="No"
+    		android:textOn="Yes" />
+    	
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    	
+    	<TextView android:id="@+id/countriesLabel"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:text="@string/countriesLabel" />
+
+    	<TextView android:id="@+id/countries"
+    		android:layout_width="match_parent"
+    		android:layout_height="wrap_content"
+    		android:text="..." />
+    	
+    </LinearLayout>
+
     <EditText android:id="@+id/medicalConditions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/medicalConditionsLabel"
         android:singleLine="false"
         android:inputType="textMultiLine"/>
-    
-    <TextView
-        android:id="@+id/allergiesLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/allergiesLabel" />
     
     <EditText android:id="@+id/allergies"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="false"
+        android:hint="@string/allergiesLabel"
         android:inputType="textMultiLine"/>
     
     <Button
