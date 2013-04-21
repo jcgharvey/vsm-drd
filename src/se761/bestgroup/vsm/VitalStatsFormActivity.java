@@ -1,107 +1,100 @@
 package se761.bestgroup.vsm;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import se761.bestgroup.vsm.CountriesListDialogFragment.CountriesListDialogListener;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Switch;
-import android.widget.TextView;
+import android.support.v13.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuItem;
 
-public class VitalStatsFormActivity extends Activity implements CountriesListDialogListener{
+public class VitalStatsFormActivity extends Activity{
 	
-	private CountriesListDialogFragment _selectCountriesDialog;
-	
+	private ViewPager _viewPager;
+	private PagerAdapter _pagerAdapter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_view_pager);
 		
-		setContentView(R.layout.activity_vital_stats_form);
-		
-		//Set up the gender spinner
-		Spinner genderSpinner = (Spinner) findViewById(R.id.gender);
-		ArrayAdapter<CharSequence> genderSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.genders, android.R.layout.simple_spinner_item);
-		genderSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		genderSpinner.setAdapter(genderSpinnerAdapter);
-		
-		
-		//Set up the blood type spinner
-		Spinner bloodTypeSpinner = (Spinner) findViewById(R.id.bloodType);
-		ArrayAdapter<CharSequence> bloodTypeSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.bloodTypes, android.R.layout.simple_spinner_item);
-		bloodTypeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		bloodTypeSpinner.setAdapter(bloodTypeSpinnerAdapter);
-		
-		//Set up the countries selection dialog
-		
-		_selectCountriesDialog = new CountriesListDialogFragment();
-		_selectCountriesDialog.addListener(this);
-		
-		TextView countriesEditText = (TextView) findViewById(R.id.countries);
-		countriesEditText.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				VitalStatsFormActivity.this._selectCountriesDialog.show(getFragmentManager(), "VSM");
-				
-			}
-		});
-		
-		
-		//Set up submit button binding
-		Button submitButton = (Button) findViewById(R.id.submit);
-		submitButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				//Create the JSONObject and then pass it to our AsyncTask subclass to send it.
-				SubmitTask task = new SubmitTask(VitalStatsFormActivity.this);
-				JSONObject params = new JSONObject();
-				JSONObject patient = new JSONObject();
-					
-				try {
-					patient.put("firstname", ((EditText)findViewById(R.id.firstName)).getText().toString());
-					patient.put("lastname", ((EditText)findViewById(R.id.lastName)).getText().toString());
-					patient.put("nhi", ((EditText)findViewById(R.id.nhi)).getText().toString());
-					patient.put("occupation", ((EditText)findViewById(R.id.occupation)).getText().toString());
-					patient.put("citizen_resident", ((Switch)findViewById(R.id.citizenOrResident)).isChecked());
-					patient.put("contact_num", Integer.parseInt(((EditText)findViewById(R.id.contactNumber)).getText().toString()));
-					patient.put("gender", ((Spinner)findViewById(R.id.gender)).getSelectedItem().toString());
-					patient.put("dob", "2/11/2992");//PLACEHOLDER
-					
-					
-					params.put("patient", patient);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				task.execute(params);
-				
-			}
-		});
-		
+		_viewPager = (ViewPager) findViewById(R.id.pager);
+		_pagerAdapter = new SliderAdapter(getFragmentManager());
+		_viewPager.setAdapter(_pagerAdapter);
+		_viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                invalidateOptionsMenu();
+            }
+        });
 	}
-
 	@Override
-	public void onPositiveClick(CountriesListDialogFragment dialog) {
-		ArrayList<Integer> selectedCountries = _selectCountriesDialog.getSelectedCountries();
-		
-		
-	}
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.activity_screen_slide, menu);
 
+        menu.findItem(R.id.action_previous).setEnabled(_viewPager.getCurrentItem() > 0);
+
+        // Add either a "next" or "finish" button to the action bar, depending on which page
+        // is currently selected.
+        MenuItem item = menu.add(Menu.NONE, R.id.action_next, Menu.NONE,
+                (_viewPager.getCurrentItem() == _pagerAdapter.getCount() - 1)
+                        ? R.string.action_finish
+                        : R.string.action_next);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+        return true;
+    }
 	@Override
-	public void onNegativeClick(CountriesListDialogFragment dialog) {
-		// TODO Auto-generated method stub
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.action_previous:
+                // Go to the previous step in the wizard. If there is no previous step,
+                // setCurrentItem will do nothing.
+                _viewPager.setCurrentItem(_viewPager.getCurrentItem() - 1);
+                return true;
+
+            case R.id.action_next:
+                // Advance to the next step in the wizard. If there is no next step, setCurrentItem
+                // will do nothing.
+                _viewPager.setCurrentItem(_viewPager.getCurrentItem() + 1);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+	
+	private class SliderAdapter extends FragmentStatePagerAdapter{
+		
+		private List<Fragment> _pages;
+		
+		public SliderAdapter(FragmentManager fragmentManager) {
+			super(fragmentManager);
+			_pages = new ArrayList<Fragment>();
+			_pages.add(new Page1Fragment());
+			_pages.add(new Page2Fragment());
+			_pages.add(new Page3Fragment());
+			_pages.add(new Page4Fragment());
+			_pages.add(new Page5Fragment());
+			
+		}
+
+		@Override
+		public Fragment getItem(int page) {
+			return _pages.get(page);
+		}
+
+		@Override
+		public int getCount() {
+			return _pages.size();
+		}
+
+		
 		
 	}
 }
