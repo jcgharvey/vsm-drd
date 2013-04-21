@@ -1,3 +1,4 @@
+
 package se761.bestgroup.vsm;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class CountriesListDialogFragment extends DialogFragment {
 	                   }
 	               }
 	           })
-	           // Set the action buttons
+	    // Set the action buttons
 	           .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 	               @Override
 	               public void onClick(DialogInterface dialog, int id) {
@@ -61,7 +62,8 @@ public class CountriesListDialogFragment extends DialogFragment {
 	                   // or return them to the component that opened the dialog
 	            	   for(CountriesListDialogListener listener : _listeners){
 	            		   listener.onPositiveClick(CountriesListDialogFragment.this);
-	            	   }                   
+	            	   }
+	                   
 	               }
 	           })
 	           .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -80,3 +82,4 @@ public class CountriesListDialogFragment extends DialogFragment {
 		return _selectedItems;
 	}
 }
+
