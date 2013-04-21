@@ -2,6 +2,8 @@
 package se761.bestgroup.vsm;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,10 +15,12 @@ public class CountriesListDialogFragment extends DialogFragment {
 	
 	private ArrayList<Integer> _selectedItems;
 	private ArrayList<CountriesListDialogListener> _listeners;
+	private boolean[] _checked;
 
 	public CountriesListDialogFragment() {
 		_selectedItems = new ArrayList<Integer>();  // Where we track the selected items
 		_listeners = new ArrayList<CountriesListDialogFragment.CountriesListDialogListener>();
+		
 	}
 	
 	public interface CountriesListDialogListener{
@@ -34,13 +38,17 @@ public class CountriesListDialogFragment extends DialogFragment {
 	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-	    
+		final boolean[] checkedOriginal = _checked;
+		final ArrayList<Integer> selectedOriginal = new ArrayList<Integer>(_selectedItems);
+		
 	    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	    if (_checked == null)
+	    	_checked = new boolean[getResources().getStringArray(R.array.countries).length];
 	    // Set the dialog title
 	    builder.setTitle(R.string.pickCountries)
 	    // Specify the list array, the items to be selected by default (null for none),
 	    // and the listener through which to receive callbacks when items are selected
-	           .setMultiChoiceItems(R.array.countries, null,
+	           .setMultiChoiceItems(R.array.countries, _checked,
 	                      new DialogInterface.OnMultiChoiceClickListener() {
 	               @Override
 	               public void onClick(DialogInterface dialog, int which,
@@ -48,9 +56,11 @@ public class CountriesListDialogFragment extends DialogFragment {
 	                   if (isChecked) {
 	                       // If the user checked the item, add it to the selected items
 	                       _selectedItems.add(which);
+	                       _checked[which] = true;
 	                   } else if (_selectedItems.contains(which)) {
 	                       // Else, if the item is already in the array, remove it 
 	                       _selectedItems.remove(Integer.valueOf(which));
+	                       _checked[which] = false;
 	                   }
 	               }
 	           })
@@ -69,6 +79,8 @@ public class CountriesListDialogFragment extends DialogFragment {
 	           .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 	               @Override
 	               public void onClick(DialogInterface dialog, int id) {
+	            	   _selectedItems = selectedOriginal;
+	            	   _checked = checkedOriginal;
 	            	   for(CountriesListDialogListener listener : _listeners){
 	            		   listener.onNegativeClick(CountriesListDialogFragment.this);
 	            	   }
