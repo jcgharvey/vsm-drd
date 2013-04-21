@@ -134,7 +134,7 @@
         android:id="@+id/bloodTypeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/genderLabel" />
+        android:text="@string/bloodTypeLabel" />
 
     <Spinner
         android:id="@+id/bloodType"

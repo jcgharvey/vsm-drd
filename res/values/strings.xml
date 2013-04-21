@@ -21,6 +21,7 @@
     </string-array>
     <string name="weightLabel">Weight(Kg):</string>
     <string name="heightLabel">Height(cm):</string>
+    <string name="bloodTypeLabel">Blood Type:</string>
     <string-array name="bloodTypes">
         <item>A+</item>
         <item>B+</item>
