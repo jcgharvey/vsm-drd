@@ -48,19 +48,19 @@ public class PatientModel {
 		_lastName = lastName;
 	}
 	
-	public void setOccupation(String o){
+	public void setOccupation(String o) throws IllegalArgumentException{
 		_occupation = o;
 	}
 	
-	public void setNHINumber(String n){
+	public void setNHINumber(String n) throws IllegalArgumentException{
 		_nhiNumber = n;
 	}
 	
-	public void setFamilyHistory(String fh){
+	public void setFamilyHistory(String fh) throws IllegalArgumentException{
 		_familyHistory = fh;
 	}
 	
-	public void setMedicalConditions(String mc){
+	public void setMedicalConditions(String mc) throws IllegalArgumentException{
 		_medicalConditions = mc;
 	}
 	
@@ -72,28 +72,28 @@ public class PatientModel {
 		_gender = g;
 	}
 	
-	public void setContactNumber(int number){
+	public void setContactNumber(int number)  throws IllegalArgumentException{
 		_contactNumber = number;
 	}
 	
-	public void setBodyDimensions(int height, int weight){
+	public void setBodyDimensions(int height, int weight) throws IllegalArgumentException{
 		_height = height;
 		_weight = weight;
 	}
 	
-	public void addCountry(String c){
+	public void addCountry(String c)  throws IllegalArgumentException{
 		_recentCountries.add(c);
 	}
 	
-	public void removeCountry(String c){
+	public void removeCountry(String c) throws IllegalArgumentException{
 		_recentCountries.remove(c);
 	}
 	
-	public void addAllergy(String a){
+	public void addAllergy(String a)  throws IllegalArgumentException{
 		_alergies.add(a);
 	}
 	
-	public void removeAllergy(String a){
+	public void removeAllergy(String a)  throws IllegalArgumentException{
 		_alergies.remove(a);
 	}
 	
