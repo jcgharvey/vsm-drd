@@ -9,7 +9,8 @@ public class PatientModel {
 
 	private String _firstName, _lastName, _occupation, _nhiNumber, _familyHistory, _medicalConditions;
 	private List<String> _recentCountries, _alergies;
-	private int _contactNumber, _weight, _height;
+	private int _contactNumber;
+	private double _weight, _height;
 	private BloodType _bloodType;
 	private Gender _gender;
 	
@@ -76,7 +77,7 @@ public class PatientModel {
 		_contactNumber = number;
 	}
 	
-	public void setBodyDimensions(int height, int weight) throws IllegalArgumentException{
+	public void setBodyDimensions(double height, double weight) throws IllegalArgumentException{
 		_height = height;
 		_weight = weight;
 	}
