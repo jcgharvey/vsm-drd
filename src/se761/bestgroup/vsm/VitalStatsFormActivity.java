@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
@@ -52,6 +53,15 @@ public class VitalStatsFormActivity extends Activity{
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
         return true;
     }
+	
+	@Override
+	protected void onPause() {
+		super.onPause();		
+		//Save the model's state
+		Editor preferencesEditor = getPreferences(MODE_PRIVATE).edit();
+		preferencesEditor.putString("model", _model.toJSON().toString());
+		preferencesEditor.apply();
+	}
 	
 
     public boolean onOptionsItemSelected(MenuItem item) {
