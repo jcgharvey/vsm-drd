@@ -3,6 +3,8 @@ package se761.bestgroup.vsm;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -25,7 +27,15 @@ public class VitalStatsFormActivity extends Activity{
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_view_pager);
+		String jsonSerializedModel = getPreferences(MODE_PRIVATE).getString("model", null);
 		_model = new PatientModel();
+		if(jsonSerializedModel != null){
+			try {
+				_model.fromJSONString(jsonSerializedModel);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		_viewPager = (ViewPager) findViewById(R.id.pager);
 		_pagerAdapter = new SliderAdapter(getFragmentManager());
@@ -90,12 +100,8 @@ public class VitalStatsFormActivity extends Activity{
 		public SliderAdapter(FragmentManager fragmentManager) {
 			super(fragmentManager);
 			_pages = new ArrayList<Fragment>();
-			PageFragment page = new Page1Fragment();
-			
-			Bundle bundle = new Bundle();
-			bundle.putSerializable("model", _model);
-			page.setArguments(bundle);
-			_pages.add(page);
+						
+			_pages.add(Page1Fragment.newInstance(_model));
 			_pages.add(new Page2Fragment());
 			_pages.add(new Page3Fragment());
 			_pages.add(new Page4Fragment());

@@ -114,8 +114,8 @@ public class PatientModel implements Serializable{
 			.put("weight", _weight)
 			.put("height", _height)
 			.put("contactNumber", _contactNumber)
-			.put("bloodType", _bloodType.toString())
-			.put("gender", _gender.toString())
+			.put("bloodType", _bloodType == null ? "" : _bloodType.toString()) //BloodType and Gender are enums and default to null
+			.put("gender", _gender == null ? "" : _gender.toString()) 
 			.put("recentCountries", new JSONArray(_recentCountries))
 			.put("alergies", new JSONArray(_alergies));
 		} catch (JSONException e) {
