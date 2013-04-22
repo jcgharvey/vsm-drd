@@ -39,7 +39,8 @@
     <string name="medicalConditionsLabel">Do you have any medial conditions?</string>
     <string name="allergiesLabel">What are your allerigies?</string>
     <string name="pickCountries">Pick Countries</string>
-    
+    <string name="editLabel">Edit</string>
+   
     <string-array name="countries">
 		<item>Afghanistan</item>
 		<item>Albania</item>
