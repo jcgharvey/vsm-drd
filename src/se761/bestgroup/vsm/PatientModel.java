@@ -1,11 +1,12 @@
 package se761.bestgroup.vsm;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONObject;
 
-public class PatientModel {
+public class PatientModel implements Serializable{
 
 	private String _firstName, _lastName, _occupation, _nhiNumber, _familyHistory, _medicalConditions;
 	private List<String> _recentCountries, _alergies;

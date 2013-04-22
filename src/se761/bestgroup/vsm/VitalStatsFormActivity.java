@@ -13,18 +13,18 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
 public class VitalStatsFormActivity extends Activity{
 	
 	private ViewPager _viewPager;
 	private PagerAdapter _pagerAdapter;
-
+	private PatientModel _model;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_view_pager);
+		_model = new PatientModel();
 		
 		_viewPager = (ViewPager) findViewById(R.id.pager);
 		_pagerAdapter = new SliderAdapter(getFragmentManager());
@@ -80,7 +80,12 @@ public class VitalStatsFormActivity extends Activity{
 		public SliderAdapter(FragmentManager fragmentManager) {
 			super(fragmentManager);
 			_pages = new ArrayList<Fragment>();
-			_pages.add(new Page1Fragment());
+			PageFragment page = new Page1Fragment();
+			
+			Bundle bundle = new Bundle();
+			bundle.putSerializable("model", _model);
+			page.setArguments(bundle);
+			_pages.add(page);
 			_pages.add(new Page2Fragment());
 			_pages.add(new Page3Fragment());
 			_pages.add(new Page4Fragment());
