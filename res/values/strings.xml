@@ -10,7 +10,7 @@
     <string name="lastNameLabel">Last Name:</string>
     <string name="nhiLabel">NHI Number:</string>
     <string name="occupationLabel">Occupation:</string>
-    <string name="citizenOrResidentLabel">Are you a NZ citizen \nOR a Permanent Resident?</string>
+    <string name="citizenOrResidentLabel">Are you a NZ citizen OR a Permanent Resident?</string>
     <string name="contactNumberLabel">Contact Number:</string>
     <string name="genderLabel">Gender:</string>
     <string name="dobLabel">Date of Birth:</string>
@@ -19,8 +19,8 @@
         <item>Female</item>
         <item>Other</item>
     </string-array>
-    <string name="weightLabel">Weight(Kg):</string>
-    <string name="heightLabel">Height(cm):</string>
+    <string name="weightLabel">Weight:</string>
+    <string name="heightLabel">Height:</string>
     <string name="bloodTypeLabel">Blood Type:</string>
     <string-array name="bloodTypes">
         <item>A+</item>
@@ -284,6 +284,8 @@
     <string name="countriesLabel">Which countries have you been to?</string>
     <string name="action_previous">Prev</string>  
     <string name="action_next">Next</string>
-    <string name="action_finish">Finish</string>  
+    <string name="action_finish">Finish</string>
+    <string name="weightUnit">(kg)</string>
+    <string name="heightUnit">(cm)</string>  
 
 </resources>

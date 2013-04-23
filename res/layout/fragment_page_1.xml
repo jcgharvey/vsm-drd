@@ -12,47 +12,61 @@
             android:id="@+id/firstName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/firstNameLabel"
             android:inputType="textPersonName"
-            android:hint="@string/firstNameLabel" />
+            android:textSize="23sp" />
 
         <EditText
             android:id="@+id/lastName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName" 
-            android:hint="@string/lastNameLabel"/>
+            android:hint="@string/lastNameLabel"
+            android:inputType="textPersonName"
+            android:textSize="23sp" />
 
         <EditText
             android:id="@+id/nhi"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/nhiLabel"
             android:inputType="text"
-            android:hint="@string/nhiLabel"/>
+            android:textSize="23sp" />
 
         <EditText
             android:id="@+id/occupation"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/occupationLabel"
             android:inputType="text"
-            android:hint="@string/occupationLabel" />
+            android:textSize="23sp" />
 
-        <TextView
-            android:id="@+id/genderLabel"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/genderLabel" />
+            android:orientation="horizontal" >
 
-        <Spinner
-            android:id="@+id/gender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/genderLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/genderLabel"
+                android:layout_weight="1"
+                android:textSize="23sp"
+                android:layout_marginLeft="15dp" />
+
+            <Spinner
+                android:id="@+id/gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
 
         <EditText
             android:id="@+id/dob"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/dobLabel" />
-        
+            android:hint="@string/dobLabel"
+            android:textSize="23sp"/>
     </LinearLayout>
 
 </ScrollView>

@@ -10,11 +10,14 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class VitalStatsFormActivity extends Activity{
 	
@@ -25,16 +28,21 @@ public class VitalStatsFormActivity extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
 		setContentView(R.layout.activity_view_pager);
+		
+		
 		String jsonSerializedModel = getPreferences(MODE_PRIVATE).getString("model", null);
 		_model = new PatientModel();
 		if(jsonSerializedModel != null){
+			Log.d("VSM", "Deserializing saved model");
 			try {
 				_model.fromJSONString(jsonSerializedModel);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
+		}else{
+			Log.d("VSM", "Blank Model");
 		}
 		
 		_viewPager = (ViewPager) findViewById(R.id.pager);
@@ -71,6 +79,7 @@ public class VitalStatsFormActivity extends Activity{
 		Editor preferencesEditor = getPreferences(MODE_PRIVATE).edit();
 		preferencesEditor.putString("model", _model.toJSON().toString());
 		preferencesEditor.apply();
+		Log.d("VSM", "Serializing and saving model");
 	}
 	
 
@@ -102,10 +111,10 @@ public class VitalStatsFormActivity extends Activity{
 			_pages = new ArrayList<Fragment>();
 						
 			_pages.add(Page1Fragment.newInstance(_model));
-			_pages.add(new Page2Fragment());
-			_pages.add(new Page3Fragment());
-			_pages.add(new Page4Fragment());
-			_pages.add(new Page5Fragment());
+			_pages.add(Page2Fragment.newInstance(_model));
+			_pages.add(Page3Fragment.newInstance(_model));
+			_pages.add(Page4Fragment.newInstance(_model));
+			_pages.add(Page5Fragment.newInstance(_model));
 			
 		}
 

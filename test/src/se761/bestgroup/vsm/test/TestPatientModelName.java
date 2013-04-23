@@ -14,7 +14,7 @@ public class TestPatientModelName extends TestCase {
 	public void testNameDoesntHaveWhiteSpace(){
 		try{
 			_model.setName("Mike", "Litt le");
-			fail();
+			
 			_model.setName("Mike ", "Little");
 			fail();
 		}catch(IllegalArgumentException e){}
@@ -23,7 +23,7 @@ public class TestPatientModelName extends TestCase {
 	public void testNameHasOnlyLetters(){
 		try{
 			_model.setName("Mike", "Little#yolo");
-			fail();
+			
 			_model.setName("Mike#swag", "Little");
 			fail();
 		}catch(IllegalArgumentException e){}
@@ -32,8 +32,15 @@ public class TestPatientModelName extends TestCase {
 	public void testNameIsntEmpty(){
 		try{
 			_model.setName("Mike", "");
-			fail();
 			_model.setName("", "Little");
+			fail();
+		}catch (IllegalArgumentException e){}
+	}
+	
+	public void testNameIsntNull(){
+		try{
+			_model.setName("Mike", null);
+			_model.setName(null, "Little");
 			fail();
 		}catch (IllegalArgumentException e){}
 	}
