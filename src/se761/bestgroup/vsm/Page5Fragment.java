@@ -1,17 +1,23 @@
 package se761.bestgroup.vsm;
 
+import se761.bestgroup.vsm.AddAlergyDialogFragment.AddAlergyDiaglogListener;
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 public class Page5Fragment extends ListFragment {
 	
 	private PatientModel _model;
 	private ArrayAdapter<String> _adapter;
+	private int _positionLongClicked;
 	
 	public Page5Fragment() {
 	}
@@ -19,10 +25,36 @@ public class Page5Fragment extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		_model = (PatientModel) getArguments().get("model");
 		setHasOptionsMenu(true);
-		_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1);
-		setListAdapter(_adapter);
+		setRetainInstance(true);
+		if(_adapter == null){
+			Log.d("VSM", "LOLOL, FRAGMENTS GET DESTROYED");
+			_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1);
+			setListAdapter(_adapter);
+			
+		}
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		registerForContextMenu(getListView());
+	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		_positionLongClicked = ((AdapterView.AdapterContextMenuInfo)menuInfo).position; 
+		menu.add(menu.NONE, R.id.action_delete_allergy, menu.NONE, "Delete");
+	}
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		if(item.getItemId() == R.id.action_delete_allergy){
+			_adapter.remove(_adapter.getItem(_positionLongClicked));
+		}
+		return true;
 	}
 	
 	@Override
@@ -37,7 +69,15 @@ public class Page5Fragment extends ListFragment {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		if(item.getItemId() == R.id.action_add_allergy){
-			Toast.makeText(getActivity(), "+", Toast.LENGTH_LONG).show();
+			AddAlergyDialogFragment dialog = new AddAlergyDialogFragment();
+			dialog.setAddAlergyDialogListener(new AddAlergyDiaglogListener() {
+				
+				@Override
+				public void onPositiveClick(String value) {
+					_adapter.add(value);
+				}
+			});
+			dialog.show(getFragmentManager(), "AddAlergyDialog");
 		}
 		return true;
 	}
