@@ -28,6 +28,7 @@ public class AddAlergyDialogFragment extends DialogFragment {
 		View view = layoutInflater.inflate(R.layout.add_allergy_dialog, null);
 		final EditText alergyInput = (EditText) view.findViewById(R.id.addAlergyInput);
 		builder.setView(view)
+		.setTitle("Add an Allergy")
 		.setPositiveButton("Add", new OnClickListener() {
 			
 			@Override

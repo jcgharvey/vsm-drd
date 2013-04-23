@@ -3,7 +3,6 @@ package se761.bestgroup.vsm;
 import se761.bestgroup.vsm.AddAlergyDialogFragment.AddAlergyDiaglogListener;
 import android.app.ListFragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -29,17 +28,18 @@ public class Page5Fragment extends ListFragment {
 		_model = (PatientModel) getArguments().get("model");
 		setHasOptionsMenu(true);
 		setRetainInstance(true);
+		
 		if(_adapter == null){
-			Log.d("VSM", "LOLOL, FRAGMENTS GET DESTROYED");
 			_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1);
 			setListAdapter(_adapter);
-			
-		}
+			System.out.println("");
+		}	
 	}
 	
 	@Override
-	public void onResume() {
-		super.onResume();
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		
 		registerForContextMenu(getListView());
 	}
 	
