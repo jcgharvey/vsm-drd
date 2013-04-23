@@ -1,15 +1,18 @@
 package se761.bestgroup.vsm;
 
-import android.app.Fragment;
+import android.app.ListFragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
-public class Page5Fragment extends Fragment {
+public class Page5Fragment extends ListFragment {
 	
 	private PatientModel _model;
-
+	private ArrayAdapter<String> _adapter;
+	
 	public Page5Fragment() {
 	}
 
@@ -17,13 +20,26 @@ public class Page5Fragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		_model = (PatientModel) getArguments().get("model");
+		setHasOptionsMenu(true);
+		_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1);
+		setListAdapter(_adapter);
 	}
 	
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_page_5, container, false);
-		
-		return root;
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		MenuItem addAllergy = menu.add(Menu.NONE, R.id.action_add_allergy, 0, "");
+		addAllergy.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		addAllergy.setIcon(R.drawable.content_new);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		if(item.getItemId() == R.id.action_add_allergy){
+			Toast.makeText(getActivity(), "+", Toast.LENGTH_LONG).show();
+		}
+		return true;
 	}
 	
 	@Override
