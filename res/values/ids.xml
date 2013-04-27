@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item type="id" name="action_next" />
+    <item type="id" name="action_add_allergy"/>
+    <item type="id" name="action_delete_allergy"/>
 </resources>
