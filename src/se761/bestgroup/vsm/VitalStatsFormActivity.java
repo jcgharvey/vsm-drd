@@ -10,14 +10,12 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.os.Debug;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 public class VitalStatsFormActivity extends Activity{
 	
@@ -64,7 +62,7 @@ public class VitalStatsFormActivity extends Activity{
 
         // Add either a "next" or "finish" button to the action bar, depending on which page
         // is currently selected.
-        MenuItem item = menu.add(Menu.NONE, R.id.action_next, Menu.NONE,
+        MenuItem item = menu.add(Menu.NONE, R.id.action_next, 2,
                 (_viewPager.getCurrentItem() == _pagerAdapter.getCount() - 1)
                         ? R.string.action_finish
                         : R.string.action_next);

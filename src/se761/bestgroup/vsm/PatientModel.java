@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.text.Editable;
+
 public class PatientModel implements Serializable {
 
 	private String _firstName, _lastName, _occupation, _nhiNumber,
@@ -16,13 +18,34 @@ public class PatientModel implements Serializable {
 	private Gender _gender;
 	private List<String> _recentCountries, _alergies;
 
-	private boolean _nzResidentOrCitizen;
+	private boolean _nzResidentOrCitizen, _smoker, _drinker;
 	private int _contactNumber;
 	private double _weight, _height;
 
 	public enum BloodType {
-		A_POS, // Default
-		B_POS, O_POS, AB_POS, A_NEG, B_NEG, O_NEG, AB_NEG
+		A_POS("A+"),
+		B_POS("B+"), 
+		O_POS("O+"), AB_POS("AB+"), A_NEG("A-"), B_NEG("B-"), O_NEG("O-"), AB_NEG("AB-");
+
+		private String _bloodType;
+
+		private BloodType(String bloodType) {
+			_bloodType = bloodType;
+		}
+		
+		public static BloodType lookup(String value){
+			 for (BloodType b : BloodType.values()){
+				 if(b.toString().equals(value)) return b;
+			 }
+			 return null;
+		}
+		
+		@Override
+		public String toString() {
+			return _bloodType;
+		}
+		
+		
 	}
 
 	public enum Gender {
@@ -136,7 +159,11 @@ public class PatientModel implements Serializable {
 							_gender == null ? Gender.Male.toString() : _gender
 									.toString())
 					.put("recentCountries", new JSONArray(_recentCountries))
-					.put("alergies", new JSONArray(_alergies));
+					.put("alergies", new JSONArray(_alergies))
+					.put("citizenOrResident", _nzResidentOrCitizen)
+					.put("smoker", _smoker)
+					.put("drinker", _drinker);
+			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -159,10 +186,10 @@ public class PatientModel implements Serializable {
 
 		_contactNumber = json.getInt("contactNumber");
 
-		_bloodType = BloodType.valueOf(json.getString("bloodType"));
+		_bloodType = BloodType.lookup(json.getString("bloodType"));
 		_gender = Gender.valueOf(json.getString("gender"));
 
-		JSONArray countriesJsonArray = json.getJSONArray("recentCountries");
+		JSONArray countriesJsonArray = json.getJSONArray("recentCountries");       	
 		_recentCountries.clear();
 		for (int i = 0; i < countriesJsonArray.length(); i++) {
 			_recentCountries.add(countriesJsonArray.getString(i));
@@ -173,32 +200,78 @@ public class PatientModel implements Serializable {
 		for (int i = 0; i < alergiesJsonArray.length(); i++) {
 			_alergies.add(alergiesJsonArray.getString(i));
 		}
+		
+		_nzResidentOrCitizen = json.getBoolean("citizenOrResident");
+		_drinker = json.getBoolean("drinker");
+		_smoker = json.getBoolean("smoker");
 	}
 
 	public Gender getGender() {
 		return _gender == null ? Gender.Male : _gender;
 	}
-	
+
 	public BloodType getBloodType() {
 		return _bloodType == null ? BloodType.A_POS : _bloodType;
 	}
 
 	public String getFirstName() {
-
 		return _firstName;
 	}
 
 	public String getLastName() {
-
 		return _lastName;
 	}
 
 	public String getOccupation() {
 		return _occupation;
 	}
-	
+
 	public String getNhiNumber() {
 		return _nhiNumber;
+	}
+
+	public int getContactNumber() {
+		return _contactNumber;
+	}
+
+	public boolean isCitizenOrResident() {
+		return _nzResidentOrCitizen;
+	}
+
+	public void setCitizenOrResident(boolean citizenOrResident) {
+		_nzResidentOrCitizen = citizenOrResident;
+	}
+
+	public double getWeight() {
+		return _weight;
+	}
+
+	public void setWeight(double weight) {
+		_weight = weight;
+	}
+	
+	public void setHeight(double height) {
+		_height = height;
+	}
+
+	public double getHeight() {
+		return _height;
+	}
+
+	public boolean isDrinker() {
+		return _drinker;
+	}
+
+	public void setDrinker(boolean _drinker) {
+		this._drinker = _drinker;
+	}
+
+	public boolean isSmoker() {
+		return _smoker;
+	}
+
+	public void setSmoker(boolean _smoker) {
+		this._smoker = _smoker;
 	}
 
 }
