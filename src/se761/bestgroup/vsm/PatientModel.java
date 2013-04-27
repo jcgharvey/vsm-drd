@@ -13,13 +13,13 @@ import android.text.Editable;
 public class PatientModel implements Serializable {
 
 	private String _firstName, _lastName, _occupation, _nhiNumber,
-			_familyHistory, _medicalConditions;
+			_familyHistory, _medicalConditions, _contactNumber;
 	private BloodType _bloodType;
 	private Gender _gender;
 	private List<String> _recentCountries, _alergies;
 
 	private boolean _nzResidentOrCitizen, _smoker, _drinker;
-	private int _contactNumber;
+	
 	private double _weight, _height;
 
 	public enum BloodType {
@@ -44,8 +44,6 @@ public class PatientModel implements Serializable {
 		public String toString() {
 			return _bloodType;
 		}
-		
-		
 	}
 
 	public enum Gender {
@@ -58,8 +56,7 @@ public class PatientModel implements Serializable {
 		_alergies = new ArrayList<String>();
 
 		// Assign default/empty values
-		_firstName = _lastName = _occupation = _nhiNumber = _familyHistory = _medicalConditions = "";
-		_contactNumber = -1;
+		_firstName = _lastName = _occupation = _nhiNumber = _familyHistory = _medicalConditions = _contactNumber = "";
 		_weight = _height = -1;
 		_nzResidentOrCitizen = true;
 	}
@@ -113,7 +110,7 @@ public class PatientModel implements Serializable {
 		_gender = g;
 	}
 
-	public void setContactNumber(int number) throws IllegalArgumentException {
+	public void setContactNumber(String number) throws IllegalArgumentException {
 		_contactNumber = number;
 	}
 
@@ -184,7 +181,7 @@ public class PatientModel implements Serializable {
 		_weight = json.getDouble("weight");
 		_height = json.getDouble("height");
 
-		_contactNumber = json.getInt("contactNumber");
+		_contactNumber = json.getString("contactNumber");
 
 		_bloodType = BloodType.lookup(json.getString("bloodType"));
 		_gender = Gender.valueOf(json.getString("gender"));
@@ -230,7 +227,7 @@ public class PatientModel implements Serializable {
 		return _nhiNumber;
 	}
 
-	public int getContactNumber() {
+	public String getContactNumber() {
 		return _contactNumber;
 	}
 
