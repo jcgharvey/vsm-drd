@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/weightLabel"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/heightLabel"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
 
             <TextView
                 android:layout_width="wrap_content"
