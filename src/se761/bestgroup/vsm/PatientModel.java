@@ -52,8 +52,8 @@ public class PatientModel implements Serializable {
 	}
 
 	public PatientModel() {
-		_recentCountries = new ArrayList<String>();
-		_alergies = new ArrayList<String>();
+		setRecentCountries(new ArrayList<String>());
+		setAlergies(new ArrayList<String>());
 
 		// Assign default/empty values
 		_firstName = _lastName = _occupation = _nhiNumber = _familyHistory = _medicalConditions = _contactNumber = "";
@@ -122,19 +122,19 @@ public class PatientModel implements Serializable {
 	}
 
 	public void addCountry(String c) throws IllegalArgumentException {
-		_recentCountries.add(c);
+		getRecentCountries().add(c);
 	}
 
 	public void removeCountry(String c) throws IllegalArgumentException {
-		_recentCountries.remove(c);
+		getRecentCountries().remove(c);
 	}
 
 	public void addAllergy(String a) throws IllegalArgumentException {
-		_alergies.add(a);
+		getAlergies().add(a);
 	}
 
 	public void removeAllergy(String a) throws IllegalArgumentException {
-		_alergies.remove(a);
+		getAlergies().remove(a);
 	}
 
 	public JSONObject toJSON() {
@@ -156,8 +156,8 @@ public class PatientModel implements Serializable {
 					.put("gender",
 							_gender == null ? Gender.Male.toString() : _gender
 									.toString())
-					.put("recentCountries", new JSONArray(_recentCountries))
-					.put("alergies", new JSONArray(_alergies))
+					.put("recentCountries", new JSONArray(getRecentCountries()))
+					.put("alergies", new JSONArray(getAlergies()))
 					.put("citizenOrResident", _nzResidentOrCitizen)
 					.put("smoker", _smoker)
 					.put("drinker", _drinker)
@@ -189,15 +189,15 @@ public class PatientModel implements Serializable {
 		_gender = Gender.valueOf(json.getString("gender"));
 
 		JSONArray countriesJsonArray = json.getJSONArray("recentCountries");       	
-		_recentCountries.clear();
+		getRecentCountries().clear();
 		for (int i = 0; i < countriesJsonArray.length(); i++) {
-			_recentCountries.add(countriesJsonArray.getString(i));
+			getRecentCountries().add(countriesJsonArray.getString(i));
 		}
 
 		JSONArray alergiesJsonArray = json.getJSONArray("alergies");
-		_alergies.clear();
+		getAlergies().clear();
 		for (int i = 0; i < alergiesJsonArray.length(); i++) {
-			_alergies.add(alergiesJsonArray.getString(i));
+			getAlergies().add(alergiesJsonArray.getString(i));
 		}
 		
 		_nzResidentOrCitizen = json.getBoolean("citizenOrResident");
@@ -288,6 +288,22 @@ public class PatientModel implements Serializable {
 
 	public String getMedicalConditions() {
 		return _medicalConditions;
+	}
+
+	public List<String> getRecentCountries() {
+		return _recentCountries;
+	}
+
+	public void setRecentCountries(List<String> _recentCountries) {
+		this._recentCountries = _recentCountries;
+	}
+
+	public List<String> getAlergies() {
+		return _alergies;
+	}
+
+	public void setAlergies(List<String> _alergies) {
+		this._alergies = _alergies;
 	}
 
 }
