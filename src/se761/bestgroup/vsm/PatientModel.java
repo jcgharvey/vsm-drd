@@ -144,8 +144,8 @@ public class PatientModel implements Serializable {
 					.put("lastName", _lastName)
 					.put("occupation", _occupation)
 					.put("nhiNumber", _nhiNumber)
-					.put("familyHistory", _familyHistory)
-					.put("medicalConditions", _medicalConditions)
+					.put("familyHistory", getFamilyHistory())
+					.put("medicalConditions", getMedicalConditions())
 					.put("weight", _weight)
 					.put("height", _height)
 					.put("contactNumber", _contactNumber)
@@ -280,6 +280,14 @@ public class PatientModel implements Serializable {
 
 	public void setDob(String dob) {
 		this._dob = dob;
+	}
+
+	public String getFamilyHistory() {
+		return _familyHistory;
+	}
+
+	public String getMedicalConditions() {
+		return _medicalConditions;
 	}
 
 }
