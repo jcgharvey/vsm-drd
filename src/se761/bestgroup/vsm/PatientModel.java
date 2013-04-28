@@ -13,7 +13,7 @@ import android.text.Editable;
 public class PatientModel implements Serializable {
 
 	private String _firstName, _lastName, _occupation, _nhiNumber,
-			_familyHistory, _medicalConditions, _contactNumber;
+			_familyHistory, _medicalConditions, _contactNumber, _dob;
 	private BloodType _bloodType;
 	private Gender _gender;
 	private List<String> _recentCountries, _alergies;
@@ -57,6 +57,7 @@ public class PatientModel implements Serializable {
 
 		// Assign default/empty values
 		_firstName = _lastName = _occupation = _nhiNumber = _familyHistory = _medicalConditions = _contactNumber = "";
+		_dob = "1/1/1973";
 		_weight = _height = -1;
 		_nzResidentOrCitizen = true;
 	}
@@ -159,7 +160,8 @@ public class PatientModel implements Serializable {
 					.put("alergies", new JSONArray(_alergies))
 					.put("citizenOrResident", _nzResidentOrCitizen)
 					.put("smoker", _smoker)
-					.put("drinker", _drinker);
+					.put("drinker", _drinker)
+					.put("dob", _dob);
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -201,6 +203,7 @@ public class PatientModel implements Serializable {
 		_nzResidentOrCitizen = json.getBoolean("citizenOrResident");
 		_drinker = json.getBoolean("drinker");
 		_smoker = json.getBoolean("smoker");
+		_dob = json.getString("dob");
 	}
 
 	public Gender getGender() {
@@ -269,6 +272,14 @@ public class PatientModel implements Serializable {
 
 	public void setSmoker(boolean _smoker) {
 		this._smoker = _smoker;
+	}
+
+	public String getDob() {
+		return _dob;
+	}
+
+	public void setDob(String dob) {
+		this._dob = dob;
 	}
 
 }
