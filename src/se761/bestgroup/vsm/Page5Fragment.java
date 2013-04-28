@@ -29,11 +29,9 @@ public class Page5Fragment extends ListFragment {
 		setHasOptionsMenu(true);
 		setRetainInstance(true);
 		
-		if(_adapter == null){
 			_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1);
 			setListAdapter(_adapter);
-			System.out.println("");
-		}	
+			_adapter.addAll(_model.getAlergies());
 	}
 	
 	@Override
@@ -52,6 +50,7 @@ public class Page5Fragment extends ListFragment {
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		if(item.getItemId() == R.id.action_delete_allergy){
+			_model.getAlergies().remove(_adapter.getItem(_positionLongClicked));
 			_adapter.remove(_adapter.getItem(_positionLongClicked));
 		}
 		return true;
@@ -75,6 +74,7 @@ public class Page5Fragment extends ListFragment {
 				@Override
 				public void onPositiveClick(String value) {
 					_adapter.add(value);
+					_model.getAlergies().add(value);
 				}
 			});
 			dialog.show(getFragmentManager(), "AddAlergyDialog");
