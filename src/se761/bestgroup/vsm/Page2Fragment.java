@@ -47,7 +47,7 @@ public class Page2Fragment extends Fragment {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				try{
-					_model.setContactNumber(Integer.parseInt(s.toString().trim()));
+					_model.setContactNumber(s.toString().trim());
 					contactNumber.setError(null);
 				}catch (IllegalArgumentException e){
 					contactNumber.setError("Non numeric characters aren't allowed.");

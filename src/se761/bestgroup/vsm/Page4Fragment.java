@@ -5,18 +5,21 @@ import java.util.ArrayList;
 import se761.bestgroup.vsm.CountriesListDialogFragment.CountriesListDialogListener;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ListView;
 
 public class Page4Fragment extends Fragment implements
 		CountriesListDialogListener {
 
 	private PatientModel _model;
 	private CountriesListDialogFragment _selectCountriesDialog;
+	private ArrayAdapter<String> _adapter;
 
 	public Page4Fragment() {
 	}
@@ -25,6 +28,9 @@ public class Page4Fragment extends Fragment implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		_model = (PatientModel) getArguments().get("model");
+
+		_adapter = new ArrayAdapter<String>(getActivity(),
+				R.layout.small_listview_item);
 	}
 
 	@Override
@@ -50,6 +56,11 @@ public class Page4Fragment extends Fragment implements
 			}
 		});
 
+		ListView countriesListView = (ListView) root
+				.findViewById(R.id.countriesListView);
+		countriesListView.setAdapter(_adapter);
+		_adapter.addAll(_model.getRecentCountries());
+
 		return root;
 	}
 
@@ -68,29 +79,22 @@ public class Page4Fragment extends Fragment implements
 
 	@Override
 	public void onPositiveClick(CountriesListDialogFragment dialog) {
+		_adapter.clear();
+		_model.getRecentCountries().clear(); 
 		ArrayList<Integer> selectedCountries = _selectCountriesDialog
 				.getSelectedCountries();
-		String countriesString = "Selected:\n";
-		String[] countries = getResources().getStringArray(R.array.countries);
-		int count = 0;
-		for (Integer i : selectedCountries) {
-			countriesString += countries[i];
-			count++;
-			if (count == 5) {
-				break;
-			} else {
-				countriesString += ", ";
-			}
-		}
-		countriesString += " ...";
-
 		
-		TextView tv = (TextView) getView().findViewById(R.id.countries);
-		tv.setText(countriesString);
+		String[] countries = getResources().getStringArray(R.array.countries);
+		for (Integer i : selectedCountries) {
+			_adapter.add(countries[i]);
+			_model.getRecentCountries().add(countries[i]);
+
+			Log.d("VSM", "Number of recent COuntries: " + _model.getRecentCountries().size());
+		}
 	}
 
 	@Override
 	public void onNegativeClick(CountriesListDialogFragment dialog) {
-		
+
 	}
 }
