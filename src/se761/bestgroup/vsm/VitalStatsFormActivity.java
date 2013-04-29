@@ -94,7 +94,7 @@ public class VitalStatsFormActivity extends Activity implements
 		super.onPause();
 		// Save the model's state
 		Editor preferencesEditor = getPreferences(MODE_PRIVATE).edit();
-		preferencesEditor.putString("model", _model.toJSON().toString());
+		preferencesEditor.putString("model", _model.patientJSON().toString());
 		preferencesEditor.apply();
 		Log.d("VSM", "Serializing and saving model");
 	}
@@ -158,7 +158,7 @@ public class VitalStatsFormActivity extends Activity implements
 		time.setToNow();
 		String text = ("This could be JSON: " + time
 				.format("%H:%M:%S"));
-		text = _model.toJSON().toString();
+		text = _model.patientJSON().toString();
 		NdefMessage msg = new NdefMessage(NdefRecord.createMime(
 				"application/se761.bestgroup.vsmreceiver", text.getBytes()));
 		return msg;
