@@ -167,7 +167,7 @@ public class PatientModel implements Serializable {
 					.put("overseas_dests", new JSONArray(getRecentCountries()));
 			vitalInfo
 					.put("overseas_recently", getRecentCountries().size() >= 1);
-			vitalInfo.put("medical_conditions", "");
+			vitalInfo.put("medical_conditions", _medicalConditions);
 			vitalInfo.put("allergies", new JSONArray(getAlergies()));
 
 		} catch (JSONException e) {
@@ -205,8 +205,8 @@ public class PatientModel implements Serializable {
 		_familyHistory = json.getString("family_hist");
 		_medicalConditions = json.getString("medical_conditions");
 
-		_weight = json.getDouble("weight");
-		_height = json.getDouble("height");
+		_weight = json.getDouble("weight_value");
+		_height = json.getDouble("height_value");
 
 		_bloodType = BloodType.lookup(json.getString("blood_type"));
 

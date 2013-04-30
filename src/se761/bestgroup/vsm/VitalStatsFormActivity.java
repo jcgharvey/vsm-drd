@@ -40,13 +40,15 @@ public class VitalStatsFormActivity extends Activity implements
 		mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		mNfcAdapter.setNdefPushMessageCallback(null, this);
 
+		String jsonPatientModel = getPreferences(MODE_PRIVATE).getString(
+				"patientModel", null);
 		String jsonSerializedModel = getPreferences(MODE_PRIVATE).getString(
-				"model", null);
+				"vitalStatsModel", null);
 		_model = new PatientModel();
 		if (jsonSerializedModel != null) {
 			Log.d("VSM", "Deserializing saved model");
 			try {
-				_model.fromPatientJSONString(jsonSerializedModel);
+				_model.fromPatientJSONString(jsonPatientModel);
 				_model.fromVitalStatsJSONString(jsonSerializedModel);
 			} catch (JSONException e) {
 				e.printStackTrace();
