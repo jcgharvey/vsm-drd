@@ -31,10 +31,10 @@ public class SubmitTask extends AsyncTask<JSONObject, Void, HttpResponse> {
 		
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 
-	    //url with the post data
+	    // url with the post data
 	    HttpPost httpost = new HttpPost("http://vsm.herokuapp.com/patients");
 
-	    //passes the results to a string builder/entity
+	    // passes the results to a string builder/entity
 	    StringEntity se = null;
 		try {
 			se = new StringEntity(params.toString());
