@@ -46,7 +46,8 @@ public class VitalStatsFormActivity extends Activity implements
 		if (jsonSerializedModel != null) {
 			Log.d("VSM", "Deserializing saved model");
 			try {
-				_model.fromJSONString(jsonSerializedModel);
+				_model.fromPatientJSONString(jsonSerializedModel);
+				_model.fromVitalStatsJSONString(jsonSerializedModel);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -94,7 +95,8 @@ public class VitalStatsFormActivity extends Activity implements
 		super.onPause();
 		// Save the model's state
 		Editor preferencesEditor = getPreferences(MODE_PRIVATE).edit();
-		preferencesEditor.putString("model", _model.patientJSON().toString());
+		preferencesEditor.putString("patientModel", _model.patientJSON().toString());
+		preferencesEditor.putString("vitalStatsModel", _model.vitalInfoJSON().toString());
 		preferencesEditor.apply();
 		Log.d("VSM", "Serializing and saving model");
 	}

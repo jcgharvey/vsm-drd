@@ -50,7 +50,14 @@ public class PatientModel implements Serializable {
 
 	public enum Gender {
 		Male, // Default
-		Female, Other
+		Female, Other;
+		public static Gender lookup(String value) {
+			for (Gender g : Gender.values()) {
+				if (g.toString().equals(value))
+					return g;
+			}
+			return null;
+		}
 	}
 
 	public PatientModel() {
@@ -191,41 +198,46 @@ public class PatientModel implements Serializable {
 
 		return patient;
 	}
-
-	public void fromJSONString(String jsonString) throws JSONException {
+	
+	public void fromVitalStatsJSONString(String jsonString) throws JSONException {
 		JSONObject json = new JSONObject(jsonString);
 
-		_firstName = json.getString("firstName");
-		_lastName = json.getString("lastName");
-		_occupation = json.getString("occupation");
-		_nhiNumber = json.getString("nhiNumber");
-		_familyHistory = json.getString("familyHistory");
-		_medicalConditions = json.getString("medicalConditions");
+		_familyHistory = json.getString("family_hist");
+		_medicalConditions = json.getString("medical_conditions");
 
 		_weight = json.getDouble("weight");
 		_height = json.getDouble("height");
 
-		_contactNumber = json.getString("contactNumber");
+		_bloodType = BloodType.lookup(json.getString("blood_type"));
 
-		_bloodType = BloodType.lookup(json.getString("bloodType"));
-		_gender = Gender.valueOf(json.getString("gender"));
-
-		JSONArray countriesJsonArray = json.getJSONArray("recentCountries");
+		JSONArray countriesJsonArray = json.getJSONArray("overseas_dests");
 		getRecentCountries().clear();
 		for (int i = 0; i < countriesJsonArray.length(); i++) {
 			getRecentCountries().add(countriesJsonArray.getString(i));
 		}
 
-		JSONArray alergiesJsonArray = json.getJSONArray("alergies");
+		JSONArray alergiesJsonArray = json.getJSONArray("allergies");
 		getAlergies().clear();
 		for (int i = 0; i < alergiesJsonArray.length(); i++) {
 			getAlergies().add(alergiesJsonArray.getString(i));
 		}
-
-		_nzResidentOrCitizen = json.getBoolean("citizenOrResident");
 		_drinker = json.getBoolean("drinker");
 		_smoker = json.getBoolean("smoker");
+		
+	}
+	
+	public void fromPatientJSONString(String jsonString) throws JSONException {
+		JSONObject json = new JSONObject(jsonString);
+		
+		_firstName = json.getString("firstname");
+		_lastName = json.getString("lastname");
+		_nhiNumber = json.getString("nhi");
+		_occupation = json.getString("occupation");
+		_nzResidentOrCitizen = json.getBoolean("citizen_Resident");
+		_contactNumber = json.getString("contact_num");
+		_gender  = Gender.lookup(json.getString("gender"));
 		_dob = json.getString("dob");
+
 	}
 
 	public Gender getGender() {
