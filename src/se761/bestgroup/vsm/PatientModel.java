@@ -25,8 +25,8 @@ public class PatientModel implements Serializable {
 	private String _weight_unit;
 
 	public enum BloodType {
-		A_POS("A+"), B_POS("B+"), O_POS("O+"), AB_POS("AB+"), A_NEG("A-"), B_NEG(
-				"B-"), O_NEG("O-"), AB_NEG("AB-");
+		UNSET("Unset"),A_POS("A+"), B_POS("B+"), O_POS("O+"), AB_POS("AB+"), A_NEG("A-"), B_NEG(
+				"B-"), O_NEG("O-"), AB_NEG("AB-"), UNKNOWN("Unknown");
 
 		private String _bloodType;
 
@@ -49,8 +49,7 @@ public class PatientModel implements Serializable {
 	}
 
 	public enum Gender {
-		Male, // Default
-		Female, Other;
+		Male, Female, Other, Unset;
 		public static Gender lookup(String value) {
 			for (Gender g : Gender.values()) {
 				if (g.toString().equals(value))

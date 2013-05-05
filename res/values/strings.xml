@@ -287,5 +287,6 @@
     <string name="action_finish">Finish</string>
     <string name="weightUnit">(kg)</string>
     <string name="heightUnit">(cm)</string>  
+    <string name="allergyLabel">Allergies:</string>
 
 </resources>
