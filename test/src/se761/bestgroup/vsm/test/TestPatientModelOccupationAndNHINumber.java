@@ -46,10 +46,11 @@ public class TestPatientModelOccupationAndNHINumber extends TestCase {
 		}
 	}
 	
-	public void testNHINumberLength(){
+	public void testNHINumberLengthIsnt6(){
 		//Format is 6 characters long
 		try{
 			_model.setNHINumber("ABC1234");
+			_model.setNHINumber("AB12");
 			fail();
 		}catch (IllegalArgumentException e) {
 		}
@@ -62,6 +63,22 @@ public class TestPatientModelOccupationAndNHINumber extends TestCase {
 			fail();
 		}catch(IllegalArgumentException e){
 			
+		}
+	}
+	
+	public  void testNHINumberIsntNull(){
+		try{
+			_model.setNHINumber(null);
+			fail();
+		}catch (IllegalArgumentException e) {
+		}
+	}
+	
+	public  void testOccupationIsntNull(){
+		try{
+			_model.setOccupation(null);
+			fail();
+		}catch (IllegalArgumentException e) {
 		}
 	}
 }
