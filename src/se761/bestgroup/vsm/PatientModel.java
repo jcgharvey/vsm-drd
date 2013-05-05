@@ -23,27 +23,29 @@ public class PatientModel implements Serializable {
 	private List<String> _recentCountries, _alergies;
 
 	private boolean _nzResidentOrCitizen, _smoker, _drinker;
-	
-	private double _weight, _height;
+
+	private double _weight_value, _height_value;
+	private String _height_unit;
+	private String _weight_unit;
 
 	public enum BloodType {
-		A_POS("A+"),
-		B_POS("B+"), 
-		O_POS("O+"), AB_POS("AB+"), A_NEG("A-"), B_NEG("B-"), O_NEG("O-"), AB_NEG("AB-");
+		A_POS("A+"), B_POS("B+"), O_POS("O+"), AB_POS("AB+"), A_NEG("A-"), B_NEG(
+				"B-"), O_NEG("O-"), AB_NEG("AB-");
 
 		private String _bloodType;
 
 		private BloodType(String bloodType) {
 			_bloodType = bloodType;
 		}
-		
-		public static BloodType lookup(String value){
-			 for (BloodType b : BloodType.values()){
-				 if(b.toString().equals(value)) return b;
-			 }
-			 return null;
+
+		public static BloodType lookup(String value) {
+			for (BloodType b : BloodType.values()) {
+				if (b.toString().equals(value))
+					return b;
+			}
+			return null;
 		}
-		
+
 		@Override
 		public String toString() {
 			return _bloodType;
@@ -52,7 +54,14 @@ public class PatientModel implements Serializable {
 
 	public enum Gender {
 		Male, // Default
-		Female, Other
+		Female, Other;
+		public static Gender lookup(String value) {
+			for (Gender g : Gender.values()) {
+				if (g.toString().equals(value))
+					return g;
+			}
+			return null;
+		}
 	}
 
 	public PatientModel() {
@@ -62,7 +71,7 @@ public class PatientModel implements Serializable {
 		// Assign default/empty values
 		_firstName = _lastName = _occupation = _nhiNumber = _familyHistory = _medicalConditions = _contactNumber = "";
 		_dob = "1/1/1973";
-		_weight = _height = -1;
+		_weight_value = _height_value = -1;
 		_nzResidentOrCitizen = true;
 	}
 
@@ -121,8 +130,10 @@ public class PatientModel implements Serializable {
 
 	public void setBodyDimensions(double height, double weight)
 			throws IllegalArgumentException {
-		_height = height;
-		_weight = weight;
+		_height_value = height;
+		_weight_value = weight;
+		_weight_unit = "kg";
+		_height_unit = "cm";
 	}
 
 	public void addCountry(String c) throws IllegalArgumentException {
@@ -141,73 +152,96 @@ public class PatientModel implements Serializable {
 		getAlergies().remove(a);
 	}
 
-	public JSONObject toJSON() {
+	public JSONObject vitalInfoJSON() {
+		JSONObject vitalInfo = new JSONObject();
+		try {
+
+			vitalInfo.put(JSONKeys.CHECK_IN_TIME, "");
+			vitalInfo.put(JSONKeys.WEIGHT_VALUE, _weight_value);
+			vitalInfo.put(JSONKeys.WEIGHT_UNIT, _weight_unit);
+			vitalInfo.put(JSONKeys.HEIGHT_VALUE, _height_value);
+			vitalInfo.put(JSONKeys.HEIGHT_UNIT, _height_unit);
+			vitalInfo.put(JSONKeys.BLOOD_TYPE,
+					_bloodType == null ? BloodType.A_POS.toString()
+							: _bloodType.toString());
+			vitalInfo.put(JSONKeys.SMOKER, _smoker);
+			vitalInfo.put(JSONKeys.DRINKER, _drinker);
+			vitalInfo.put(JSONKeys.FAMILY_HISTORY, _familyHistory);
+			vitalInfo
+					.put(JSONKeys.OVERSEAS_DESTINATIONS, new JSONArray(getRecentCountries()));
+			vitalInfo
+					.put(JSONKeys.OVERSEAS_RECENTLY, getRecentCountries().size() >= 1);
+			vitalInfo.put(JSONKeys.MEDICAL_CONDITIONS, _medicalConditions);
+			vitalInfo.put(JSONKeys.ALLERGIES, new JSONArray(getAlergies()));
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return vitalInfo;
+	}
+
+	public JSONObject patientJSON() {
 		JSONObject patient = new JSONObject();
 		try {
-			patient.put("firstName", _firstName)
-					.put("lastName", _lastName)
-					.put("occupation", _occupation)
-					.put("nhiNumber", _nhiNumber)
-					.put("familyHistory", getFamilyHistory())
-					.put("medicalConditions", getMedicalConditions())
-					.put("weight", _weight)
-					.put("height", _height)
-					.put("contactNumber", _contactNumber)
-					.put("bloodType",
-							_bloodType == null ? BloodType.A_POS.toString()
-									: _bloodType.toString())
-					// BloodType and Gender are enums and default to null
-					.put("gender",
+			patient.put(JSONKeys.FIRSTNAME, _firstName);
+			patient.put(JSONKeys.LASTNAME, _lastName);
+			patient.put(JSONKeys.NHI, _nhiNumber);
+			patient.put(JSONKeys.OCCUPATION, _occupation);
+			patient.put(JSONKeys.CITIZENRESIDENT, _nzResidentOrCitizen);
+			patient.put(JSONKeys.CONTACTNUM, _contactNumber);
+
+					// Gender is enum and defaults to null
+			patient.put(JSONKeys.GENDER,
 							_gender == null ? Gender.Male.toString() : _gender
-									.toString())
-					.put("recentCountries", new JSONArray(getRecentCountries()))
-					.put("alergies", new JSONArray(getAlergies()))
-					.put("citizenOrResident", _nzResidentOrCitizen)
-					.put("smoker", _smoker)
-					.put("drinker", _drinker)
-					.put("dob", _dob);
-			
+									.toString());
+			patient.put(JSONKeys.DOB, _dob);
+
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 
 		return patient;
 	}
-
-	public void fromJSONString(String jsonString) throws JSONException {
+	
+	public void fromVitalStatsJSONString(String jsonString) throws JSONException {
 		JSONObject json = new JSONObject(jsonString);
 
-		_firstName = json.getString("firstName");
-		_lastName = json.getString("lastName");
-		_occupation = json.getString("occupation");
-		_nhiNumber = json.getString("nhiNumber");
-		_familyHistory = json.getString("familyHistory");
-		_medicalConditions = json.getString("medicalConditions");
+		_familyHistory = json.getString(JSONKeys.FAMILY_HISTORY);
+		_medicalConditions = json.getString(JSONKeys.MEDICAL_CONDITIONS);
 
-		_weight = json.getDouble("weight");
-		_height = json.getDouble("height");
+		_weight_value = json.getDouble(JSONKeys.WEIGHT_VALUE);
+		_height_value = json.getDouble(JSONKeys.HEIGHT_VALUE);
 
-		_contactNumber = json.getString("contactNumber");
+		_bloodType = BloodType.lookup(json.getString(JSONKeys.BLOOD_TYPE));
 
-		_bloodType = BloodType.lookup(json.getString("bloodType"));
-		_gender = Gender.valueOf(json.getString("gender"));
-
-		JSONArray countriesJsonArray = json.getJSONArray("recentCountries");       	
+		JSONArray countriesJsonArray = json.getJSONArray(JSONKeys.OVERSEAS_DESTINATIONS);
 		getRecentCountries().clear();
 		for (int i = 0; i < countriesJsonArray.length(); i++) {
 			getRecentCountries().add(countriesJsonArray.getString(i));
 		}
 
-		JSONArray alergiesJsonArray = json.getJSONArray("alergies");
+		JSONArray alergiesJsonArray = json.getJSONArray(JSONKeys.ALLERGIES);
 		getAlergies().clear();
 		for (int i = 0; i < alergiesJsonArray.length(); i++) {
 			getAlergies().add(alergiesJsonArray.getString(i));
 		}
+		_drinker = json.getBoolean(JSONKeys.DRINKER);
+		_smoker = json.getBoolean(JSONKeys.SMOKER);
 		
-		_nzResidentOrCitizen = json.getBoolean("citizenOrResident");
-		_drinker = json.getBoolean("drinker");
-		_smoker = json.getBoolean("smoker");
-		_dob = json.getString("dob");
+	}
+	
+	public void fromPatientJSONString(String jsonString) throws JSONException {
+		JSONObject json = new JSONObject(jsonString);
+		
+		_firstName = json.getString(JSONKeys.FIRSTNAME);
+		_lastName = json.getString(JSONKeys.LASTNAME);
+		_nhiNumber = json.getString(JSONKeys.NHI);
+		_occupation = json.getString(JSONKeys.OCCUPATION);
+		_nzResidentOrCitizen = json.getBoolean(JSONKeys.CITIZENRESIDENT);
+		_contactNumber = json.getString(JSONKeys.CONTACTNUM);
+		_gender  = Gender.lookup(json.getString(JSONKeys.GENDER));
+		_dob = json.getString(JSONKeys.DOB);
+
 	}
 
 	public Gender getGender() {
@@ -247,19 +281,19 @@ public class PatientModel implements Serializable {
 	}
 
 	public double getWeight() {
-		return _weight;
+		return _weight_value;
 	}
 
 	public void setWeight(double weight) {
-		_weight = weight;
+		_weight_value = weight;
 	}
-	
+
 	public void setHeight(double height) {
-		_height = height;
+		_height_value = height;
 	}
 
 	public double getHeight() {
-		return _height;
+		return _height_value;
 	}
 
 	public boolean isDrinker() {
