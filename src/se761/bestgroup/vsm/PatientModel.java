@@ -161,7 +161,7 @@ public class PatientModel implements Serializable {
 			vitalInfo.put(JSONKeys.HEIGHT_VALUE, _height_value);
 			vitalInfo.put(JSONKeys.HEIGHT_UNIT, _height_unit);
 			vitalInfo.put(JSONKeys.BLOOD_TYPE,
-					_bloodType == null ? BloodType.A_POS.toString()
+					_bloodType == null ? BloodType.UNSET.toString()
 							: _bloodType.toString());
 			vitalInfo.put(JSONKeys.SMOKER, _smoker);
 			vitalInfo.put(JSONKeys.DRINKER, _drinker);
@@ -191,7 +191,7 @@ public class PatientModel implements Serializable {
 
 					// Gender is enum and defaults to null
 			patient.put(JSONKeys.GENDER,
-							_gender == null ? Gender.Male.toString() : _gender
+							_gender == null ? Gender.Unset.toString() : _gender
 									.toString());
 			patient.put(JSONKeys.DOB, _dob);
 
