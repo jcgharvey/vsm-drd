@@ -102,7 +102,7 @@ public class VitalStatsFormActivity extends Activity implements
 		preferencesEditor.apply();
 		Log.d("VSM", "Serializing and saving model");
 	}
-
+	
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 
