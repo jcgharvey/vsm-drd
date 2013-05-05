@@ -53,7 +53,7 @@ public class PatientModel implements Serializable {
 	}
 
 	public enum Gender {
-		Male, Female, Other, Unset;
+		Unset, Male, Female, Other;
 		public static Gender lookup(String value) {
 			for (Gender g : Gender.values()) {
 				if (g.toString().equals(value))
@@ -69,7 +69,7 @@ public class PatientModel implements Serializable {
 
 		// Assign default/empty values
 		_firstName = _lastName = _occupation = _nhiNumber = _familyHistory = _medicalConditions = _contactNumber = "";
-		_dob = "";
+		_dob = "1/1/1975";
 		_weight_value = _height_value = 0;
 		_nzResidentOrCitizen = true;
 	}
@@ -244,11 +244,11 @@ public class PatientModel implements Serializable {
 	}
 
 	public Gender getGender() {
-		return _gender == null ? Gender.Male : _gender;
+		return _gender == null ? Gender.Unset : _gender;
 	}
 
 	public BloodType getBloodType() {
-		return _bloodType == null ? BloodType.A_POS : _bloodType;
+		return _bloodType == null ? BloodType.UNSET : _bloodType;
 	}
 
 	public String getFirstName() {
