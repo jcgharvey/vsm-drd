@@ -8,24 +8,35 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
+        <TextView
+            android:id="@+id/familyHistoryLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/familyHistoryLabel" />
+
         <EditText
             android:id="@+id/familyHistory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/familyHistoryLabel"
-            android:singleLine="false"
             android:inputType="textMultiLine"
+            android:singleLine="false"
             android:textSize="23sp" />
 
-       <EditText
+        <TextView
+            android:id="@+id/medicalConditionsLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/medicalConditionsLabel" />
+
+        <EditText
             android:id="@+id/medicalConditions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/medicalConditionsLabel"
-            android:singleLine="false"
             android:inputType="textMultiLine"
+            android:singleLine="false"
             android:textSize="23sp" />
-
     </LinearLayout>
 
 </ScrollView>
