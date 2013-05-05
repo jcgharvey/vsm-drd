@@ -14,8 +14,13 @@
     <string name="contactNumberLabel">Contact Number:</string>
     <string name="genderLabel">Gender:</string>
     <string name="dobLabel">Date of Birth:</string>
-    <string-array name="genders">
+    <string-array name="gendersNew">
         <item>Unset</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="genders">
         <item>Male</item>
         <item>Female</item>
         <item>Other</item>

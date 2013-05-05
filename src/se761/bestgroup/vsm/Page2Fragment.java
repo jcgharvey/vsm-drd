@@ -121,7 +121,7 @@ public class Page2Fragment extends Fragment {
 			public void afterTextChanged(Editable arg0) {}
 		});
 		
-		// Set up the gender spinner
+		// Set up the blood type spinner
 		final Spinner bloodTypeSpinner = (Spinner) root.findViewById(R.id.bloodType);
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.bloodTypes, R.layout.custom_spinner_list);
 		adapter.setDropDownViewResource(R.layout.custom_spinner);

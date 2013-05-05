@@ -134,7 +134,11 @@ public class PatientModel implements Serializable {
 	}
 
 	public void setGender(Gender g) {
-		_gender = g;
+		if (g != Gender.Unset){
+			_gender = g;
+		} else {
+			throw new IllegalArgumentException("Gender can't be unset");
+		}
 	}
 
 	public void setContactNumber(String number) throws IllegalArgumentException {
