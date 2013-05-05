@@ -15,6 +15,7 @@
     <string name="genderLabel">Gender:</string>
     <string name="dobLabel">Date of Birth:</string>
     <string-array name="genders">
+        <item>Unset</item>
         <item>Male</item>
         <item>Female</item>
         <item>Other</item>
@@ -23,6 +24,7 @@
     <string name="heightLabel">Height:</string>
     <string name="bloodTypeLabel">Blood Type:</string>
     <string-array name="bloodTypes">
+        <item>Unset</item>
         <item>A+</item>
         <item>B+</item>
         <item>AB+</item>
@@ -31,6 +33,7 @@
         <item>B-</item>
         <item>AB-</item>
         <item>O-</item>
+        <item>Unknown</item>
     </string-array>
     <string name="smokerLabel">Do you smoke?</string>
     <string name="drinkerLabel">Do you drink?</string>
@@ -287,5 +290,6 @@
     <string name="action_finish">Finish</string>
     <string name="weightUnit">(kg)</string>
     <string name="heightUnit">(cm)</string>  
+    <string name="allergyLabel">Allergies:</string>
 
 </resources>

@@ -12,6 +12,10 @@ import android.text.Editable;
 
 public class PatientModel implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String _firstName, _lastName, _occupation, _nhiNumber,
 			_familyHistory, _medicalConditions, _contactNumber, _dob;
 	private BloodType _bloodType;
@@ -25,8 +29,8 @@ public class PatientModel implements Serializable {
 	private String _weight_unit;
 
 	public enum BloodType {
-		A_POS("A+"), B_POS("B+"), O_POS("O+"), AB_POS("AB+"), A_NEG("A-"), B_NEG(
-				"B-"), O_NEG("O-"), AB_NEG("AB-");
+		UNSET("Unset"),A_POS("A+"), B_POS("B+"), O_POS("O+"), AB_POS("AB+"), A_NEG("A-"), B_NEG(
+				"B-"), O_NEG("O-"), AB_NEG("AB-"), UNKNOWN("Unknown");
 
 		private String _bloodType;
 
@@ -49,8 +53,7 @@ public class PatientModel implements Serializable {
 	}
 
 	public enum Gender {
-		Male, // Default
-		Female, Other;
+		Unset, Male, Female, Other;
 		public static Gender lookup(String value) {
 			for (Gender g : Gender.values()) {
 				if (g.toString().equals(value))
@@ -66,8 +69,8 @@ public class PatientModel implements Serializable {
 
 		// Assign default/empty values
 		_firstName = _lastName = _occupation = _nhiNumber = _familyHistory = _medicalConditions = _contactNumber = "";
-		_dob = "1/1/1973";
-		_weight_value = _height_value = -1;
+		_dob = "1/1/1975";
+		_weight_value = _height_value = 0;
 		_nzResidentOrCitizen = true;
 	}
 
@@ -158,7 +161,7 @@ public class PatientModel implements Serializable {
 			vitalInfo.put(JSONKeys.HEIGHT_VALUE, _height_value);
 			vitalInfo.put(JSONKeys.HEIGHT_UNIT, _height_unit);
 			vitalInfo.put(JSONKeys.BLOOD_TYPE,
-					_bloodType == null ? BloodType.A_POS.toString()
+					_bloodType == null ? BloodType.UNSET.toString()
 							: _bloodType.toString());
 			vitalInfo.put(JSONKeys.SMOKER, _smoker);
 			vitalInfo.put(JSONKeys.DRINKER, _drinker);
@@ -188,7 +191,7 @@ public class PatientModel implements Serializable {
 
 					// Gender is enum and defaults to null
 			patient.put(JSONKeys.GENDER,
-							_gender == null ? Gender.Male.toString() : _gender
+							_gender == null ? Gender.Unset.toString() : _gender
 									.toString());
 			patient.put(JSONKeys.DOB, _dob);
 
@@ -241,11 +244,11 @@ public class PatientModel implements Serializable {
 	}
 
 	public Gender getGender() {
-		return _gender == null ? Gender.Male : _gender;
+		return _gender == null ? Gender.Unset : _gender;
 	}
 
 	public BloodType getBloodType() {
-		return _bloodType == null ? BloodType.A_POS : _bloodType;
+		return _bloodType == null ? BloodType.UNSET : _bloodType;
 	}
 
 	public String getFirstName() {
