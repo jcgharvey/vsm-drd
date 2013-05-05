@@ -20,7 +20,7 @@ public class PatientModel implements Serializable {
 			_familyHistory, _medicalConditions, _contactNumber, _dob;
 	private BloodType _bloodType;
 	private Gender _gender;
-	private List<String> _recentCountries, _alergies;
+	private List<String> _recentCountries, _allergies;
 
 	private boolean _nzResidentOrCitizen, _smoker, _drinker;
 
@@ -65,7 +65,7 @@ public class PatientModel implements Serializable {
 
 	public PatientModel() {
 		setRecentCountries(new ArrayList<String>());
-		setAlergies(new ArrayList<String>());
+		setAllergies(new ArrayList<String>());
 
 		// Assign default/empty values
 		_firstName = _lastName = _occupation = _nhiNumber = _familyHistory = _medicalConditions = _contactNumber = "";
@@ -144,11 +144,11 @@ public class PatientModel implements Serializable {
 	}
 
 	public void addAllergy(String a) throws IllegalArgumentException {
-		getAlergies().add(a);
+		getAllergies().add(a);
 	}
 
 	public void removeAllergy(String a) throws IllegalArgumentException {
-		getAlergies().remove(a);
+		getAllergies().remove(a);
 	}
 
 	public JSONObject vitalInfoJSON() {
@@ -171,7 +171,7 @@ public class PatientModel implements Serializable {
 			vitalInfo
 					.put(JSONKeys.OVERSEAS_RECENTLY, getRecentCountries().size() >= 1);
 			vitalInfo.put(JSONKeys.MEDICAL_CONDITIONS, _medicalConditions);
-			vitalInfo.put(JSONKeys.ALLERGIES, new JSONArray(getAlergies()));
+			vitalInfo.put(JSONKeys.ALLERGIES, new JSONArray(getAllergies()));
 
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -220,9 +220,9 @@ public class PatientModel implements Serializable {
 		}
 
 		JSONArray alergiesJsonArray = json.getJSONArray(JSONKeys.ALLERGIES);
-		getAlergies().clear();
+		getAllergies().clear();
 		for (int i = 0; i < alergiesJsonArray.length(); i++) {
-			getAlergies().add(alergiesJsonArray.getString(i));
+			getAllergies().add(alergiesJsonArray.getString(i));
 		}
 		_drinker = json.getBoolean(JSONKeys.DRINKER);
 		_smoker = json.getBoolean(JSONKeys.SMOKER);
@@ -335,12 +335,12 @@ public class PatientModel implements Serializable {
 		this._recentCountries = _recentCountries;
 	}
 
-	public List<String> getAlergies() {
-		return _alergies;
+	public List<String> getAllergies() {
+		return _allergies;
 	}
 
-	public void setAlergies(List<String> _alergies) {
-		this._alergies = _alergies;
+	public void setAllergies(List<String> _allergies) {
+		this._allergies = _allergies;
 	}
 
 }
