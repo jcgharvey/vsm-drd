@@ -12,6 +12,10 @@ import android.text.Editable;
 
 public class PatientModel implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String _firstName, _lastName, _occupation, _nhiNumber,
 			_familyHistory, _medicalConditions, _contactNumber, _dob;
 	private BloodType _bloodType;
