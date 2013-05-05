@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,16 +18,33 @@ public class LoginActivity extends Activity {
 	private String _pin;
 	private String _correctPin;
 	private List<TextView> _textViews;
+	private boolean _pinExists;
+	private boolean _confirming;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
-		_pin = "";
-		_correctPin = "00000";
 		// inflate the layout
 		setContentView(R.layout.activity_login);
+
+		//Load the actual pin from sharedpreferences
+		String storedPin = getPreferences(MODE_PRIVATE).getString("pin", null);
+		
+		//If the stored pin exists make that the one the user needs to enter 
+		_pinExists = storedPin != null;
+		if (_pinExists){
+			_correctPin = storedPin;
+		}else{
+			
+			findViewById(R.id.firstTimeContainer).setVisibility(View.VISIBLE);
+			((Button)findViewById(R.id.buttonForgotConfirmPin)).setText("Go");
+			((Button)findViewById(R.id.buttonForgotConfirmPin)).setEnabled(false);
+			_confirming = false;
+			_correctPin = "";
+		}
+		_pin = "";
 			
 		_textViews = new ArrayList<TextView>();
 		_textViews.add((TextView) findViewById(R.id.pin1));
@@ -44,8 +62,23 @@ public class LoginActivity extends Activity {
 				if(id == R.id.buttonBackspace){
 					if(_pin.length() == 0) return;
 					_pin = _pin.substring(0, _pin.length() - 1);
-				}else if(id == R.id.buttonForgotPin){
-					_pin = _correctPin; //LOLOL you can login with the forgot pin button
+				}else if(id == R.id.buttonForgotConfirmPin){
+					if(_pinExists){
+						_pin = _correctPin;
+					}else{
+						if(_confirming){
+							//Store the confirmed pin
+							Editor editor = getPreferences(MODE_PRIVATE).edit();
+							editor.putString("pin", _pin);
+							editor.apply();
+							Intent i = new Intent(getApplicationContext(), VitalStatsFormActivity.class);
+							startActivity(i);
+						}else{
+							_pin = "";
+							_confirming = true;
+							((Button)findViewById(R.id.buttonForgotConfirmPin)).setText("Confirm");
+						}
+					}
 				}else if(_pin.length() == 5){
 					return; //The textviews are full
 				}
@@ -82,7 +115,6 @@ public class LoginActivity extends Activity {
 					_pin += "9";
 					break;
 				}
-				Log.i("VSM", _pin);
 				
 				for(TextView tv : _textViews){
 					tv.setText("");
@@ -92,9 +124,19 @@ public class LoginActivity extends Activity {
 				}
 				
 				if(_pin.length() == 5){ //The textviews are full
-					if(_pin.equals(_correctPin)) {
-						Intent i = new Intent(getApplicationContext(), VitalStatsFormActivity.class);
-						startActivity(i);
+					if(_pinExists){
+						if(_pin.equals(_correctPin)) {
+							
+							Intent i = new Intent(getApplicationContext(), VitalStatsFormActivity.class);
+							startActivity(i);
+						}
+					}else{
+						//Get them to confirm it
+						((Button)findViewById(R.id.buttonForgotConfirmPin)).setEnabled(true);
+					}
+				}else{
+					if(!_pinExists){
+						((Button)findViewById(R.id.buttonForgotConfirmPin)).setEnabled(false);
 					}
 				}
 			}
@@ -111,7 +153,7 @@ public class LoginActivity extends Activity {
 		((Button)findViewById(R.id.button8)).setOnClickListener(buttonClickListener);
 		((Button)findViewById(R.id.button9)).setOnClickListener(buttonClickListener);
 		((Button)findViewById(R.id.buttonBackspace)).setOnClickListener(buttonClickListener);
-		((Button)findViewById(R.id.buttonForgotPin)).setOnClickListener(buttonClickListener);
+		((Button)findViewById(R.id.buttonForgotConfirmPin)).setOnClickListener(buttonClickListener);
 	}
 	
 	

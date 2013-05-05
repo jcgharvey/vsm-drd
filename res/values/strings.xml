@@ -291,5 +291,6 @@
     <string name="weightUnit">(kg)</string>
     <string name="heightUnit">(cm)</string>  
     <string name="allergyLabel">Allergies:</string>
+    <string name="firstTimePinMessage">Please enter a pin to lock your personal information</string>
 
 </resources>
