@@ -12,6 +12,10 @@ import android.text.Editable;
 
 public class PatientModel implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String _firstName, _lastName, _occupation, _nhiNumber,
 			_familyHistory, _medicalConditions, _contactNumber, _dob;
 	private BloodType _bloodType;
@@ -65,8 +69,8 @@ public class PatientModel implements Serializable {
 
 		// Assign default/empty values
 		_firstName = _lastName = _occupation = _nhiNumber = _familyHistory = _medicalConditions = _contactNumber = "";
-		_dob = "1/1/1973";
-		_weight_value = _height_value = -1;
+		_dob = "";
+		_weight_value = _height_value = 0;
 		_nzResidentOrCitizen = true;
 	}
 
