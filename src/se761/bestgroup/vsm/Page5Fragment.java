@@ -20,6 +20,7 @@ public class Page5Fragment extends Fragment {
 	private PatientModel _model;
 	private ArrayAdapter<String> _adapter;
 	private int _positionLongClicked;
+	private ListView _listView;
 	
 	public Page5Fragment() {
 	}
@@ -40,16 +41,23 @@ public class Page5Fragment extends Fragment {
 			Bundle savedInstanceState) {
 		ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_page_5, container, false);
 		
-		ListView lv = (ListView) root.findViewById(R.id.allergiesListView);
+		_listView = (ListView) root.findViewById(R.id.allergiesListView);
 		_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1);
 		
-		lv.setAdapter(_adapter);
+		_listView.setAdapter(_adapter);
 		_adapter.addAll(_model.getAllergies());
 		
 		
 		return root;
 	}
 
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+
+		registerForContextMenu(_listView);
+	}
+	
 	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
