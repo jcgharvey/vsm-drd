@@ -11,6 +11,21 @@ public class TestPatientModelName extends TestCase {
 		_model =  new PatientModel();
 	}
 	
+	public void testFirstNamePositive(){
+		try{
+			_model.setFirstName("Michael");
+		}catch(IllegalArgumentException e){
+			fail();
+		}
+	}
+	public void testLastNamePositive(){
+		try{
+			_model.setLastName("Little");
+		}catch(IllegalArgumentException e){
+			fail();
+		}
+	}
+	
 	public void testFirstNameDoesntHaveWhiteSpace(){
 		try{
 			_model.setFirstName("Mi ke");

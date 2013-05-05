@@ -10,6 +10,23 @@ public class TestPatientModelHeightAndWeight extends TestCase{
 		_model =  new PatientModel();
 	}
 	
+	
+	public void testWeightPositive(){
+		try{
+			_model.setWeight(75);
+		}catch (IllegalArgumentException e) {
+			fail();
+		}
+	}
+
+	public void testHeightPositive(){
+		try{
+			_model.setHeight(75);
+		}catch (IllegalArgumentException e) {
+			fail();
+		}
+	}
+	
 	public void testWeightRange(){
 		try{
 			_model.setWeight(2000); // Can't weigh more than 1000kg
