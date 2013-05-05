@@ -37,4 +37,31 @@ public class TestPatientModelOccupationAndNHINumber extends TestCase {
 		} catch (IllegalArgumentException e) {
 		}
 	}
+	public void testNHINumberNonAlphaNumeric() {
+		// Allowed characters are a-zA-Z and 0-9
+		try {
+			_model.setNHINumber("AB#123");
+			fail();
+		} catch (IllegalArgumentException e) {
+		}
+	}
+	
+	public void testNHINumberLength(){
+		//Format is 6 characters long
+		try{
+			_model.setNHINumber("ABC1234");
+			fail();
+		}catch (IllegalArgumentException e) {
+		}
+	}
+	
+	public void testNHIAlphaNumericOrder(){
+		//Format is 3 letters followed by 3 numbers
+		try{
+			_model.setNHINumber("123ABC");
+			fail();
+		}catch(IllegalArgumentException e){
+			
+		}
+	}
 }
