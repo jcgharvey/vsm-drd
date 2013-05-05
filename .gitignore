@@ -26,3 +26,7 @@ proguard/
 *.ipr
 *.iws
 .idea/
+
+
+#Mac finder junk
+.DS_STORE

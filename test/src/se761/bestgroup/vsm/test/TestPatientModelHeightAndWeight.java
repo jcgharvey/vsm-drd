@@ -16,10 +16,24 @@ public class TestPatientModelHeightAndWeight extends TestCase{
 			fail();
 		}catch(IllegalArgumentException e){}
 	}
+
+	public void testHeightZero(){
+		try{
+			_model.setHeight(0);
+			fail();
+		}catch(IllegalArgumentException e){}
+	}
 	
-	public void testWeightLessThanZero(){
+	public void testWeightNegative(){
 		try{
 			_model.setWeight(-23);
+			fail();
+		}catch(IllegalArgumentException e){}
+	}
+	
+	public void testHeightNegative(){
+		try{
+			_model.setHeight(-23);
 			fail();
 		}catch(IllegalArgumentException e){}
 	}
