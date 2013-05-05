@@ -10,20 +10,16 @@ public class TestPatientModelHeightAndWeight extends TestCase{
 		_model =  new PatientModel();
 	}
 	
-	public void testZero(){
+	public void testWeightZero(){
 		try{
-			_model.setBodyDimensions(0, 10.4);
-			fail();
-			_model.setBodyDimensions(13.2, 0);
+			_model.setWeight(0);
 			fail();
 		}catch(IllegalArgumentException e){}
 	}
 	
-	public void testLessThanZero(){
+	public void testWeightLessThanZero(){
 		try{
-			_model.setBodyDimensions(-23, 10.4);
-			fail();
-			_model.setBodyDimensions(13.2, -32);
+			_model.setWeight(-23);
 			fail();
 		}catch(IllegalArgumentException e){}
 	}
