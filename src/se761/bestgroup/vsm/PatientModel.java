@@ -114,10 +114,21 @@ public class PatientModel implements Serializable {
 	}
 
 	public void setOccupation(String o) throws IllegalArgumentException {
+		if(o == null ||
+				o.matches(".*[^a-zA-Z0-9 \\-].*")){
+			throw new IllegalArgumentException();
+		}
 		_occupation = o;
 	}
 
 	public void setNHINumber(String n) throws IllegalArgumentException {
+		if(n == null ||
+				n.length() != 6 ||
+				!n.matches("[a-zA-Z]{3}\\d{3}")
+				){
+			throw new IllegalArgumentException();
+		}
+
 		_nhiNumber = n;
 	}
 
