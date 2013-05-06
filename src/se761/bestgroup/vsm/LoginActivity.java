@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 
@@ -19,7 +20,7 @@ public class LoginActivity extends Activity {
 	private List<TextView> _textViews;
 	private boolean _pinExists;
 	private boolean _confirming;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -28,61 +29,49 @@ public class LoginActivity extends Activity {
 		// inflate the layout
 		setContentView(R.layout.activity_login);
 
-		//Load the actual pin from sharedpreferences
-		String storedPin = getPreferences(MODE_PRIVATE).getString("pin", null);
-		
-		//If the stored pin exists make that the one the user needs to enter 
-		_pinExists = storedPin != null;
-		if (_pinExists){
-			_correctPin = storedPin;
-		}else{
-			
-			findViewById(R.id.firstTimeContainer).setVisibility(View.VISIBLE);
-			((Button)findViewById(R.id.buttonForgotConfirmPin)).setText("Go");
-			((Button)findViewById(R.id.buttonForgotConfirmPin)).setEnabled(false);
-			_confirming = false;
-			_correctPin = "";
-		}
-		_pin = "";
-			
 		_textViews = new ArrayList<TextView>();
 		_textViews.add((TextView) findViewById(R.id.pin1));
 		_textViews.add((TextView) findViewById(R.id.pin2));
 		_textViews.add((TextView) findViewById(R.id.pin3));
 		_textViews.add((TextView) findViewById(R.id.pin4));
 		_textViews.add((TextView) findViewById(R.id.pin5));
-		
+
 		// Bind the button click
 		OnClickListener buttonClickListener = new OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				int id = view.getId();
-				
-				if(id == R.id.buttonBackspace){
-					if(_pin.length() == 0) return;
+
+				if (id == R.id.buttonBackspace) {
+					if (_pin.length() == 0)
+						return;
 					_pin = _pin.substring(0, _pin.length() - 1);
-				}else if(id == R.id.buttonForgotConfirmPin){
-					if(_pinExists){
+				} else if (id == R.id.buttonForgotConfirmPin) {
+					if (_pinExists) {
 						_pin = _correctPin;
-					}else{
-						if(_confirming){
-							//Store the confirmed pin
+					} else {
+						if (_confirming) {
+							
+							// Store the confirmed pin
 							Editor editor = getPreferences(MODE_PRIVATE).edit();
 							editor.putString("pin", _pin);
 							editor.apply();
-							Intent i = new Intent(getApplicationContext(), VitalStatsFormActivity.class);
+														
+							Intent i = new Intent(getApplicationContext(),
+									VitalStatsFormActivity.class);
 							startActivity(i);
-						}else{
+						} else {
 							_pin = "";
 							_confirming = true;
-							((Button)findViewById(R.id.buttonForgotConfirmPin)).setText("Confirm");
+							((Button) findViewById(R.id.buttonForgotConfirmPin))
+									.setText("Confirm");
 						}
 					}
-				}else if(_pin.length() == 5){
-					return; //The textviews are full
+				} else if (_pin.length() == 5) {
+					return; // The textviews are full
 				}
-				
-				switch (id){
+
+				switch (id) {
 				case R.id.button0:
 					_pin += "0";
 					break;
@@ -114,69 +103,93 @@ public class LoginActivity extends Activity {
 					_pin += "9";
 					break;
 				}
-				
-				for(TextView tv : _textViews){
+
+				for (TextView tv : _textViews) {
 					tv.setText("");
 				}
-				for(int i = 0; i < _pin.length(); i++){
+				for (int i = 0; i < _pin.length(); i++) {
 					_textViews.get(i).setText("" + _pin.charAt(i));
 				}
-				
-				if(_pin.length() == 5){ //The textviews are full
-					if(_pinExists){
-						if(_pin.equals(_correctPin)) {
-							
-							Intent i = new Intent(getApplicationContext(), VitalStatsFormActivity.class);
+
+				if (_pin.length() == 5) { // The textviews are full
+					if (_pinExists) {
+						if (_pin.equals(_correctPin)) {
+							Intent i = new Intent(getApplicationContext(),
+									VitalStatsFormActivity.class);
 							startActivity(i);
 						}
-					}else{
-						//Get them to confirm it
-						((Button)findViewById(R.id.buttonForgotConfirmPin)).setEnabled(true);
+					} else {
+						// Get them to confirm it
+						((Button) findViewById(R.id.buttonForgotConfirmPin))
+								.setEnabled(true);
 					}
-				}else{
-					if(!_pinExists){
-						((Button)findViewById(R.id.buttonForgotConfirmPin)).setEnabled(false);
+				} else {
+					if (!_pinExists) {
+						((Button) findViewById(R.id.buttonForgotConfirmPin))
+								.setEnabled(false);
 					}
 				}
 			}
 		};
-		
-		((Button)findViewById(R.id.button0)).setOnClickListener(buttonClickListener);
-		((Button)findViewById(R.id.button1)).setOnClickListener(buttonClickListener);
-		((Button)findViewById(R.id.button2)).setOnClickListener(buttonClickListener);
-		((Button)findViewById(R.id.button3)).setOnClickListener(buttonClickListener);
-		((Button)findViewById(R.id.button4)).setOnClickListener(buttonClickListener);
-		((Button)findViewById(R.id.button5)).setOnClickListener(buttonClickListener);
-		((Button)findViewById(R.id.button6)).setOnClickListener(buttonClickListener);
-		((Button)findViewById(R.id.button7)).setOnClickListener(buttonClickListener);
-		((Button)findViewById(R.id.button8)).setOnClickListener(buttonClickListener);
-		((Button)findViewById(R.id.button9)).setOnClickListener(buttonClickListener);
-		((Button)findViewById(R.id.buttonBackspace)).setOnClickListener(buttonClickListener);
-		((Button)findViewById(R.id.buttonForgotConfirmPin)).setOnClickListener(buttonClickListener);
+
+		((Button) findViewById(R.id.button0))
+				.setOnClickListener(buttonClickListener);
+		((Button) findViewById(R.id.button1))
+				.setOnClickListener(buttonClickListener);
+		((Button) findViewById(R.id.button2))
+				.setOnClickListener(buttonClickListener);
+		((Button) findViewById(R.id.button3))
+				.setOnClickListener(buttonClickListener);
+		((Button) findViewById(R.id.button4))
+				.setOnClickListener(buttonClickListener);
+		((Button) findViewById(R.id.button5))
+				.setOnClickListener(buttonClickListener);
+		((Button) findViewById(R.id.button6))
+				.setOnClickListener(buttonClickListener);
+		((Button) findViewById(R.id.button7))
+				.setOnClickListener(buttonClickListener);
+		((Button) findViewById(R.id.button8))
+				.setOnClickListener(buttonClickListener);
+		((Button) findViewById(R.id.button9))
+				.setOnClickListener(buttonClickListener);
+		((Button) findViewById(R.id.buttonBackspace))
+				.setOnClickListener(buttonClickListener);
+		((Button) findViewById(R.id.buttonForgotConfirmPin))
+				.setOnClickListener(buttonClickListener);
 	}
-	
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
 		
-		_pin = "";
+		Toast.makeText(this, "onResume()", Toast.LENGTH_LONG).show();
 		
-		for(TextView tv : _textViews){
+		// Load the actual pin from sharedpreferences
+		String storedPin = getPreferences(MODE_PRIVATE).getString("pin", null);
+
+		// If the stored pin exists make that the one the user needs to enter
+		_pinExists = storedPin != null;
+		if (_pinExists) {
+			_correctPin = storedPin;
+			findViewById(R.id.firstTimeContainer).setVisibility(View.INVISIBLE);
+			((Button) findViewById(R.id.buttonForgotConfirmPin)).setText("FORGOT PIN");
+		} else {
+
+			findViewById(R.id.firstTimeContainer).setVisibility(View.VISIBLE);
+			((Button) findViewById(R.id.buttonForgotConfirmPin)).setText("Go");
+			((Button) findViewById(R.id.buttonForgotConfirmPin))
+					.setEnabled(false);
+			_confirming = false;
+			_correctPin = "";
+		}
+
+		_pin = "";
+
+		for (TextView tv : _textViews) {
 			tv.setText("");
 		}
-		for(int i = 0; i < _pin.length(); i++){
+		for (int i = 0; i < _pin.length(); i++) {
 			_textViews.get(i).setText("" + _pin.charAt(i));
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
