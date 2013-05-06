@@ -20,6 +20,13 @@
         <item>Female</item>
         <item>Other</item>
     </string-array>
+    
+    <string-array name="gendersNew">
+        <item>Unset</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
 
     <string name="weightLabel">Weight:</string>
     <string name="heightLabel">Height:</string>
