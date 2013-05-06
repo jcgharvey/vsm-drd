@@ -161,9 +161,7 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
-		Toast.makeText(this, "onResume()", Toast.LENGTH_LONG).show();
-		
+				
 		// Load the actual pin from sharedpreferences
 		String storedPin = getPreferences(MODE_PRIVATE).getString("pin", null);
 
