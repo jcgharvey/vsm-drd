@@ -32,6 +32,7 @@ public class Page2Fragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		_model = (PatientModel) getArguments().get("model");
+		
 	}
 
 	@Override
@@ -162,10 +163,6 @@ public class Page2Fragment extends Fragment {
 		return root;
 	}
 
-	@Override
-	public void onPause() {
-		super.onPause();
-	}
 
 	public static Page2Fragment newInstance(PatientModel model) {
 		Page2Fragment newFragment = new Page2Fragment();
