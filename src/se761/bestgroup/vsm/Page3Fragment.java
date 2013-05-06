@@ -21,6 +21,7 @@ public class Page3Fragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		_model = (PatientModel) getArguments().get("model");
+		
 	}
 	
 	@Override
@@ -65,10 +66,6 @@ public class Page3Fragment extends Fragment {
 		return root;
 	}
 	
-	@Override
-	public void onPause() {
-		super.onPause();
-	}
 
 	public static Page3Fragment newInstance(PatientModel model) {
 		Page3Fragment newFragment = new Page3Fragment();

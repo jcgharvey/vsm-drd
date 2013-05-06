@@ -33,7 +33,6 @@ public class Page5Fragment extends Fragment {
 		setHasOptionsMenu(true);
 		setRetainInstance(true);
 		
-
 	}
 	
 	@Override
@@ -100,10 +99,7 @@ public class Page5Fragment extends Fragment {
 		return true;
 	}
 	
-	@Override
-	public void onPause() {
-		super.onPause();
-	}
+
 
 	public static Page5Fragment newInstance(PatientModel model) {
 		Page5Fragment newFragment = new Page5Fragment();
