@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONException;
+import se761.bestgroup.vsm.MenuActivity;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -37,6 +39,9 @@ public class VitalStatsFormActivity extends Activity implements
 
 		setContentView(R.layout.activity_view_pager);
 
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		
 		mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		mNfcAdapter.setNdefPushMessageCallback(null, this);
 
@@ -64,9 +69,10 @@ public class VitalStatsFormActivity extends Activity implements
 				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 					@Override
 					public void onPageSelected(int position) {
-						invalidateOptionsMenu();
+						VitalStatsFormActivity.this.setTitle("Page " + (position + 1) + "/5");
 					}
 				});
+		setTitle("Page 1/5");
 	}
 
 	@Override
@@ -104,6 +110,12 @@ public class VitalStatsFormActivity extends Activity implements
 	}
 	
 	public boolean onOptionsItemSelected(MenuItem item) {
+		
+		Intent parentActivityIntent = new Intent(this, MenuActivity.class);
+		parentActivityIntent.addFlags(
+				Intent.FLAG_ACTIVITY_CLEAR_TOP |
+				Intent.FLAG_ACTIVITY_NEW_TASK);
+		
 		switch (item.getItemId()) {
 
 		case R.id.action_previous:
@@ -121,8 +133,18 @@ public class VitalStatsFormActivity extends Activity implements
 			return true;
 
 		case R.id.action_finish:
-			mNfcAdapter.setNdefPushMessageCallback(this, this);
+			
+			startActivity(parentActivityIntent);
+			finish();
+			//mNfcAdapter.setNdefPushMessageCallback(this, this);
 			return true;
+		
+		case android.R.id.home:
+			// This is called when the Home (Up) button is pressed
+            // in the Action Bar.
+            startActivity(parentActivityIntent);
+            finish();
+            return true;
 		}
 
 		return super.onOptionsItemSelected(item);

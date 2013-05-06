@@ -34,12 +34,13 @@ public class Page1Fragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		_model = (PatientModel) getArguments().get("model");
+		
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
+		
 		// Inflate the first page layout
 		ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_page_1,
 				container, false);
