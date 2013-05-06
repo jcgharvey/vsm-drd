@@ -11,37 +11,91 @@ public class TestPatientModelName extends TestCase {
 		_model =  new PatientModel();
 	}
 	
-	public void testNameDoesntHaveWhiteSpace(){
+	public void testFirstNamePositive(){
 		try{
-			_model.setName("Mike", "Litt le");
-			
-			_model.setName("Mike ", "Little");
+			_model.setFirstName("Michael");
+		}catch(IllegalArgumentException e){
+			fail();
+		}
+	}
+	public void testLastNamePositive(){
+		try{
+			_model.setLastName("Little");
+		}catch(IllegalArgumentException e){
+			fail();
+		}
+	}
+	
+	public void testFirstNameDoesntHaveWhiteSpace(){
+		try{
+			_model.setFirstName("Mi ke");
+			fail();
+		}catch(IllegalArgumentException e){}
+	}
+
+	public void testLastNameDoesntHaveWhiteSpace(){
+		try{
+			_model.setLastName("Lit tle");
 			fail();
 		}catch(IllegalArgumentException e){}
 	}
 	
-	public void testNameHasOnlyLetters(){
+	public void testFirstNameTrailingWhiteSpace(){
 		try{
-			_model.setName("Mike", "Little#yolo");
-			
-			_model.setName("Mike#swag", "Little");
+			_model.setFirstName("Mike ");
+			_model.setFirstName(" Mike");
 			fail();
 		}catch(IllegalArgumentException e){}
 	}
 	
-	public void testNameIsntEmpty(){
+	public void testLastNameTrailingWhiteSpace(){
 		try{
-			_model.setName("Mike", "");
-			_model.setName("", "Little");
+			_model.setFirstName("Little ");
+			_model.setFirstName(" Little");
+			fail();
+		}catch(IllegalArgumentException e){}
+	}
+	
+	
+	public void testFirstNameHasOnlyLetters(){
+		try{
+			_model.setFirstName("Little#yolo");
+			fail();
+		}catch(IllegalArgumentException e){}
+	}
+	public void testLasstNameHasOnlyLetters(){
+		try{
+			_model.setLastName("Little#yolo");
+			fail();
+		}catch(IllegalArgumentException e){}
+	}
+	
+	public void testFirstNameIsntEmpty(){
+		try{
+			_model.setFirstName("");
 			fail();
 		}catch (IllegalArgumentException e){}
 	}
 	
-	public void testNameIsntNull(){
+	public void testLastNameIsntEmpty(){
 		try{
-			_model.setName("Mike", null);
-			_model.setName(null, "Little");
+			_model.setFirstName("");
 			fail();
 		}catch (IllegalArgumentException e){}
 	}
+	
+	public void testFirstNameIsntNull(){
+		try{
+			_model.setFirstName(null);
+			fail();
+		}catch (IllegalArgumentException e){}
+	}
+	public void testLastNameIsntNull(){
+		try{
+			_model.setFirstName(null);
+			fail();
+		}catch (IllegalArgumentException e){}
+	}
+	
+	
 }

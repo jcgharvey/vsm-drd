@@ -155,13 +155,17 @@ public class Page1Fragment extends Fragment {
 
 		// Set up the gender spinner
 		final Spinner genderSpinner = (Spinner) root.findViewById(R.id.gender);
+		int arrayId = R.array.gendersNew;
+		if (_model.getGender() != Gender.Unset) {
+			arrayId = R.array.genders;
+		}
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-				getActivity(), R.array.genders, R.layout.custom_spinner_list);
+				getActivity(), arrayId, R.layout.custom_spinner_list);
 		adapter.setDropDownViewResource(R.layout.custom_spinner);
 
 		genderSpinner.setAdapter(adapter);
 		genderSpinner.setSelection(Arrays.asList(
-				getResources().getStringArray(R.array.genders)).indexOf(
+				getResources().getStringArray(arrayId)).indexOf(
 				_model.getGender().toString()));
 
 		genderSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -169,8 +173,12 @@ public class Page1Fragment extends Fragment {
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 				Log.d("VSM", "Setting gender");
-				_model.setGender(Gender.valueOf((String) genderSpinner
-						.getItemAtPosition(position)));
+				try {
+					_model.setGender(Gender.valueOf((String) genderSpinner
+							.getItemAtPosition(position)));
+				} catch (IllegalArgumentException e) {
+					
+				}
 			}
 
 			@Override
@@ -181,8 +189,7 @@ public class Page1Fragment extends Fragment {
 
 		final TextView dateOfBirth = (TextView) root.findViewById(R.id.dob);
 		dateOfBirth.setText(_model.getDob());
-		
-		
+
 		Button changeDobButton = (Button) root
 				.findViewById(R.id.changeDobButton);
 
@@ -197,10 +204,13 @@ public class Page1Fragment extends Fragment {
 				Log.d("VSM", day + "/" + month + "/" + year);
 				new DatePickerDialog(getActivity(), new OnDateSetListener() {
 					@Override
-					public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-						_model.setDob(dayOfMonth+ "/" + (monthOfYear + 1) + "/" + year);
-						dateOfBirth.setText(dayOfMonth+ "/" + (monthOfYear + 1) + "/" +year );
-						
+					public void onDateSet(DatePicker view, int year,
+							int monthOfYear, int dayOfMonth) {
+						_model.setDob(dayOfMonth + "/" + (monthOfYear + 1)
+								+ "/" + year);
+						dateOfBirth.setText(dayOfMonth + "/"
+								+ (monthOfYear + 1) + "/" + year);
+
 					}
 				}, year, month - 1, day).show();
 			}
@@ -212,7 +222,7 @@ public class Page1Fragment extends Fragment {
 	@Override
 	public void onPause() {
 		super.onPause();
-
+		// hacky gender solution here
 		// Save the state?
 	}
 

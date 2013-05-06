@@ -8,8 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.text.Editable;
-
 public class PatientModel implements Serializable {
 
 	/**
@@ -75,6 +73,10 @@ public class PatientModel implements Serializable {
 	}
 
 	public void setFirstName(String firstName) throws IllegalArgumentException {
+		if(firstName == null){
+			throw new IllegalArgumentException(
+					"First name is null");
+		}
 		if (firstName.length() == 0) {
 			throw new IllegalArgumentException("Empty string for first name");
 		}
@@ -83,11 +85,19 @@ public class PatientModel implements Serializable {
 			throw new IllegalArgumentException(
 					"First name contains white space");
 		}
+		if(firstName.matches(".*[^a-zA-Z].*")){
+			throw new IllegalArgumentException("First name contains non alphabetic characters");
+		}
 
 		_firstName = firstName;
 	}
 
 	public void setLastName(String lastName) throws IllegalArgumentException {
+		if(lastName == null){
+			throw new IllegalArgumentException(
+					"First name is null");
+		}
+		
 		if (lastName.length() == 0) {
 			throw new IllegalArgumentException("Empty string for last name");
 		}
@@ -95,15 +105,30 @@ public class PatientModel implements Serializable {
 		if (lastName.matches(".*\\s.*")) {
 			throw new IllegalArgumentException("Last name contains white space");
 		}
+		
+		if(lastName.matches(".*[^a-zA-Z].*")){
+			throw new IllegalArgumentException("First name contains non alphabetic characters");
+		}
 
 		_lastName = lastName;
 	}
 
 	public void setOccupation(String o) throws IllegalArgumentException {
+		if(o == null ||
+				o.matches(".*[^a-zA-Z0-9 \\-].*")){
+			throw new IllegalArgumentException();
+		}
 		_occupation = o;
 	}
 
 	public void setNHINumber(String n) throws IllegalArgumentException {
+		if(n == null ||
+				n.length() != 6 ||
+				!n.matches("[a-zA-Z]{3}\\d{3}")
+				){
+			throw new IllegalArgumentException();
+		}
+
 		_nhiNumber = n;
 	}
 
@@ -120,7 +145,11 @@ public class PatientModel implements Serializable {
 	}
 
 	public void setGender(Gender g) {
-		_gender = g;
+		if (g != Gender.Unset){
+			_gender = g;
+		} else {
+			throw new IllegalArgumentException("Gender can't be unset");
+		}
 	}
 
 	public void setContactNumber(String number) throws IllegalArgumentException {
@@ -283,11 +312,19 @@ public class PatientModel implements Serializable {
 		return _weight_value;
 	}
 
-	public void setWeight(double weight) {
+	public void setWeight(double weight) throws IllegalArgumentException {
+		
+		if(weight <= 0 || weight >= 1000){
+			throw new IllegalArgumentException("Weight can't be less than or equal to zero or greater than or equal to 1000");
+		}
 		_weight_value = weight;
 	}
 
-	public void setHeight(double height) {
+	public void setHeight(double height) throws IllegalArgumentException {
+		if(height <= 0 || height >= 400){
+			throw new IllegalArgumentException("Height can't be less than or equal to zero or greater than or equal to 400");
+		}
+
 		_height_value = height;
 	}
 
