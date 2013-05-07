@@ -1,6 +1,7 @@
 package se761.bestgroup.vsm;
 
 import java.util.Arrays;
+import java.util.Calendar;
 
 import se761.bestgroup.vsm.PatientModel.Gender;
 import android.app.DatePickerDialog;
@@ -188,7 +189,7 @@ public class Page1Fragment extends Fragment {
 		});
 
 		final TextView dateOfBirth = (TextView) root.findViewById(R.id.dob);
-		dateOfBirth.setText(_model.getDob());
+		dateOfBirth.setText(_model.getDob().get(Calendar.DAY_OF_MONTH) + "-" + (_model.getDob().get(Calendar.MONTH) + 1 )+ "-" + _model.getDob().get(Calendar.YEAR));
 
 		Button changeDobButton = (Button) root
 				.findViewById(R.id.changeDobButton);
@@ -197,22 +198,15 @@ public class Page1Fragment extends Fragment {
 
 			@Override
 			public void onClick(View arg0) {
-				String[] date = _model.getDob().split("/");
-				int day = Integer.parseInt(date[0]);
-				int month = Integer.parseInt(date[1]);
-				int year = Integer.parseInt(date[2]);
-				Log.d("VSM", day + "/" + month + "/" + year);
+				
 				new DatePickerDialog(getActivity(), new OnDateSetListener() {
 					@Override
 					public void onDateSet(DatePicker view, int year,
 							int monthOfYear, int dayOfMonth) {
-						_model.setDob(dayOfMonth + "/" + (monthOfYear + 1)
-								+ "/" + year);
-						dateOfBirth.setText(dayOfMonth + "/"
-								+ (monthOfYear + 1) + "/" + year);
-
+						_model.setDob(year, monthOfYear, dayOfMonth);
+						dateOfBirth.setText(_model.getDob().get(Calendar.DAY_OF_MONTH) + "-" + (_model.getDob().get(Calendar.MONTH)+ 1) + "-" + _model.getDob().get(Calendar.YEAR));
 					}
-				}, year, month - 1, day).show();
+				}, _model.getDob().get(Calendar.YEAR), _model.getDob().get(Calendar.MONTH), _model.getDob().get(Calendar.DAY_OF_MONTH)).show();
 			}
 		});
 
