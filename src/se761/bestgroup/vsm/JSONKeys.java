@@ -6,7 +6,7 @@ public class JSONKeys {
 	public static final String LASTNAME = "lastname";
 	public static final String NHI = "nhi";
 	public static final String OCCUPATION = "occupation";
-	public static final String CITIZENRESIDENT = "citizen_Resident";
+	public static final String CITIZENRESIDENT = "citizen_resident";
 	public static final String CONTACTNUM = "contact_num";
 	public static final String GENDER = "gender";
 	public static final String DOB = "dob";

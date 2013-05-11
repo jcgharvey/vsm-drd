@@ -28,7 +28,6 @@ public class Page4Fragment extends Fragment implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		_model = (PatientModel) getArguments().get("model");
-
 		_adapter = new ArrayAdapter<String>(getActivity(),
 				R.layout.small_listview_item);
 	}
@@ -97,4 +96,6 @@ public class Page4Fragment extends Fragment implements
 	public void onNegativeClick(CountriesListDialogFragment dialog) {
 
 	}
+	
+
 }

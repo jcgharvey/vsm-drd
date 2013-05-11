@@ -27,6 +27,6 @@ proguard/
 *.iws
 .idea/
 
+# Mac rubbish
+.DS_Store
 
-#Mac finder junk
-.DS_STORE

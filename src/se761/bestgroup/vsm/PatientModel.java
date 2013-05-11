@@ -2,11 +2,15 @@ package se761.bestgroup.vsm;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.util.Log;
 
 public class PatientModel implements Serializable {
 
@@ -15,10 +19,11 @@ public class PatientModel implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String _firstName, _lastName, _occupation, _nhiNumber,
-			_familyHistory, _medicalConditions, _contactNumber, _dob;
+			_familyHistory, _medicalConditions, _contactNumber;
+	private Calendar _dob;
 	private BloodType _bloodType;
 	private Gender _gender;
-	private List<String> _recentCountries, _alergies;
+	private List<String> _recentCountries, _allergies;
 
 	private boolean _nzResidentOrCitizen, _smoker, _drinker;
 
@@ -27,8 +32,9 @@ public class PatientModel implements Serializable {
 	private String _weight_unit;
 
 	public enum BloodType {
-		UNSET("Unset"),A_POS("A+"), B_POS("B+"), O_POS("O+"), AB_POS("AB+"), A_NEG("A-"), B_NEG(
-				"B-"), O_NEG("O-"), AB_NEG("AB-"), UNKNOWN("Unknown");
+		UNSET("Unset"), A_POS("A+"), B_POS("B+"), O_POS("O+"), AB_POS("AB+"), A_NEG(
+				"A-"), B_NEG("B-"), O_NEG("O-"), AB_NEG("AB-"), UNKNOWN(
+				"Unknown");
 
 		private String _bloodType;
 
@@ -63,19 +69,19 @@ public class PatientModel implements Serializable {
 
 	public PatientModel() {
 		setRecentCountries(new ArrayList<String>());
-		setAlergies(new ArrayList<String>());
+		setAllergies(new ArrayList<String>());
 
 		// Assign default/empty values
 		_firstName = _lastName = _occupation = _nhiNumber = _familyHistory = _medicalConditions = _contactNumber = "";
-		_dob = "1/1/1975";
+		_dob = Calendar.getInstance();
+		_dob.set(1975, 1, 1);
 		_weight_value = _height_value = 0;
 		_nzResidentOrCitizen = true;
 	}
 
 	public void setFirstName(String firstName) throws IllegalArgumentException {
-		if(firstName == null){
-			throw new IllegalArgumentException(
-					"First name is null");
+		if (firstName == null) {
+			throw new IllegalArgumentException("First name is null");
 		}
 		if (firstName.length() == 0) {
 			throw new IllegalArgumentException("Empty string for first name");
@@ -85,19 +91,19 @@ public class PatientModel implements Serializable {
 			throw new IllegalArgumentException(
 					"First name contains white space");
 		}
-		if(firstName.matches(".*[^a-zA-Z].*")){
-			throw new IllegalArgumentException("First name contains non alphabetic characters");
+		if (firstName.matches(".*[^a-zA-Z].*")) {
+			throw new IllegalArgumentException(
+					"First name contains non alphabetic characters");
 		}
 
 		_firstName = firstName;
 	}
 
 	public void setLastName(String lastName) throws IllegalArgumentException {
-		if(lastName == null){
-			throw new IllegalArgumentException(
-					"First name is null");
+		if (lastName == null) {
+			throw new IllegalArgumentException("First name is null");
 		}
-		
+
 		if (lastName.length() == 0) {
 			throw new IllegalArgumentException("Empty string for last name");
 		}
@@ -105,19 +111,27 @@ public class PatientModel implements Serializable {
 		if (lastName.matches(".*\\s.*")) {
 			throw new IllegalArgumentException("Last name contains white space");
 		}
-		
-		if(lastName.matches(".*[^a-zA-Z].*")){
-			throw new IllegalArgumentException("First name contains non alphabetic characters");
+
+		if (lastName.matches(".*[^a-zA-Z].*")) {
+			throw new IllegalArgumentException(
+					"First name contains non alphabetic characters");
 		}
 
 		_lastName = lastName;
 	}
 
 	public void setOccupation(String o) throws IllegalArgumentException {
+		if (o == null || o.matches(".*[^a-zA-Z0-9 \\-].*")) {
+			throw new IllegalArgumentException();
+		}
 		_occupation = o;
 	}
 
 	public void setNHINumber(String n) throws IllegalArgumentException {
+		if (n == null || n.length() != 6 || !n.matches("[a-zA-Z]{3}\\d{3}")) {
+			throw new IllegalArgumentException();
+		}
+
 		_nhiNumber = n;
 	}
 
@@ -134,7 +148,7 @@ public class PatientModel implements Serializable {
 	}
 
 	public void setGender(Gender g) {
-		if (g != Gender.Unset){
+		if (g != Gender.Unset) {
 			_gender = g;
 		} else {
 			throw new IllegalArgumentException("Gender can't be unset");
@@ -162,11 +176,11 @@ public class PatientModel implements Serializable {
 	}
 
 	public void addAllergy(String a) throws IllegalArgumentException {
-		getAlergies().add(a);
+		getAllergies().add(a);
 	}
 
 	public void removeAllergy(String a) throws IllegalArgumentException {
-		getAlergies().remove(a);
+		getAllergies().remove(a);
 	}
 
 	public JSONObject vitalInfoJSON() {
@@ -184,12 +198,12 @@ public class PatientModel implements Serializable {
 			vitalInfo.put(JSONKeys.SMOKER, _smoker);
 			vitalInfo.put(JSONKeys.DRINKER, _drinker);
 			vitalInfo.put(JSONKeys.FAMILY_HISTORY, _familyHistory);
-			vitalInfo
-					.put(JSONKeys.OVERSEAS_DESTINATIONS, new JSONArray(getRecentCountries()));
-			vitalInfo
-					.put(JSONKeys.OVERSEAS_RECENTLY, getRecentCountries().size() >= 1);
+			vitalInfo.put(JSONKeys.OVERSEAS_DESTINATIONS, new JSONArray(
+					getRecentCountries()));
+			vitalInfo.put(JSONKeys.OVERSEAS_RECENTLY, getRecentCountries()
+					.size() >= 1);
 			vitalInfo.put(JSONKeys.MEDICAL_CONDITIONS, _medicalConditions);
-			vitalInfo.put(JSONKeys.ALLERGIES, new JSONArray(getAlergies()));
+			vitalInfo.put(JSONKeys.ALLERGIES, new JSONArray(getAllergies()));
 
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -207,20 +221,25 @@ public class PatientModel implements Serializable {
 			patient.put(JSONKeys.CITIZENRESIDENT, _nzResidentOrCitizen);
 			patient.put(JSONKeys.CONTACTNUM, _contactNumber);
 
-					// Gender is enum and defaults to null
-			patient.put(JSONKeys.GENDER,
-							_gender == null ? Gender.Unset.toString() : _gender
-									.toString());
-			patient.put(JSONKeys.DOB, _dob);
+			// Gender is enum and defaults to null
+			patient.put(
+					JSONKeys.GENDER,
+					_gender == null ? Gender.Unset.toString() : _gender
+							.toString());
+			patient.put(JSONKeys.DOB,
+					_dob.get(Calendar.YEAR) + "-" + _dob.get(Calendar.MONTH)
+							+ "-" + _dob.get(Calendar.DAY_OF_MONTH));
 
 		} catch (JSONException e) {
 			e.printStackTrace();
+			Log.i("Patient JSON", patient.toString());
 		}
 
 		return patient;
 	}
-	
-	public void fromVitalStatsJSONString(String jsonString) throws JSONException {
+
+	public void fromVitalStatsJSONString(String jsonString)
+			throws JSONException {
 		JSONObject json = new JSONObject(jsonString);
 
 		_familyHistory = json.getString(JSONKeys.FAMILY_HISTORY);
@@ -231,34 +250,36 @@ public class PatientModel implements Serializable {
 
 		_bloodType = BloodType.lookup(json.getString(JSONKeys.BLOOD_TYPE));
 
-		JSONArray countriesJsonArray = json.getJSONArray(JSONKeys.OVERSEAS_DESTINATIONS);
+		JSONArray countriesJsonArray = json
+				.getJSONArray(JSONKeys.OVERSEAS_DESTINATIONS);
 		getRecentCountries().clear();
 		for (int i = 0; i < countriesJsonArray.length(); i++) {
 			getRecentCountries().add(countriesJsonArray.getString(i));
 		}
 
 		JSONArray alergiesJsonArray = json.getJSONArray(JSONKeys.ALLERGIES);
-		getAlergies().clear();
+		getAllergies().clear();
 		for (int i = 0; i < alergiesJsonArray.length(); i++) {
-			getAlergies().add(alergiesJsonArray.getString(i));
+			getAllergies().add(alergiesJsonArray.getString(i));
 		}
 		_drinker = json.getBoolean(JSONKeys.DRINKER);
 		_smoker = json.getBoolean(JSONKeys.SMOKER);
-		
+
 	}
-	
+
 	public void fromPatientJSONString(String jsonString) throws JSONException {
 		JSONObject json = new JSONObject(jsonString);
-		
+
 		_firstName = json.getString(JSONKeys.FIRSTNAME);
 		_lastName = json.getString(JSONKeys.LASTNAME);
 		_nhiNumber = json.getString(JSONKeys.NHI);
 		_occupation = json.getString(JSONKeys.OCCUPATION);
 		_nzResidentOrCitizen = json.getBoolean(JSONKeys.CITIZENRESIDENT);
 		_contactNumber = json.getString(JSONKeys.CONTACTNUM);
-		_gender  = Gender.lookup(json.getString(JSONKeys.GENDER));
-		_dob = json.getString(JSONKeys.DOB);
+		_gender = Gender.lookup(json.getString(JSONKeys.GENDER));
 
+		String[] dateStringArray = json.getString(JSONKeys.DOB).split("-");
+		_dob.set(Integer.parseInt(dateStringArray[0]), Integer.parseInt(dateStringArray[1]), Integer.parseInt(dateStringArray[2]));
 	}
 
 	public Gender getGender() {
@@ -302,16 +323,18 @@ public class PatientModel implements Serializable {
 	}
 
 	public void setWeight(double weight) throws IllegalArgumentException {
-		
-		if(weight <= 0 || weight >= 1000){
-			throw new IllegalArgumentException("Weight can't be less than or equal to zero or greater than or equal to 1000");
+
+		if (weight <= 0 || weight >= 1000) {
+			throw new IllegalArgumentException(
+					"Weight can't be less than or equal to zero or greater than or equal to 1000");
 		}
 		_weight_value = weight;
 	}
 
 	public void setHeight(double height) throws IllegalArgumentException {
-		if(height <= 0 || height >= 400){
-			throw new IllegalArgumentException("Height can't be less than or equal to zero or greater than or equal to 400");
+		if (height <= 0 || height >= 400) {
+			throw new IllegalArgumentException(
+					"Height can't be less than or equal to zero or greater than or equal to 400");
 		}
 
 		_height_value = height;
@@ -337,12 +360,12 @@ public class PatientModel implements Serializable {
 		this._smoker = _smoker;
 	}
 
-	public String getDob() {
+	public Calendar getDob() {
 		return _dob;
 	}
 
-	public void setDob(String dob) {
-		this._dob = dob;
+	public void setDob(int year, int month, int day) {
+		_dob.set(year, month, day);
 	}
 
 	public String getFamilyHistory() {
@@ -361,12 +384,12 @@ public class PatientModel implements Serializable {
 		this._recentCountries = _recentCountries;
 	}
 
-	public List<String> getAlergies() {
-		return _alergies;
+	public List<String> getAllergies() {
+		return _allergies;
 	}
 
-	public void setAlergies(List<String> _alergies) {
-		this._alergies = _alergies;
+	public void setAllergies(List<String> _allergies) {
+		this._allergies = _allergies;
 	}
 
 }
