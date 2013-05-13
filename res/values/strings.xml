@@ -12,7 +12,7 @@
     <string name="citizenOrResidentLabel">Are you a NZ citizen OR a Permanent Resident?</string>
     <string name="contactNumberLabel">Contact Number:</string>
     <string name="genderLabel">Gender:</string>
-    <string name="dobLabel">Date of Birth:</string>
+    <string name="dobLabel">Date of Birth: </string>
 
     <string-array name="genders">
         <item>Unset</item>
