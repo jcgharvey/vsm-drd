@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONException;
-import se761.bestgroup.vsm.MenuActivity;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -12,16 +11,10 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.nfc.NdefMessage;
-import android.nfc.NdefRecord;
-import android.nfc.NfcAdapter;
-import android.nfc.NfcAdapter.CreateNdefMessageCallback;
-import android.nfc.NfcEvent;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +24,6 @@ public class VitalStatsFormActivity extends Activity {
 	private ViewPager _viewPager;
 	private PagerAdapter _pagerAdapter;
 	private PatientModel _model;
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,21 +32,24 @@ public class VitalStatsFormActivity extends Activity {
 		setContentView(R.layout.activity_view_pager);
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		
-		SharedPreferences sharedPreferences = getSharedPreferences("vsm", MODE_PRIVATE);
-		
-		String jsonPatientModel = sharedPreferences.getString("patientModel", null);
-		String jsonSerializedModel = sharedPreferences.getString("vitalStatsModel", null);
-		
+
+		SharedPreferences sharedPreferences = getSharedPreferences("vsm",
+				MODE_PRIVATE);
+
+		String jsonPatientModel = sharedPreferences.getString("patientModel",
+				null);
+		String jsonSerializedModel = sharedPreferences.getString(
+				"vitalStatsModel", null);
+
 		_model = new PatientModel();
-		
+
 		if (jsonSerializedModel != null) {
 			Log.d("VSM", "Deserializing saved model");
-			
+
 			try {
 				_model.fromPatientJSONString(jsonPatientModel);
 				_model.fromVitalStatsJSONString(jsonSerializedModel);
-			
+
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -69,7 +64,9 @@ public class VitalStatsFormActivity extends Activity {
 				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 					@Override
 					public void onPageSelected(int position) {
-						VitalStatsFormActivity.this.setTitle("Page " + (position + 1) + "/5");
+						VitalStatsFormActivity.this.setTitle("Page "
+								+ (position + 1) + "/5");
+						invalidateOptionsMenu();
 					}
 				});
 		setTitle("Page 1/5");
@@ -102,23 +99,24 @@ public class VitalStatsFormActivity extends Activity {
 	protected void onPause() {
 		super.onPause();
 		// Save the model's state
-		Editor preferencesEditor = getSharedPreferences("vsm", MODE_PRIVATE).edit();
+		Editor preferencesEditor = getSharedPreferences("vsm", MODE_PRIVATE)
+				.edit();
 		Log.i("VSMOnPause", _model.patientJSON().toString());
-		preferencesEditor.putString("patientModel", _model.patientJSON().toString());
-		preferencesEditor.putString("vitalStatsModel", _model.vitalInfoJSON().toString());
+		preferencesEditor.putString("patientModel", _model.patientJSON()
+				.toString());
+		preferencesEditor.putString("vitalStatsModel", _model.vitalInfoJSON()
+				.toString());
 		preferencesEditor.commit();
-		
-		
+
 		Log.d("VSM", "Serializing and saving model");
 	}
-	
+
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
+
 		Intent parentActivityIntent = new Intent(this, MenuActivity.class);
-		parentActivityIntent.addFlags(
-				Intent.FLAG_ACTIVITY_CLEAR_TOP |
-				Intent.FLAG_ACTIVITY_NEW_TASK);
-		
+		parentActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+				| Intent.FLAG_ACTIVITY_NEW_TASK);
+
 		switch (item.getItemId()) {
 
 		case R.id.action_previous:
@@ -136,17 +134,17 @@ public class VitalStatsFormActivity extends Activity {
 			return true;
 
 		case R.id.action_finish:
-			
+
 			startActivity(parentActivityIntent);
 			finish();
 			return true;
-		
+
 		case android.R.id.home:
 			// This is called when the Home (Up) button is pressed
-            // in the Action Bar.
-            startActivity(parentActivityIntent);
-            finish();
-            return true;
+			// in the Action Bar.
+			startActivity(parentActivityIntent);
+			finish();
+			return true;
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -180,5 +178,4 @@ public class VitalStatsFormActivity extends Activity {
 
 	}
 
-	
 }

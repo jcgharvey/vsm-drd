@@ -83,7 +83,6 @@ public class Page1Fragment extends Fragment {
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
 				try {
-					Log.d("VSM", "Editing Lastname");
 					_model.setLastName(s.toString().trim());
 					lastNameInput.setError(null);
 				} catch (IllegalArgumentException e) {
