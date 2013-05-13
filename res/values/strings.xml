@@ -12,7 +12,7 @@
     <string name="citizenOrResidentLabel">Are you a NZ citizen OR a Permanent Resident?</string>
     <string name="contactNumberLabel">Contact Number:</string>
     <string name="genderLabel">Gender:</string>
-    <string name="dobLabel">Date of Birth:</string>
+    <string name="dobLabel">Date of Birth: </string>
 
     <string-array name="genders">
         <item>Unset</item>
@@ -305,5 +305,8 @@
     <string name="firstTimePinMessage">Please enter a pin to lock your personal information</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="action_settings">Settings</string>
+    <string name="transmitLabel">Tap phone to receiver to upload vital stats information</string>
+    <string name="edit_vital_information">Edit Vital Information</string>
+    <string name="transmit_vital_information">Transmit Vital Information</string>
 
 </resources>
