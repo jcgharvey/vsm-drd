@@ -68,6 +68,13 @@ CreateNdefMessageCallback{
 	}
 	
 	@Override
+	protected void onPause() {
+		super.onPause();
+		mNfcAdapter.setNdefPushMessageCallback(null, this);
+		Log.d("nfc", "being called");
+	}
+	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent parentActivityIntent = new Intent(this, MenuActivity.class);
 		parentActivityIntent.addFlags(
