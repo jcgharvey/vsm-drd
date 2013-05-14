@@ -1,6 +1,7 @@
 package se761.bestgroup.vsm;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,7 +20,7 @@ public class PatientModel implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String _firstName, _lastName, _occupation, _nhiNumber,
-			_familyHistory, _medicalConditions, _contactNumber;
+			_familyHistory, _medicalConditions, _contactNumber, _checkInTime;
 	private Calendar _dob;
 	private BloodType _bloodType;
 	private Gender _gender;
@@ -131,7 +132,6 @@ public class PatientModel implements Serializable {
 		if (n == null || n.length() != 6 || !n.matches("[a-zA-Z]{3}\\d{3}")) {
 			throw new IllegalArgumentException();
 		}
-
 		_nhiNumber = n;
 	}
 
@@ -145,6 +145,26 @@ public class PatientModel implements Serializable {
 
 	public void setBloodType(BloodType b) {
 		_bloodType = b;
+	}
+	
+	public void setCheckInTime(){
+//		Time today = new Time(Time.getCurrentTimezone());
+//		Date d = new Date();
+//		today.setToNow();
+//		Log.v("Time",today.toMillis(true)+"");
+//		Log.v("Time",System.currentTimeMillis()+"");
+//		long millis = System.currentTimeMillis() - today.toMillis(true);
+//		SimpleDateFormat s = new SimpleDateFormat();
+//		s.
+//		Log.v("Time",millis+"");
+//		Log.v("Time",s.format(d));
+//		_checkInTime = String.format("%s.%d000",today.format("%Y-%m-%dT%H:%M:%S"),millis);
+//		_checkInTime = today.format("%Y-%m-%dT%H:%M:%S.%ssss");
+//		
+		String format = "yyyy-MM-dd'T'HH:mm:ss.SSS000";
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		_checkInTime = sdf.format(new Date());
+		Log.v("Checkin", _checkInTime);
 	}
 
 	public void setGender(Gender g) {

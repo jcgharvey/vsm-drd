@@ -39,13 +39,15 @@ CreateNdefMessageCallback{
 		
 		_model = new PatientModel();
 		
+		
 		if (jsonVitalStatsModel != null) {
 			Log.d("VSM", "Deserializing saved model");
 			
 			try {
 				_model.fromPatientJSONString(jsonPatientModel);
 				_model.fromVitalStatsJSONString(jsonVitalStatsModel);
-			
+				// set check in time.
+				_model.setCheckInTime();
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -67,7 +69,7 @@ CreateNdefMessageCallback{
 				NdefRecord.createMime(packageName, patient.getBytes()),
 				NdefRecord.createMime(packageName, vitalInfo.getBytes())
 				);
-		
+		Log.v("NDEF",msg.getRecords().length+"");
 		return msg;
 	}
 	
