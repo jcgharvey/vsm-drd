@@ -78,6 +78,7 @@ public class PatientModel implements Serializable {
 		_dob.set(1975, 1, 1);
 		_weight_value = _height_value = 0;
 		_nzResidentOrCitizen = true;
+		setCheckInTime();
 	}
 
 	public void setFirstName(String firstName) throws IllegalArgumentException {
@@ -148,19 +149,6 @@ public class PatientModel implements Serializable {
 	}
 	
 	public void setCheckInTime(){
-//		Time today = new Time(Time.getCurrentTimezone());
-//		Date d = new Date();
-//		today.setToNow();
-//		Log.v("Time",today.toMillis(true)+"");
-//		Log.v("Time",System.currentTimeMillis()+"");
-//		long millis = System.currentTimeMillis() - today.toMillis(true);
-//		SimpleDateFormat s = new SimpleDateFormat();
-//		s.
-//		Log.v("Time",millis+"");
-//		Log.v("Time",s.format(d));
-//		_checkInTime = String.format("%s.%d000",today.format("%Y-%m-%dT%H:%M:%S"),millis);
-//		_checkInTime = today.format("%Y-%m-%dT%H:%M:%S.%ssss");
-//		
 		String format = "yyyy-MM-dd'T'HH:mm:ss.SSS000";
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		_checkInTime = sdf.format(new Date());
@@ -207,7 +195,7 @@ public class PatientModel implements Serializable {
 		JSONObject vitalInfo = new JSONObject();
 		try {
 
-			vitalInfo.put(JSONKeys.CHECK_IN_TIME, "");
+			vitalInfo.put(JSONKeys.CHECK_IN_TIME, _checkInTime);
 			vitalInfo.put(JSONKeys.WEIGHT_VALUE, _weight_value);
 			vitalInfo.put(JSONKeys.WEIGHT_UNIT, _weight_unit);
 			vitalInfo.put(JSONKeys.HEIGHT_VALUE, _height_value);
