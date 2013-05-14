@@ -35,17 +35,19 @@ CreateNdefMessageCallback{
 		SharedPreferences sharedPreferences = getSharedPreferences("vsm", MODE_PRIVATE);
 		
 		String jsonPatientModel = sharedPreferences.getString("patientModel", null);
-		String jsonSerializedModel = sharedPreferences.getString("vitalStatsModel", null);
+		String jsonVitalStatsModel = sharedPreferences.getString("vitalStatsModel", null);
 		
 		_model = new PatientModel();
 		
-		if (jsonSerializedModel != null) {
+		
+		if (jsonVitalStatsModel != null) {
 			Log.d("VSM", "Deserializing saved model");
 			
 			try {
 				_model.fromPatientJSONString(jsonPatientModel);
-				_model.fromVitalStatsJSONString(jsonSerializedModel);
-			
+				_model.fromVitalStatsJSONString(jsonVitalStatsModel);
+				// set check in time.
+				_model.setCheckInTime();
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -58,12 +60,16 @@ CreateNdefMessageCallback{
 	public NdefMessage createNdefMessage(NfcEvent arg0) {
 		Time time = new Time();
 		time.setToNow();
-		String text = ("This could be JSON: " + time
-				.format("%H:%M:%S"));
-		text = _model.patientJSON().toString();
-		Log.d("nfc", text);
-		NdefMessage msg = new NdefMessage(NdefRecord.createMime(
-				"application/se761.bestgroup.vsmreceiver", text.getBytes()));
+		
+		String packageName = "application/se761.bestgroup.vsmreceiver";
+		String patient = _model.patientJSON().toString();
+		String vitalInfo = _model.vitalInfoJSON().toString();
+		
+		NdefMessage msg = new NdefMessage(
+				NdefRecord.createMime(packageName, patient.getBytes()),
+				NdefRecord.createMime(packageName, vitalInfo.getBytes())
+				);
+		Log.v("NDEF",msg.getRecords().length+"");
 		return msg;
 	}
 	
