@@ -1,6 +1,7 @@
 package se761.bestgroup.vsm;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,7 +20,7 @@ public class PatientModel implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String _firstName, _lastName, _occupation, _nhiNumber,
-			_familyHistory, _medicalConditions, _contactNumber;
+			_familyHistory, _medicalConditions, _contactNumber, _checkInTime;
 	private Calendar _dob;
 	private BloodType _bloodType;
 	private Gender _gender;
@@ -77,6 +78,7 @@ public class PatientModel implements Serializable {
 		_dob.set(1975, 1, 1);
 		_weight_value = _height_value = 0;
 		_nzResidentOrCitizen = true;
+		setCheckInTime();
 	}
 
 	public void setFirstName(String firstName) throws IllegalArgumentException {
@@ -131,7 +133,6 @@ public class PatientModel implements Serializable {
 		if (n == null || n.length() != 6 || !n.matches("[a-zA-Z]{3}\\d{3}")) {
 			throw new IllegalArgumentException();
 		}
-
 		_nhiNumber = n;
 	}
 
@@ -145,6 +146,13 @@ public class PatientModel implements Serializable {
 
 	public void setBloodType(BloodType b) {
 		_bloodType = b;
+	}
+	
+	public void setCheckInTime(){
+		String format = "yyyy-MM-dd'T'HH:mm:ss.SSS000";
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		_checkInTime = sdf.format(new Date());
+		Log.v("Checkin", _checkInTime);
 	}
 
 	public void setGender(Gender g) {
@@ -193,7 +201,7 @@ public class PatientModel implements Serializable {
 		JSONObject vitalInfo = new JSONObject();
 		try {
 
-			vitalInfo.put(JSONKeys.CHECK_IN_TIME, "");
+			vitalInfo.put(JSONKeys.CHECK_IN_TIME, _checkInTime);
 			vitalInfo.put(JSONKeys.WEIGHT_VALUE, _weight_value);
 			vitalInfo.put(JSONKeys.WEIGHT_UNIT, _weight_unit);
 			vitalInfo.put(JSONKeys.HEIGHT_VALUE, _height_value);
