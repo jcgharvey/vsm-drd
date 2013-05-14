@@ -168,6 +168,9 @@ public class PatientModel implements Serializable {
 	}
 
 	public void addCountry(String c) throws IllegalArgumentException {
+		if(c.contains(";")){
+			throw new IllegalArgumentException();
+		}
 		getRecentCountries().add(c);
 	}
 
@@ -176,6 +179,9 @@ public class PatientModel implements Serializable {
 	}
 
 	public void addAllergy(String a) throws IllegalArgumentException {
+		if(a.contains(";")){
+			throw new IllegalArgumentException();
+		}
 		getAllergies().add(a);
 	}
 

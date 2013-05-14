@@ -43,6 +43,8 @@ public class TestPatientDOBAndGender extends TestCase {
 		_model.setDob(year, month, day);
 		Calendar actual = Calendar.getInstance();
 				actual.set(year, month, day);
-		assertEquals(_model.getDob(), actual);
+		assertEquals(_model.getDob().get(Calendar.YEAR), actual.get(Calendar.YEAR));
+		assertEquals(_model.getDob().get(Calendar.MONTH), actual.get(Calendar.MONTH));
+		assertEquals(_model.getDob().get(Calendar.DAY_OF_MONTH), actual.get(Calendar.DAY_OF_MONTH));
 	}
 }
