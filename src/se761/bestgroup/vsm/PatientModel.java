@@ -381,6 +381,15 @@ public class PatientModel implements Serializable {
 	public String getMedicalConditions() {
 		return _medicalConditions;
 	}
+	
+	/**
+	 * Returns whether the input string is considered valid
+	 * @param in
+	 * @return
+	 */
+	public static boolean isValidAllergy(String in){
+		return !in.contains(";");
+	}
 
 	public List<String> getRecentCountries() {
 		return _recentCountries;

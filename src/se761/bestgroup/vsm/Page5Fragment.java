@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class Page5Fragment extends Fragment {
 	
@@ -90,8 +91,12 @@ public class Page5Fragment extends Fragment {
 				
 				@Override
 				public void onPositiveClick(String value) {
-					_adapter.add(value);
-					_model.getAllergies().add(value);
+					try{
+						_model.addAllergy(value);
+						_adapter.add(value);
+					}catch(IllegalArgumentException e){
+						Toast.makeText(Page5Fragment.this.getActivity(), "You can't use semicolons", Toast.LENGTH_LONG).show();
+					}
 				}
 			});
 			dialog.show(getFragmentManager(), "AddAlergyDialog");
