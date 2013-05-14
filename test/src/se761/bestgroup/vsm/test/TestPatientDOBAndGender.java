@@ -1,9 +1,10 @@
 package se761.bestgroup.vsm.test;
 
-import se761.bestgroup.vsm.PatientModel;
-import se761.bestgroup.vsm.PatientModel.Gender;
+import java.util.Calendar;
 
 import junit.framework.TestCase;
+import se761.bestgroup.vsm.PatientModel;
+import se761.bestgroup.vsm.PatientModel.Gender;
 
 public class TestPatientDOBAndGender extends TestCase {
 	private PatientModel _model;
@@ -35,23 +36,15 @@ public class TestPatientDOBAndGender extends TestCase {
 		_model.setGender(Gender.Other);
 		assertEquals(_model.getGender(), Gender.Other);
 	}
-	
-	public void testSetGenderUnset() {
-		// you should be allowed to set back to this.
-		_model.setGender(Gender.Male);
-		_model.setGender(Gender.Unset);
-		assertEquals(_model.getGender(), Gender.Male);
-	}
-	
-	public void testSetGenderUsdfghjkt() {
-		// you should be allowed to set back to this.
-		_model.setGender(Gender.Unset);
-		assertEquals(_model.getGender(), Gender.Unset);
-	}
+
 	
 	public void testDOB() {
-		String date = "1/1/1999";
-		_model.setDob(date);
-		assertEquals(_model.getDob(), date);
+		int year = 1999, month = 1, day = 1;
+		_model.setDob(year, month, day);
+		Calendar actual = Calendar.getInstance();
+				actual.set(year, month, day);
+		assertEquals(_model.getDob().get(Calendar.YEAR), actual.get(Calendar.YEAR));
+		assertEquals(_model.getDob().get(Calendar.MONTH), actual.get(Calendar.MONTH));
+		assertEquals(_model.getDob().get(Calendar.DAY_OF_MONTH), actual.get(Calendar.DAY_OF_MONTH));
 	}
 }
