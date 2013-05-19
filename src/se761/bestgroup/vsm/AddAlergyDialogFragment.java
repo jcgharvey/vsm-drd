@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AddAlergyDialogFragment extends DialogFragment {
 
@@ -33,9 +34,6 @@ public class AddAlergyDialogFragment extends DialogFragment {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						if(true){
-							
-						}
 						_listener.onPositiveClick(alergyInput.getText()
 								.toString());
 					}
@@ -47,33 +45,35 @@ public class AddAlergyDialogFragment extends DialogFragment {
 						// Same as pressing the back button
 					}
 				});
-		
+
 		final AlertDialog dialog = builder.create();
 		alergyInput.addTextChangedListener(new TextWatcher() {
-			
+
 			@Override
 			public void afterTextChanged(Editable s) {
 			}
-			
+
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
 			}
-			
+
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
 				if (PatientModel.isValidAllergy(s.toString())) {
 					alergyInput.setError(null);
-					dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+					dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(
+							true);
 				} else {
-					dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+					dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(
+							false);
 					alergyInput.setError("You can't use semicolons");
 				}
 			}
-			
+
 		});
-		
+
 		return dialog;
 	}
 
