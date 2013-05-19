@@ -12,6 +12,8 @@ public class JSONKeys {
 	public static final String DOB = "dob";
 	
 	// Vital Info
+	
+	public static final String VITAL_STATS_MODEL = "vitalinfo";
 	public static final String CHECK_IN_TIME = "check_in_time";
 	public static final String WEIGHT_UNIT = "weight_unit";
 	public static final String WEIGHT_VALUE = "weight_value";

@@ -15,14 +15,6 @@
     <string name="dobLabel">Date of Birth: </string>
 
     <string-array name="genders">
-        <item>Unset</item>
-        <item>Male</item>
-        <item>Female</item>
-        <item>Other</item>
-    </string-array>
-    
-    <string-array name="gendersNew">
-        <item>Unset</item>
         <item>Male</item>
         <item>Female</item>
         <item>Other</item>
@@ -33,7 +25,7 @@
     <string name="bloodTypeLabel">Blood Type:</string>
 
     <string-array name="bloodTypes">
-        <item>Unset</item>
+        <item>Unknown</item>
         <item>A+</item>
         <item>B+</item>
         <item>AB+</item>
@@ -42,7 +34,6 @@
         <item>B-</item>
         <item>AB-</item>
         <item>O-</item>
-        <item>Unknown</item>
     </string-array>
 
     <string name="smokerLabel">Do you smoke?</string>
