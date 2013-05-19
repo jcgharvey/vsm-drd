@@ -44,8 +44,8 @@ CreateNdefMessageCallback{
 			Log.d("VSM", "Deserializing saved model");
 			
 			try {
-				_model.fromPatientJSONString(jsonPatientModel);
 				_model.fromVitalStatsJSONString(jsonVitalStatsModel);
+				_model.fromPatientJSONString(jsonPatientModel);
 				// set check in time.
 				_model.setCheckInTime();
 			} catch (JSONException e) {
@@ -62,13 +62,11 @@ CreateNdefMessageCallback{
 		time.setToNow();
 		
 		String packageName = "application/se761.bestgroup.vsmreceiver";
-		String patient = _model.patientJSON().toString();
-		String vitalInfo = _model.vitalInfoJSON().toString();
+		String json = _model.tramsitJSON().toString();
 		
 		NdefMessage msg = new NdefMessage(
-				NdefRecord.createMime(packageName, patient.getBytes()),
-				NdefRecord.createMime(packageName, vitalInfo.getBytes())
-				);
+				NdefRecord.createMime(packageName, json.getBytes()));
+		Log.v("NDEF",json);
 		Log.v("NDEF",msg.getRecords().length+"");
 		return msg;
 	}

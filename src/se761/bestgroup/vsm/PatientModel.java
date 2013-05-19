@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -33,9 +34,8 @@ public class PatientModel implements Serializable {
 	private String _weight_unit;
 
 	public enum BloodType {
-		UNSET("Unset"), A_POS("A+"), B_POS("B+"), O_POS("O+"), AB_POS("AB+"), A_NEG(
-				"A-"), B_NEG("B-"), O_NEG("O-"), AB_NEG("AB-"), UNKNOWN(
-				"Unknown");
+		A_POS("A+"), B_POS("B+"), O_POS("O+"), AB_POS("AB+"), A_NEG("A-"), B_NEG(
+				"B-"), O_NEG("O-"), AB_NEG("AB-"), UNKNOWN("Unknown");
 
 		private String _bloodType;
 
@@ -58,7 +58,7 @@ public class PatientModel implements Serializable {
 	}
 
 	public enum Gender {
-		Unset, Male, Female, Other;
+		Male, Female, Other;
 		public static Gender lookup(String value) {
 			for (Gender g : Gender.values()) {
 				if (g.toString().equals(value))
@@ -147,8 +147,8 @@ public class PatientModel implements Serializable {
 	public void setBloodType(BloodType b) {
 		_bloodType = b;
 	}
-	
-	public void setCheckInTime(){
+
+	public void setCheckInTime() {
 		String format = "yyyy-MM-dd'T'HH:mm:ss.SSS000";
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		_checkInTime = sdf.format(new Date());
@@ -156,11 +156,7 @@ public class PatientModel implements Serializable {
 	}
 
 	public void setGender(Gender g) {
-		if (g != Gender.Unset) {
-			_gender = g;
-		} else {
-			throw new IllegalArgumentException("Gender can't be unset");
-		}
+		_gender = g;
 	}
 
 	public void setContactNumber(String number) throws IllegalArgumentException {
@@ -176,7 +172,7 @@ public class PatientModel implements Serializable {
 	}
 
 	public void addCountry(String c) throws IllegalArgumentException {
-		if(c.contains(";")){
+		if (c.contains(";")) {
 			throw new IllegalArgumentException();
 		}
 		getRecentCountries().add(c);
@@ -187,7 +183,7 @@ public class PatientModel implements Serializable {
 	}
 
 	public void addAllergy(String a) throws IllegalArgumentException {
-		if(a.contains(";")){
+		if (a.contains(";")) {
 			throw new IllegalArgumentException();
 		}
 		getAllergies().add(a);
@@ -196,18 +192,46 @@ public class PatientModel implements Serializable {
 	public void removeAllergy(String a) throws IllegalArgumentException {
 		getAllergies().remove(a);
 	}
+	
+	/**
+	 * HIC SUNT DRACONES
+	 * @return
+	 */
+	public JSONObject tramsitJSON(){
+		JSONObject patient = patientJSON();
+		patient.remove(JSONKeys.NHI);
+		JSONObject vitals = vitalInfoJSON();
+		Iterator<String> it = vitals.keys();
+		while (it.hasNext()){
+			String t =  it.next();
+			try {
+				patient.put(t, vitals.get(t));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		JSONObject json = new JSONObject();
+		try {
+			json.put(JSONKeys.NHI, _nhiNumber);
+			json.put(JSONKeys.VITAL_STATS_MODEL, patient);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return json;
+	}
 
 	public JSONObject vitalInfoJSON() {
 		JSONObject vitalInfo = new JSONObject();
 		try {
-
 			vitalInfo.put(JSONKeys.CHECK_IN_TIME, _checkInTime);
 			vitalInfo.put(JSONKeys.WEIGHT_VALUE, _weight_value);
 			vitalInfo.put(JSONKeys.WEIGHT_UNIT, _weight_unit);
 			vitalInfo.put(JSONKeys.HEIGHT_VALUE, _height_value);
 			vitalInfo.put(JSONKeys.HEIGHT_UNIT, _height_unit);
 			vitalInfo.put(JSONKeys.BLOOD_TYPE,
-					_bloodType == null ? BloodType.UNSET.toString()
+					_bloodType == null ? BloodType.UNKNOWN.toString()
 							: _bloodType.toString());
 			vitalInfo.put(JSONKeys.SMOKER, _smoker);
 			vitalInfo.put(JSONKeys.DRINKER, _drinker);
@@ -218,7 +242,6 @@ public class PatientModel implements Serializable {
 					.size() >= 1);
 			vitalInfo.put(JSONKeys.MEDICAL_CONDITIONS, _medicalConditions);
 			vitalInfo.put(JSONKeys.ALLERGIES, new JSONArray(getAllergies()));
-
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -238,12 +261,11 @@ public class PatientModel implements Serializable {
 			// Gender is enum and defaults to null
 			patient.put(
 					JSONKeys.GENDER,
-					_gender == null ? Gender.Unset.toString() : _gender
+					_gender == null ? Gender.Female.toString() : _gender
 							.toString());
 			patient.put(JSONKeys.DOB,
 					_dob.get(Calendar.YEAR) + "-" + _dob.get(Calendar.MONTH)
 							+ "-" + _dob.get(Calendar.DAY_OF_MONTH));
-
 		} catch (JSONException e) {
 			e.printStackTrace();
 			Log.i("Patient JSON", patient.toString());
@@ -293,15 +315,17 @@ public class PatientModel implements Serializable {
 		_gender = Gender.lookup(json.getString(JSONKeys.GENDER));
 
 		String[] dateStringArray = json.getString(JSONKeys.DOB).split("-");
-		_dob.set(Integer.parseInt(dateStringArray[0]), Integer.parseInt(dateStringArray[1]), Integer.parseInt(dateStringArray[2]));
+		_dob.set(Integer.parseInt(dateStringArray[0]),
+				Integer.parseInt(dateStringArray[1]),
+				Integer.parseInt(dateStringArray[2]));
 	}
 
 	public Gender getGender() {
-		return _gender == null ? Gender.Unset : _gender;
+		return _gender == null ? Gender.Female : _gender;
 	}
 
 	public BloodType getBloodType() {
-		return _bloodType == null ? BloodType.UNSET : _bloodType;
+		return _bloodType == null ? BloodType.UNKNOWN : _bloodType;
 	}
 
 	public String getFirstName() {
@@ -389,13 +413,14 @@ public class PatientModel implements Serializable {
 	public String getMedicalConditions() {
 		return _medicalConditions;
 	}
-	
+
 	/**
 	 * Returns whether the input string is considered valid
+	 * 
 	 * @param in
 	 * @return
 	 */
-	public static boolean isValidAllergy(String in){
+	public static boolean isValidAllergy(String in) {
 		return !in.contains(";");
 	}
 
@@ -414,5 +439,58 @@ public class PatientModel implements Serializable {
 	public void setAllergies(List<String> _allergies) {
 		this._allergies = _allergies;
 	}
+
+//	private class VitalStatsModel {
+//		// private String familyHistory;
+//		// private String medicalConditions;
+//		// private double height_value;
+//		// private double weight_value;
+//		// private BloodType bloodType;
+//		// private boolean drinker;
+//		// private boolean smoker;
+//		// private List<String> allergies;
+//		// private List<String> recentCountries;
+//		//
+//		// VitalStatsModel(){
+//		// this.familyHistory = _familyHistory;
+//		// this.medicalConditions = _medicalConditions;
+//		// this.weight_value = _weight_value;
+//		// this.height_value = _height_value;
+//		// this.bloodType = _bloodType;
+//		// this.recentCountries = _recentCountries;
+//		// this.allergies = _allergies;
+//		// this.drinker = _drinker;
+//		// this.smoker = _smoker;
+//		// }
+//		//
+//		public JSONObject toJSON() {
+//			JSONObject vitalInfo = new JSONObject();
+//			try {
+//
+//				vitalInfo.put(JSONKeys.CHECK_IN_TIME, _checkInTime);
+//				vitalInfo.put(JSONKeys.WEIGHT_VALUE, _weight_value);
+//				vitalInfo.put(JSONKeys.WEIGHT_UNIT, _weight_unit);
+//				vitalInfo.put(JSONKeys.HEIGHT_VALUE, _height_value);
+//				vitalInfo.put(JSONKeys.HEIGHT_UNIT, _height_unit);
+//				vitalInfo.put(JSONKeys.BLOOD_TYPE,
+//						_bloodType == null ? BloodType.UNKNOWN.toString()
+//								: _bloodType.toString());
+//				vitalInfo.put(JSONKeys.SMOKER, _smoker);
+//				vitalInfo.put(JSONKeys.DRINKER, _drinker);
+//				vitalInfo.put(JSONKeys.FAMILY_HISTORY, _familyHistory);
+//				vitalInfo.put(JSONKeys.OVERSEAS_DESTINATIONS, new JSONArray(
+//						getRecentCountries()));
+//				vitalInfo.put(JSONKeys.OVERSEAS_RECENTLY, getRecentCountries()
+//						.size() >= 1);
+//				vitalInfo.put(JSONKeys.MEDICAL_CONDITIONS, _medicalConditions);
+//				vitalInfo
+//						.put(JSONKeys.ALLERGIES, new JSONArray(getAllergies()));
+//
+//			} catch (JSONException e) {
+//				e.printStackTrace();
+//			}
+//			return vitalInfo;
+//		}
+//	}
 
 }
