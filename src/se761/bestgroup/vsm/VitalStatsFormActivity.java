@@ -33,22 +33,19 @@ public class VitalStatsFormActivity extends Activity {
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
-		SharedPreferences sharedPreferences = getSharedPreferences("vsm",
+		SharedPreferences sharedPreferences = getSharedPreferences(Keys.VSM,
 				MODE_PRIVATE);
 
-		String jsonPatientModel = sharedPreferences.getString("patientModel",
+		String jsonString = sharedPreferences.getString(Keys.MODEL,
 				null);
-		String jsonSerializedModel = sharedPreferences.getString(
-				"vitalStatsModel", null);
 
 		_model = new PatientModel();
 
-		if (jsonSerializedModel != null) {
+		if (jsonString != null) {
 			Log.d("VSM", "Deserializing saved model");
 
 			try {
-				_model.fromPatientJSONString(jsonPatientModel);
-				_model.fromVitalStatsJSONString(jsonSerializedModel);
+				_model.fromJSON(jsonString);
 
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -99,15 +96,12 @@ public class VitalStatsFormActivity extends Activity {
 	protected void onPause() {
 		super.onPause();
 		// Save the model's state
-		Editor preferencesEditor = getSharedPreferences("vsm", MODE_PRIVATE)
+		Editor preferencesEditor = getSharedPreferences(Keys.VSM, MODE_PRIVATE)
 				.edit();
-		Log.i("VSMOnPause", _model.patientJSON().toString());
-		preferencesEditor.putString("patientModel", _model.patientJSON()
-				.toString());
-		preferencesEditor.putString("vitalStatsModel", _model.vitalInfoJSON()
+		Log.i("VSMOnPause", _model.toJSON().toString());
+		preferencesEditor.putString(Keys.MODEL, _model.toJSON()
 				.toString());
 		preferencesEditor.commit();
-
 		Log.d("VSM", "Serializing and saving model");
 	}
 
