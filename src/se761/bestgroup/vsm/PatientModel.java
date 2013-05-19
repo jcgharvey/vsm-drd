@@ -30,8 +30,8 @@ public class PatientModel implements Serializable {
 	private boolean _nzResidentOrCitizen, _smoker, _drinker;
 
 	private double _weight_value, _height_value;
-	private String _height_unit;
-	private String _weight_unit;
+	private String _height_unit = "cm";
+	private String _weight_unit = "kg";
 
 	public enum BloodType {
 		A_POS("A+"), B_POS("B+"), O_POS("O+"), AB_POS("AB+"), A_NEG("A-"), B_NEG(
@@ -78,6 +78,7 @@ public class PatientModel implements Serializable {
 		_dob.set(1975, 1, 1);
 		_weight_value = _height_value = 0;
 		_nzResidentOrCitizen = true;
+		_drinker = _smoker = false;
 		setCheckInTime();
 	}
 
