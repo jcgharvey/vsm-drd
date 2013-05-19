@@ -155,10 +155,7 @@ public class Page1Fragment extends Fragment {
 
 		// Set up the gender spinner
 		final Spinner genderSpinner = (Spinner) root.findViewById(R.id.gender);
-		int arrayId = R.array.gendersNew;
-		if (_model.getGender() != Gender.Unset) {
-			arrayId = R.array.genders;
-		}
+		int arrayId = R.array.genders;
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
 				getActivity(), arrayId, R.layout.custom_spinner_list);
 		adapter.setDropDownViewResource(R.layout.custom_spinner);
