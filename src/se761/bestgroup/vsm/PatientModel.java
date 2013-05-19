@@ -30,8 +30,8 @@ public class PatientModel implements Serializable {
 	private boolean _nzResidentOrCitizen, _smoker, _drinker;
 
 	private double _weight_value, _height_value;
-	private String _height_unit;
-	private String _weight_unit;
+	private String _height_unit = "cm";
+	private String _weight_unit = "kg";
 
 	public enum BloodType {
 		A_POS("A+"), B_POS("B+"), O_POS("O+"), AB_POS("AB+"), A_NEG("A-"), B_NEG(
@@ -78,6 +78,7 @@ public class PatientModel implements Serializable {
 		_dob.set(1975, 1, 1);
 		_weight_value = _height_value = 0;
 		_nzResidentOrCitizen = true;
+		_drinker = _smoker = false;
 		setCheckInTime();
 	}
 
@@ -192,129 +193,93 @@ public class PatientModel implements Serializable {
 	public void removeAllergy(String a) throws IllegalArgumentException {
 		getAllergies().remove(a);
 	}
-	
+
 	/**
 	 * HIC SUNT DRACONES
+	 * 
 	 * @return
+	 * @throws
 	 */
-	public JSONObject tramsitJSON(){
-		JSONObject patient = patientJSON();
-		patient.remove(JSONKeys.NHI);
-		JSONObject vitals = vitalInfoJSON();
-		Iterator<String> it = vitals.keys();
-		while (it.hasNext()){
-			String t =  it.next();
-			try {
-				patient.put(t, vitals.get(t));
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
-		
+	public JSONObject toJSON() {
+		JSONObject info = new JSONObject();
 		JSONObject json = new JSONObject();
+		
 		try {
-			json.put(JSONKeys.NHI, _nhiNumber);
-			json.put(JSONKeys.VITAL_STATS_MODEL, patient);
+			info.put(Keys.CHECK_IN_TIME, _checkInTime);
+			info.put(Keys.WEIGHT_VALUE, _weight_value);
+			info.put(Keys.WEIGHT_UNIT, _weight_unit);
+			info.put(Keys.HEIGHT_VALUE, _height_value);
+			info.put(Keys.HEIGHT_UNIT, _height_unit);
+			info.put(Keys.BLOOD_TYPE,
+					_bloodType == null ? BloodType.UNKNOWN.toString()
+							: _bloodType.toString());
+			info.put(Keys.SMOKER, _smoker);
+			info.put(Keys.DRINKER, _drinker);
+			info.put(Keys.FAMILY_HISTORY, _familyHistory);
+			info.put(Keys.OVERSEAS_DESTINATIONS, new JSONArray(
+					getRecentCountries()));
+			info.put(Keys.OVERSEAS_RECENTLY, getRecentCountries().size() >= 1);
+			info.put(Keys.MEDICAL_CONDITIONS, _medicalConditions);
+			info.put(Keys.ALLERGIES, new JSONArray(getAllergies()));
+			info.put(Keys.FIRSTNAME, _firstName);
+			info.put(Keys.LASTNAME, _lastName);
+			info.put(Keys.OCCUPATION, _occupation);
+			info.put(Keys.CITIZENRESIDENT, _nzResidentOrCitizen);
+			info.put(Keys.CONTACTNUM, _contactNumber);
+
+			// Gender is enum and defaults to null
+			info.put(Keys.GENDER, _gender == null ? Gender.Female.toString()
+					: _gender.toString());
+			info.put(Keys.DOB,
+					_dob.get(Calendar.YEAR) + "-" + _dob.get(Calendar.MONTH)
+							+ "-" + _dob.get(Calendar.DAY_OF_MONTH));		
+
+			json.put(Keys.NHI, _nhiNumber);
+			json.put(Keys.VITAL_STATS_MODEL, info);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
+
 		return json;
 	}
 
-	public JSONObject vitalInfoJSON() {
-		JSONObject vitalInfo = new JSONObject();
-		try {
-			vitalInfo.put(JSONKeys.CHECK_IN_TIME, _checkInTime);
-			vitalInfo.put(JSONKeys.WEIGHT_VALUE, _weight_value);
-			vitalInfo.put(JSONKeys.WEIGHT_UNIT, _weight_unit);
-			vitalInfo.put(JSONKeys.HEIGHT_VALUE, _height_value);
-			vitalInfo.put(JSONKeys.HEIGHT_UNIT, _height_unit);
-			vitalInfo.put(JSONKeys.BLOOD_TYPE,
-					_bloodType == null ? BloodType.UNKNOWN.toString()
-							: _bloodType.toString());
-			vitalInfo.put(JSONKeys.SMOKER, _smoker);
-			vitalInfo.put(JSONKeys.DRINKER, _drinker);
-			vitalInfo.put(JSONKeys.FAMILY_HISTORY, _familyHistory);
-			vitalInfo.put(JSONKeys.OVERSEAS_DESTINATIONS, new JSONArray(
-					getRecentCountries()));
-			vitalInfo.put(JSONKeys.OVERSEAS_RECENTLY, getRecentCountries()
-					.size() >= 1);
-			vitalInfo.put(JSONKeys.MEDICAL_CONDITIONS, _medicalConditions);
-			vitalInfo.put(JSONKeys.ALLERGIES, new JSONArray(getAllergies()));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return vitalInfo;
-	}
-
-	public JSONObject patientJSON() {
-		JSONObject patient = new JSONObject();
-		try {
-			patient.put(JSONKeys.FIRSTNAME, _firstName);
-			patient.put(JSONKeys.LASTNAME, _lastName);
-			patient.put(JSONKeys.NHI, _nhiNumber);
-			patient.put(JSONKeys.OCCUPATION, _occupation);
-			patient.put(JSONKeys.CITIZENRESIDENT, _nzResidentOrCitizen);
-			patient.put(JSONKeys.CONTACTNUM, _contactNumber);
-
-			// Gender is enum and defaults to null
-			patient.put(
-					JSONKeys.GENDER,
-					_gender == null ? Gender.Female.toString() : _gender
-							.toString());
-			patient.put(JSONKeys.DOB,
-					_dob.get(Calendar.YEAR) + "-" + _dob.get(Calendar.MONTH)
-							+ "-" + _dob.get(Calendar.DAY_OF_MONTH));
-		} catch (JSONException e) {
-			e.printStackTrace();
-			Log.i("Patient JSON", patient.toString());
-		}
-
-		return patient;
-	}
-
-	public void fromVitalStatsJSONString(String jsonString)
-			throws JSONException {
+	public void fromJSON(String jsonString) throws JSONException {
 		JSONObject json = new JSONObject(jsonString);
+		// get nhi
+		_nhiNumber = json.getString(Keys.NHI);
+		// get json from json
+		json = json.getJSONObject(Keys.VITAL_STATS_MODEL);
+		//get all values
+		_familyHistory = json.getString(Keys.FAMILY_HISTORY);
+		_medicalConditions = json.getString(Keys.MEDICAL_CONDITIONS);
 
-		_familyHistory = json.getString(JSONKeys.FAMILY_HISTORY);
-		_medicalConditions = json.getString(JSONKeys.MEDICAL_CONDITIONS);
+		_weight_value = json.getDouble(Keys.WEIGHT_VALUE);
+		_height_value = json.getDouble(Keys.HEIGHT_VALUE);
 
-		_weight_value = json.getDouble(JSONKeys.WEIGHT_VALUE);
-		_height_value = json.getDouble(JSONKeys.HEIGHT_VALUE);
-
-		_bloodType = BloodType.lookup(json.getString(JSONKeys.BLOOD_TYPE));
+		_bloodType = BloodType.lookup(json.getString(Keys.BLOOD_TYPE));
 
 		JSONArray countriesJsonArray = json
-				.getJSONArray(JSONKeys.OVERSEAS_DESTINATIONS);
+				.getJSONArray(Keys.OVERSEAS_DESTINATIONS);
 		getRecentCountries().clear();
 		for (int i = 0; i < countriesJsonArray.length(); i++) {
 			getRecentCountries().add(countriesJsonArray.getString(i));
 		}
 
-		JSONArray alergiesJsonArray = json.getJSONArray(JSONKeys.ALLERGIES);
+		JSONArray alergiesJsonArray = json.getJSONArray(Keys.ALLERGIES);
 		getAllergies().clear();
 		for (int i = 0; i < alergiesJsonArray.length(); i++) {
 			getAllergies().add(alergiesJsonArray.getString(i));
 		}
-		_drinker = json.getBoolean(JSONKeys.DRINKER);
-		_smoker = json.getBoolean(JSONKeys.SMOKER);
+		_drinker = json.getBoolean(Keys.DRINKER);
+		_smoker = json.getBoolean(Keys.SMOKER);
+		_firstName = json.getString(Keys.FIRSTNAME);
+		_lastName = json.getString(Keys.LASTNAME);
+		_occupation = json.getString(Keys.OCCUPATION);
+		_nzResidentOrCitizen = json.getBoolean(Keys.CITIZENRESIDENT);
+		_contactNumber = json.getString(Keys.CONTACTNUM);
+		_gender = Gender.lookup(json.getString(Keys.GENDER));
 
-	}
-
-	public void fromPatientJSONString(String jsonString) throws JSONException {
-		JSONObject json = new JSONObject(jsonString);
-
-		_firstName = json.getString(JSONKeys.FIRSTNAME);
-		_lastName = json.getString(JSONKeys.LASTNAME);
-		_nhiNumber = json.getString(JSONKeys.NHI);
-		_occupation = json.getString(JSONKeys.OCCUPATION);
-		_nzResidentOrCitizen = json.getBoolean(JSONKeys.CITIZENRESIDENT);
-		_contactNumber = json.getString(JSONKeys.CONTACTNUM);
-		_gender = Gender.lookup(json.getString(JSONKeys.GENDER));
-
-		String[] dateStringArray = json.getString(JSONKeys.DOB).split("-");
+		String[] dateStringArray = json.getString(Keys.DOB).split("-");
 		_dob.set(Integer.parseInt(dateStringArray[0]),
 				Integer.parseInt(dateStringArray[1]),
 				Integer.parseInt(dateStringArray[2]));
@@ -439,58 +404,4 @@ public class PatientModel implements Serializable {
 	public void setAllergies(List<String> _allergies) {
 		this._allergies = _allergies;
 	}
-
-//	private class VitalStatsModel {
-//		// private String familyHistory;
-//		// private String medicalConditions;
-//		// private double height_value;
-//		// private double weight_value;
-//		// private BloodType bloodType;
-//		// private boolean drinker;
-//		// private boolean smoker;
-//		// private List<String> allergies;
-//		// private List<String> recentCountries;
-//		//
-//		// VitalStatsModel(){
-//		// this.familyHistory = _familyHistory;
-//		// this.medicalConditions = _medicalConditions;
-//		// this.weight_value = _weight_value;
-//		// this.height_value = _height_value;
-//		// this.bloodType = _bloodType;
-//		// this.recentCountries = _recentCountries;
-//		// this.allergies = _allergies;
-//		// this.drinker = _drinker;
-//		// this.smoker = _smoker;
-//		// }
-//		//
-//		public JSONObject toJSON() {
-//			JSONObject vitalInfo = new JSONObject();
-//			try {
-//
-//				vitalInfo.put(JSONKeys.CHECK_IN_TIME, _checkInTime);
-//				vitalInfo.put(JSONKeys.WEIGHT_VALUE, _weight_value);
-//				vitalInfo.put(JSONKeys.WEIGHT_UNIT, _weight_unit);
-//				vitalInfo.put(JSONKeys.HEIGHT_VALUE, _height_value);
-//				vitalInfo.put(JSONKeys.HEIGHT_UNIT, _height_unit);
-//				vitalInfo.put(JSONKeys.BLOOD_TYPE,
-//						_bloodType == null ? BloodType.UNKNOWN.toString()
-//								: _bloodType.toString());
-//				vitalInfo.put(JSONKeys.SMOKER, _smoker);
-//				vitalInfo.put(JSONKeys.DRINKER, _drinker);
-//				vitalInfo.put(JSONKeys.FAMILY_HISTORY, _familyHistory);
-//				vitalInfo.put(JSONKeys.OVERSEAS_DESTINATIONS, new JSONArray(
-//						getRecentCountries()));
-//				vitalInfo.put(JSONKeys.OVERSEAS_RECENTLY, getRecentCountries()
-//						.size() >= 1);
-//				vitalInfo.put(JSONKeys.MEDICAL_CONDITIONS, _medicalConditions);
-//				vitalInfo
-//						.put(JSONKeys.ALLERGIES, new JSONArray(getAllergies()));
-//
-//			} catch (JSONException e) {
-//				e.printStackTrace();
-//			}
-//			return vitalInfo;
-//		}
-//	}
-
 }

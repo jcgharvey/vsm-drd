@@ -32,20 +32,14 @@ CreateNdefMessageCallback{
 		mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		mNfcAdapter.setNdefPushMessageCallback(this, this);
 		
-		SharedPreferences sharedPreferences = getSharedPreferences("vsm", MODE_PRIVATE);
-		
-		String jsonPatientModel = sharedPreferences.getString("patientModel", null);
-		String jsonVitalStatsModel = sharedPreferences.getString("vitalStatsModel", null);
-		
+		SharedPreferences sharedPreferences = getSharedPreferences(Keys.VSM, MODE_PRIVATE);		
+		String jsonModel = sharedPreferences.getString(Keys.MODEL, null);
 		_model = new PatientModel();
 		
-		
-		if (jsonVitalStatsModel != null) {
-			Log.d("VSM", "Deserializing saved model");
-			
+		if (jsonModel != null) {
+			Log.d("VSM", "Deserializing saved model");			
 			try {
-				_model.fromVitalStatsJSONString(jsonVitalStatsModel);
-				_model.fromPatientJSONString(jsonPatientModel);
+				_model.fromJSON(jsonModel);
 				// set check in time.
 				_model.setCheckInTime();
 			} catch (JSONException e) {
@@ -61,8 +55,8 @@ CreateNdefMessageCallback{
 		Time time = new Time();
 		time.setToNow();
 		
-		String packageName = "application/se761.bestgroup.vsmreceiver";
-		String json = _model.tramsitJSON().toString();
+		String packageName = Keys.PACKAGE;
+		String json = _model.toJSON().toString();
 		
 		NdefMessage msg = new NdefMessage(
 				NdefRecord.createMime(packageName, json.getBytes()));
