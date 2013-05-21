@@ -1,6 +1,6 @@
 package se761.bestgroup.vsm;
 
-import se761.bestgroup.vsm.AddAlergyDialogFragment.AddAlergyDiaglogListener;
+import se761.bestgroup.vsm.AddAllergyDialogFragment.AddAlergyDiaglogListener;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -87,7 +87,7 @@ public class Page5Fragment extends Fragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.action_add_allergy) {
-			AddAlergyDialogFragment dialog = new AddAlergyDialogFragment();
+			AddAllergyDialogFragment dialog = new AddAllergyDialogFragment();
 			dialog.setAddAlergyDialogListener(new AddAlergyDiaglogListener() {
 
 				@Override

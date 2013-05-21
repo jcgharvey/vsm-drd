@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class AddAlergyDialogFragment extends DialogFragment {
+public class AddAllergyDialogFragment extends DialogFragment {
 
 	private AddAlergyDiaglogListener _listener;
 
