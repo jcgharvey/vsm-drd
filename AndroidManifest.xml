@@ -13,7 +13,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/launcher_logo"
+        android:icon="@drawable/vsm_logo_2"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         
