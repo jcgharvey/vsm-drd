@@ -18,7 +18,7 @@
             android:id="@+id/contactNumber"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/contactNumberLabel"
+            android:hint="@string/contactNumberHint"
             android:inputType="phone" />
 
         <LinearLayout
