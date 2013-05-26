@@ -32,6 +32,7 @@ public class Page2Fragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		_model = (PatientModel) getArguments().get("model");
+		setUserVisibleHint(true);
 		
 	}
 

@@ -33,6 +33,7 @@ public class Page5Fragment extends Fragment {
 		_model = (PatientModel) getArguments().get("model");
 		setHasOptionsMenu(true);
 		setRetainInstance(true);
+		setUserVisibleHint(true);
 	}
 
 	@Override

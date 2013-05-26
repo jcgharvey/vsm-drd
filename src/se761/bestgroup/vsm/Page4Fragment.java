@@ -29,7 +29,8 @@ public class Page4Fragment extends Fragment implements
 		super.onCreate(savedInstanceState);
 		_model = (PatientModel) getArguments().get("model");
 		_adapter = new ArrayAdapter<String>(getActivity(),
-				R.layout.small_listview_item);
+				android.R.layout.simple_list_item_1);
+		setUserVisibleHint(true);
 	}
 
 	@Override
