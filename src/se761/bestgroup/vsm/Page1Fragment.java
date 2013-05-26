@@ -35,6 +35,7 @@ public class Page1Fragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		_model = (PatientModel) getArguments().get("model");
+		setUserVisibleHint(true);
 		
 	}
 
@@ -139,7 +140,7 @@ public class Page1Fragment extends Fragment {
 					_model.setNHINumber(s.toString().trim());
 					nhiInput.setError(null);
 				} catch (IllegalArgumentException e) {
-					nhiInput.setError("Whitespace or non alphabetic characters are not allowed");
+					nhiInput.setError("NHI must be 6 digits long, with the first 3 digits alphabetical and the last 3 numeric.");
 				}
 			}
 
@@ -157,8 +158,8 @@ public class Page1Fragment extends Fragment {
 		final Spinner genderSpinner = (Spinner) root.findViewById(R.id.gender);
 		int arrayId = R.array.genders;
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-				getActivity(), arrayId, R.layout.custom_spinner_list);
-		adapter.setDropDownViewResource(R.layout.custom_spinner);
+				getActivity(), arrayId, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		genderSpinner.setAdapter(adapter);
 		genderSpinner.setSelection(Arrays.asList(
@@ -185,8 +186,9 @@ public class Page1Fragment extends Fragment {
 		});
 
 		final TextView dateOfBirth = (TextView) root.findViewById(R.id.dob);
-		dateOfBirth.setText(_model.getDob().get(Calendar.DAY_OF_MONTH) + "-" + (_model.getDob().get(Calendar.MONTH) + 1 )+ "-" + _model.getDob().get(Calendar.YEAR));
-
+		String formatedDate = String.format(getResources().getString(R.string.dobLabel), _model.getDob().get(Calendar.DAY_OF_MONTH), _model.getDob().get(Calendar.MONTH)+ 1,  _model.getDob().get(Calendar.YEAR));
+		dateOfBirth.setText(formatedDate);
+		
 		Button changeDobButton = (Button) root
 				.findViewById(R.id.changeDobButton);
 
@@ -200,7 +202,8 @@ public class Page1Fragment extends Fragment {
 					public void onDateSet(DatePicker view, int year,
 							int monthOfYear, int dayOfMonth) {
 						_model.setDob(year, monthOfYear, dayOfMonth);
-						dateOfBirth.setText(_model.getDob().get(Calendar.DAY_OF_MONTH) + "-" + (_model.getDob().get(Calendar.MONTH)+ 1) + "-" + _model.getDob().get(Calendar.YEAR));
+						String formatedDate = String.format(getResources().getString(R.string.dobLabel), _model.getDob().get(Calendar.DAY_OF_MONTH), _model.getDob().get(Calendar.MONTH)+ 1,  _model.getDob().get(Calendar.YEAR));
+						dateOfBirth.setText(formatedDate);
 					}
 				}, _model.getDob().get(Calendar.YEAR), _model.getDob().get(Calendar.MONTH), _model.getDob().get(Calendar.DAY_OF_MONTH)).show();
 			}

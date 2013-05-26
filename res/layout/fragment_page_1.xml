@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="7dp" >
+    android:padding="16dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,60 +19,59 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="@string/firstNameLabel"
-            android:inputType="textPersonName"
-            android:textSize="23sp" />
+            android:inputType="textPersonName" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lastNameLabel" />
+            android:text="@string/lastNameLabel"
+            android:layout_marginTop="16dp" />
 
         <EditText
             android:id="@+id/lastName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="@string/lastNameLabel"
-            android:inputType="textPersonName"
-            android:textSize="23sp" />
+            android:inputType="textPersonName" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/nhiLabel" />
+            android:text="@string/nhiLabel"
+            android:layout_marginTop="16dp" />
 
         <EditText
             android:id="@+id/nhi"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="@string/nhiLabel"
-            android:inputType="text"
-            android:textSize="23sp" />
+            android:inputType="text" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/occupationLabel" />
+            android:text="@string/occupationLabel"
+            android:layout_marginTop="16dp" />
 
         <EditText
             android:id="@+id/occupation"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="@string/occupationLabel"
-            android:inputType="text"
-            android:textSize="23sp" />
+            android:inputType="text" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp" >
 
             <TextView
                 android:id="@+id/genderLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
                 android:layout_weight="1"
-                android:text="@string/genderLabel"
-                android:textSize="23sp" />
+                android:text="@string/genderLabel" />
 
             <Spinner
                 android:id="@+id/gender"
@@ -87,18 +86,11 @@
             android:paddingLeft="5dp" >
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dobLabel"
-                android:textSize="23sp" />
-
-            <TextView
                 android:id="@+id/dob"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="23sp" />
+                />
 
             <Button
                 android:id="@+id/changeDobButton"

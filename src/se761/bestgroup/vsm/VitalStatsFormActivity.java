@@ -95,6 +95,7 @@ public class VitalStatsFormActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
+		
 		// Save the model's state
 		Editor preferencesEditor = getSharedPreferences(Keys.VSM, MODE_PRIVATE)
 				.edit();
