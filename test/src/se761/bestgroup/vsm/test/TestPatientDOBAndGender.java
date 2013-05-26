@@ -15,7 +15,7 @@ public class TestPatientDOBAndGender extends TestCase {
 	}
 
 	public void testGenderDefaultUnset() {
-		if (_model.getGender() == Gender.Unset) {
+		if (_model.getGender() == Gender.Female) {
 			assertTrue(true);
 		} else {
 			fail();
