@@ -299,5 +299,7 @@
     <string name="transmitLabel">Tap phone to receiver to upload vital stats information</string>
     <string name="edit_vital_information">Edit Vital Information</string>
     <string name="transmit_vital_information">Transmit Vital Information</string>
+    <string name="weight_label">Weight</string>
+    <string name="height_label">Height</string>
 
 </resources>

@@ -124,8 +124,8 @@ public class Page2Fragment extends Fragment {
 		
 		// Set up the blood type spinner
 		final Spinner bloodTypeSpinner = (Spinner) root.findViewById(R.id.bloodType);
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.bloodTypes, R.layout.custom_spinner_list);
-		adapter.setDropDownViewResource(R.layout.custom_spinner);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.bloodTypes, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		bloodTypeSpinner.setAdapter(adapter);
 		bloodTypeSpinner.setSelection(Arrays.asList(getResources().getStringArray(R.array.bloodTypes)).indexOf(_model.getBloodType().toString()));

@@ -157,8 +157,8 @@ public class Page1Fragment extends Fragment {
 		final Spinner genderSpinner = (Spinner) root.findViewById(R.id.gender);
 		int arrayId = R.array.genders;
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-				getActivity(), arrayId, R.layout.custom_spinner_list);
-		adapter.setDropDownViewResource(R.layout.custom_spinner);
+				getActivity(), arrayId, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		genderSpinner.setAdapter(adapter);
 		genderSpinner.setSelection(Arrays.asList(
