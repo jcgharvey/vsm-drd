@@ -140,7 +140,7 @@ public class Page1Fragment extends Fragment {
 					_model.setNHINumber(s.toString().trim());
 					nhiInput.setError(null);
 				} catch (IllegalArgumentException e) {
-					nhiInput.setError("Whitespace or non alphabetic characters are not allowed");
+					nhiInput.setError("NHI must be 6 digits long, with the first 3 digits alphabetical and the last 3 numeric.");
 				}
 			}
 

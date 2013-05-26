@@ -89,7 +89,7 @@ public class Page2Fragment extends Fragment {
 					_model.setWeight(Double.parseDouble(weightInput.getText().toString()));
 					weightInput.setError(null);
 				}catch(IllegalArgumentException e){
-					weightInput.setError("You can only enter numbers that are greater than zero");
+					weightInput.setError("Weight must be greater than 0kg and less than 1000kg");
 				}
 			}
 			
@@ -111,7 +111,7 @@ public class Page2Fragment extends Fragment {
 					_model.setHeight(Double.parseDouble(heightInput.getText().toString()));
 					heightInput.setError(null);
 				}catch(IllegalArgumentException e){
-					heightInput.setError("You can only enter numbers that are greater than zero");
+					heightInput.setError("Height must be greater than 0cm and less than 300cm");
 				}
 			}
 			
