@@ -33,6 +33,7 @@ public class Page5Fragment extends Fragment {
 		_model = (PatientModel) getArguments().get("model");
 		setHasOptionsMenu(true);
 		setRetainInstance(true);
+		setUserVisibleHint(true);
 	}
 
 	@Override
@@ -92,8 +93,7 @@ public class Page5Fragment extends Fragment {
 
 				@Override
 				public void onPositiveClick(String value) {
-					Toast.makeText(Page5Fragment.this.getActivity(),
-							"BLEH:" + value, Toast.LENGTH_SHORT).show();
+					
 					if (value == null || value.compareTo("") == 0) {
 						Toast.makeText(Page5Fragment.this.getActivity(),
 								"You can't add a blank allergy",

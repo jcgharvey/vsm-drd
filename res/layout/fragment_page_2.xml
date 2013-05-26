@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="7dp" >
+    android:padding="16dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,18 +19,19 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="@string/contactNumberLabel"
-            android:inputType="phone"
-            android:textSize="23sp" />
+            android:inputType="phone" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp" >
 
             <TextView
                 android:id="@+id/citizenOrResidentLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="fill_vertical"
                 android:layout_weight="1"
                 android:text="@string/citizenOrResidentLabel" />
 
@@ -45,28 +46,37 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp" >
 
-            <EditText
-                android:id="@+id/weight"
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/weightLabel"
-                android:inputType="numberDecimal" />
+                android:text="@string/weight_label" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/weightUnit" />
+        </LinearLayout>
 
-            <EditText
-                android:id="@+id/height"
-                android:layout_width="0dp"
+        <EditText
+            android:id="@+id/weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/weightLabel"
+            android:inputType="numberDecimal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/heightLabel"
-                android:inputType="numberDecimal" />
+                android:text="@string/height_label" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -74,19 +84,25 @@
                 android:text="@string/heightUnit" />
         </LinearLayout>
 
+        <EditText
+            android:id="@+id/height"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/heightLabel"
+            android:inputType="numberDecimal" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal" 
+            android:layout_marginTop="16dp">
 
             <TextView
                 android:id="@+id/bloodTypeLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
                 android:layout_weight="1"
-                android:text="@string/bloodTypeLabel"
-                android:textSize="23sp" />
+                android:text="@string/bloodTypeLabel" />
 
             <Spinner
                 android:id="@+id/bloodType"
@@ -97,7 +113,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal" 
+            android:layout_marginTop="16dp">
 
             <TextView
                 android:id="@+id/smokerLabel"
@@ -117,7 +134,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp" >
 
             <TextView
                 android:id="@+id/drinkerLabel"

@@ -32,6 +32,7 @@ public class Page2Fragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		_model = (PatientModel) getArguments().get("model");
+		setUserVisibleHint(true);
 		
 	}
 
@@ -88,7 +89,7 @@ public class Page2Fragment extends Fragment {
 					_model.setWeight(Double.parseDouble(weightInput.getText().toString()));
 					weightInput.setError(null);
 				}catch(IllegalArgumentException e){
-					weightInput.setError("You can only enter numbers that are greater than zero");
+					weightInput.setError("Weight must be greater than 0kg and less than 1000kg");
 				}
 			}
 			
@@ -110,7 +111,7 @@ public class Page2Fragment extends Fragment {
 					_model.setHeight(Double.parseDouble(heightInput.getText().toString()));
 					heightInput.setError(null);
 				}catch(IllegalArgumentException e){
-					heightInput.setError("You can only enter numbers that are greater than zero");
+					heightInput.setError("Height must be greater than 0cm and less than 300cm");
 				}
 			}
 			
@@ -124,8 +125,8 @@ public class Page2Fragment extends Fragment {
 		
 		// Set up the blood type spinner
 		final Spinner bloodTypeSpinner = (Spinner) root.findViewById(R.id.bloodType);
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.bloodTypes, R.layout.custom_spinner_list);
-		adapter.setDropDownViewResource(R.layout.custom_spinner);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.bloodTypes, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		bloodTypeSpinner.setAdapter(adapter);
 		bloodTypeSpinner.setSelection(Arrays.asList(getResources().getStringArray(R.array.bloodTypes)).indexOf(_model.getBloodType().toString()));

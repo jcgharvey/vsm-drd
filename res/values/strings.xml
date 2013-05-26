@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">Vital Stats Manager</string>
     <string name="action_refresh">Refresh</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_add">Add New</string>
     <string name="login_button_text">Login</string>
     <string name="firstNameLabel">First Name:</string>
@@ -12,7 +11,7 @@
     <string name="citizenOrResidentLabel">Are you a NZ citizen OR a Permanent Resident?</string>
     <string name="contactNumberLabel">Contact Number:</string>
     <string name="genderLabel">Gender:</string>
-    <string name="dobLabel">Date of Birth: </string>
+    <string name="dobLabel">Date of Birth: %2$01d - %2$01d - %3$d</string>
 
     <string-array name="genders">
         <item>Male</item>
@@ -20,8 +19,8 @@
         <item>Other</item>
     </string-array>
 
-    <string name="weightLabel">Weight:</string>
-    <string name="heightLabel">Height:</string>
+    <string name="weightLabel">Weight</string>
+    <string name="heightLabel">Height</string>
     <string name="bloodTypeLabel">Blood Type:</string>
 
     <string-array name="bloodTypes">
@@ -195,7 +194,6 @@
         <item>Netherlands</item>
         <item>Netherlands Antilles</item>
         <item>New Caledonia</item>
-        <item>New Zealand</item>
         <item>Nicaragua</item>
         <item>Niger</item>
         <item>Nigeria</item>
@@ -290,8 +288,8 @@
     <string name="action_previous">Prev</string>
     <string name="action_next">Next</string>
     <string name="action_finish">Finish</string>
-    <string name="weightUnit">(kg)</string>
-    <string name="heightUnit">(cm)</string>
+    <string name="weightUnit">(kg):</string>
+    <string name="heightUnit">(cm):</string>
     <string name="allergyLabel">Allergies:</string>
     <string name="firstTimePinMessage">Please enter a pin to lock your personal information</string>
     <string name="title_activity_menu">MenuActivity</string>
@@ -299,5 +297,7 @@
     <string name="transmitLabel">Tap phone to receiver to upload vital stats information</string>
     <string name="edit_vital_information">Edit Vital Information</string>
     <string name="transmit_vital_information">Transmit Vital Information</string>
+    <string name="weight_label">Weight </string>
+    <string name="height_label">Height </string>
 
 </resources>
