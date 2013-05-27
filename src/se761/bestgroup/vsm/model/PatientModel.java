@@ -379,7 +379,6 @@ public class PatientModel implements Serializable {
 
 	/**
 	 * Returns whether the input string is considered valid
-	 * 
 	 * @param in
 	 * @return
 	 */
