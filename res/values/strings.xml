@@ -17,7 +17,7 @@
     <string name="contactNumberHint">Contact Number</string>
     <string name="genderLabel">Gender:</string>
     <string name="genderHint">Gender</string>
-    <string name="dobLabel">Date of Birth: %2$01d - %2$01d - %3$d</string>
+    <string name="dobLabel">Date of Birth: %1$02d - %2$02d - %3$d</string>
 
     <string-array name="genders">
         <item>Male</item>
