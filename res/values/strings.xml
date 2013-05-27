@@ -25,8 +25,8 @@
         <item>Other</item>
     </string-array>
 
-    <string name="weightLabel">Weight</string>
-    <string name="heightLabel">Height</string>
+    <string name="weightLabel">Weight </string>
+    <string name="heightLabel">Height </string>
     <string name="bloodTypeLabel">Blood Type:</string>
 
     <string-array name="bloodTypes">
@@ -46,7 +46,7 @@
     <string name="familyHistoryLabel">Family History:</string>
     <string name="familyHistoryHint">Family History</string>
     <string name="overseasLabel">Have you been overseas in the past 6 months?</string>
-    <string name="medicalConditionsLabel">Do you have any medial conditions?</string>
+    <string name="medicalConditionsLabel">Do you have any medical conditions?</string>
     <string name="allergiesLabel">What are your allergies?</string>
     <string name="pickCountries">Pick Countries</string>
     <string name="editLabel">Edit</string>
