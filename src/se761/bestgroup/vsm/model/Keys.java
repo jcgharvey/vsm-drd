@@ -1,4 +1,4 @@
-package se761.bestgroup.vsm;
+package se761.bestgroup.vsm.model;
 
 public class Keys {
 	

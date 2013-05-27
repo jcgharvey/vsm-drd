@@ -5,6 +5,15 @@ import java.util.List;
 
 import org.json.JSONException;
 
+import se761.bestgroup.vsm.formpages.Page1Fragment;
+import se761.bestgroup.vsm.formpages.Page2Fragment;
+import se761.bestgroup.vsm.formpages.Page3Fragment;
+import se761.bestgroup.vsm.formpages.Page4Fragment;
+import se761.bestgroup.vsm.formpages.Page5Fragment;
+import se761.bestgroup.vsm.model.Keys;
+import se761.bestgroup.vsm.model.PatientModel;
+
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -12,7 +21,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.support.v13.app.FragmentStatePagerAdapter;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -145,7 +154,7 @@ public class VitalStatsFormActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	private class SliderAdapter extends FragmentStatePagerAdapter {
+	private class SliderAdapter extends FragmentPagerAdapter {
 
 		private List<Fragment> _pages;
 

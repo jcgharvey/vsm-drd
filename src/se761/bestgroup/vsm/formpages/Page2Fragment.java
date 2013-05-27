@@ -1,9 +1,10 @@
-package se761.bestgroup.vsm;
+package se761.bestgroup.vsm.formpages;
 
 import java.util.Arrays;
 
-import se761.bestgroup.vsm.PatientModel.BloodType;
-import se761.bestgroup.vsm.PatientModel.Gender;
+import se761.bestgroup.vsm.R;
+import se761.bestgroup.vsm.model.PatientModel;
+import se761.bestgroup.vsm.model.PatientModel.BloodType;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,7 +12,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;

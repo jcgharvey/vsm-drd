@@ -1,5 +1,6 @@
 package se761.bestgroup.vsm;
 
+import se761.bestgroup.vsm.model.PatientModel;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -11,7 +12,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class AddAllergyDialogFragment extends DialogFragment {
 

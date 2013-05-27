@@ -1,6 +1,9 @@
-package se761.bestgroup.vsm;
+package se761.bestgroup.vsm.formpages;
 
+import se761.bestgroup.vsm.AddAllergyDialogFragment;
 import se761.bestgroup.vsm.AddAllergyDialogFragment.AddAlergyDiaglogListener;
+import se761.bestgroup.vsm.R;
+import se761.bestgroup.vsm.model.PatientModel;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -63,7 +66,7 @@ public class Page5Fragment extends Fragment {
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		_positionLongClicked = ((AdapterView.AdapterContextMenuInfo) menuInfo).position;
-		menu.add(menu.NONE, R.id.action_delete_allergy, menu.NONE, "Delete");
+		menu.add(Menu.NONE, R.id.action_delete_allergy, Menu.NONE, "Delete");
 	}
 
 	@Override

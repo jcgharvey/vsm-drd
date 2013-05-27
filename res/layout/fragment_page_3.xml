@@ -19,7 +19,7 @@
             android:id="@+id/familyHistory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/familyHistoryLabel"
+            android:hint="@string/familyHistoryHint"
             android:inputType="textMultiLine"
             android:singleLine="false"/>
 
@@ -27,13 +27,14 @@
             android:id="@+id/medicalConditionsLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/medicalConditionsLabel" />
+            android:text="@string/medicalConditionsLabel"
+            android:layout_marginTop="16dp" />
 
         <EditText
             android:id="@+id/medicalConditions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/medicalConditionsLabel"
+            android:hint="@string/medicalConditionsHint"
             android:inputType="textMultiLine"
             android:singleLine="false"/>
     </LinearLayout>

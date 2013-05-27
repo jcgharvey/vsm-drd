@@ -1,12 +1,12 @@
-package se761.bestgroup.vsm;
+package se761.bestgroup.vsm.model;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,9 +16,7 @@ import android.util.Log;
 
 public class PatientModel implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private String _firstName, _lastName, _occupation, _nhiNumber,
 			_familyHistory, _medicalConditions, _contactNumber, _checkInTime;
@@ -151,7 +149,7 @@ public class PatientModel implements Serializable {
 
 	public void setCheckInTime() {
 		String format = "yyyy-MM-dd'T'HH:mm:ss.SSS000";
-		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.getDefault());
 		_checkInTime = sdf.format(new Date());
 		Log.v("Checkin", _checkInTime);
 	}
@@ -403,5 +401,9 @@ public class PatientModel implements Serializable {
 
 	public void setAllergies(List<String> _allergies) {
 		this._allergies = _allergies;
+	}
+
+	public boolean isValid() {
+		return true;
 	}
 }
