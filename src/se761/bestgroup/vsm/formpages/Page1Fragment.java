@@ -203,11 +203,11 @@ public class Page1Fragment extends Fragment {
 					@Override
 					public void onDateSet(DatePicker view, int year,
 							int monthOfYear, int dayOfMonth) {
-						_model.setDob(year, monthOfYear, dayOfMonth);
+						_model.setDob(year, monthOfYear + 1, dayOfMonth);
 						String formatedDate = String.format(getResources().getString(R.string.dobLabel), _model.getDob().get(Calendar.DAY_OF_MONTH), _model.getDob().get(Calendar.MONTH),  _model.getDob().get(Calendar.YEAR));
 						dateOfBirth.setText(formatedDate);
 					}
-				}, _model.getDob().get(Calendar.YEAR), _model.getDob().get(Calendar.MONTH), _model.getDob().get(Calendar.DAY_OF_MONTH)).show();
+				}, _model.getDob().get(Calendar.YEAR), _model.getDob().get(Calendar.MONTH) - 1, _model.getDob().get(Calendar.DAY_OF_MONTH)).show();
 			}
 		});
 

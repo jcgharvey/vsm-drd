@@ -366,7 +366,7 @@ public class PatientModel implements Serializable {
 	}
 
 	public void setDob(int year, int month, int day) {
-		_dob.set(year, month + 1, day);
+		_dob.set(year, month, day);
 	}
 
 	public String getFamilyHistory() {
