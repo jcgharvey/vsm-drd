@@ -63,7 +63,7 @@ public class Page5Fragment extends Fragment {
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		_positionLongClicked = ((AdapterView.AdapterContextMenuInfo) menuInfo).position;
-		menu.add(menu.NONE, R.id.action_delete_allergy, menu.NONE, "Delete");
+		menu.add(Menu.NONE, R.id.action_delete_allergy, Menu.NONE, "Delete");
 	}
 
 	@Override
