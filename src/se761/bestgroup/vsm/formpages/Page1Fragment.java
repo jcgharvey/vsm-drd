@@ -188,7 +188,7 @@ public class Page1Fragment extends Fragment {
 		});
 
 		final TextView dateOfBirth = (TextView) root.findViewById(R.id.dob);
-		String formatedDate = String.format(getResources().getString(R.string.dobLabel), _model.getDob().get(Calendar.DAY_OF_MONTH), _model.getDob().get(Calendar.MONTH)+ 1,  _model.getDob().get(Calendar.YEAR));
+		String formatedDate = String.format(getResources().getString(R.string.dobLabel), _model.getDob().get(Calendar.DAY_OF_MONTH), _model.getDob().get(Calendar.MONTH),  _model.getDob().get(Calendar.YEAR));
 		dateOfBirth.setText(formatedDate);
 		
 		Button changeDobButton = (Button) root
