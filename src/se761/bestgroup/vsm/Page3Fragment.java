@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 public class Page3Fragment extends Fragment {
 	
-
 	private PatientModel _model;
 
 	public Page3Fragment() {

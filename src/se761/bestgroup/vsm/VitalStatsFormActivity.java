@@ -12,7 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.support.v13.app.FragmentStatePagerAdapter;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -145,7 +145,7 @@ public class VitalStatsFormActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	private class SliderAdapter extends FragmentStatePagerAdapter {
+	private class SliderAdapter extends FragmentPagerAdapter {
 
 		private List<Fragment> _pages;
 
