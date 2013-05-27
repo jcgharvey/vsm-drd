@@ -5,12 +5,18 @@
     <string name="action_add">Add New</string>
     <string name="login_button_text">Login</string>
     <string name="firstNameLabel">First Name:</string>
+    <string name="firstNameHint">First Name</string>
     <string name="lastNameLabel">Last Name:</string>
+    <string name="lastNameHint">Last Name</string>
     <string name="nhiLabel">NHI Number:</string>
+    <string name="nhiHint">NHI Number</string>
     <string name="occupationLabel">Occupation:</string>
+    <string name="occupationHint">Occupation</string>
     <string name="citizenOrResidentLabel">Are you a NZ citizen OR a Permanent Resident?</string>
     <string name="contactNumberLabel">Contact Number:</string>
+    <string name="contactNumberHint">Contact Number</string>
     <string name="genderLabel">Gender:</string>
+    <string name="genderHint">Gender</string>
     <string name="dobLabel">Date of Birth: %2$01d - %2$01d - %3$d</string>
 
     <string-array name="genders">
@@ -38,9 +44,10 @@
     <string name="smokerLabel">Do you smoke?</string>
     <string name="drinkerLabel">Do you drink?</string>
     <string name="familyHistoryLabel">Family History:</string>
+    <string name="familyHistoryHint">Family History</string>
     <string name="overseasLabel">Have you been overseas in the past 6 months?</string>
     <string name="medicalConditionsLabel">Do you have any medial conditions?</string>
-    <string name="allergiesLabel">What are your allerigies?</string>
+    <string name="allergiesLabel">What are your allergies?</string>
     <string name="pickCountries">Pick Countries</string>
     <string name="editLabel">Edit</string>
 
@@ -290,7 +297,6 @@
     <string name="action_finish">Finish</string>
     <string name="weightUnit">(kg):</string>
     <string name="heightUnit">(cm):</string>
-    <string name="allergyLabel">Allergies:</string>
     <string name="firstTimePinMessage">Please enter a pin to lock your personal information</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="action_settings">Settings</string>
