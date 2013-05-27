@@ -34,7 +34,7 @@
             android:id="@+id/medicalConditions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/medicalConditionsLabel"
+            android:hint="@string/medicalConditionsHint"
             android:inputType="textMultiLine"
             android:singleLine="false"/>
     </LinearLayout>

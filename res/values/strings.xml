@@ -44,9 +44,10 @@
     <string name="smokerLabel">Do you smoke?</string>
     <string name="drinkerLabel">Do you drink?</string>
     <string name="familyHistoryLabel">Family History:</string>
-    <string name="familyHistoryHint">Family History</string>
+    <string name="familyHistoryHint">Enter any medical condition in your family history</string>
     <string name="overseasLabel">Have you been overseas in the past 6 months?</string>
     <string name="medicalConditionsLabel">Do you have any medical conditions?</string>
+    <string name="medicalConditionsHint">List any medical conditions you have</string>
     <string name="allergiesLabel">What are your allergies?</string>
     <string name="pickCountries">Pick Countries</string>
     <string name="editLabel">Edit</string>
@@ -302,7 +303,7 @@
     <string name="action_settings">Settings</string>
     <string name="transmitLabel">Tap phone to receiver to upload vital stats information</string>
     <string name="edit_vital_information">Edit Vital Information</string>
-    <string name="transmit_vital_information">Transmit Vital Information</string>
+    <string name="transmit_vital_information">Transmit Vital Information via NFC</string>
     <string name="weight_label">Weight </string>
     <string name="height_label">Height </string>
     <string name="change_dob">Change DoB</string>
