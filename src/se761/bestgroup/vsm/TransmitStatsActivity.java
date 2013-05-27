@@ -2,6 +2,9 @@ package se761.bestgroup.vsm;
 
 import org.json.JSONException;
 
+import se761.bestgroup.vsm.model.Keys;
+import se761.bestgroup.vsm.model.PatientModel;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;

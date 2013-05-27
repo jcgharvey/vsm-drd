@@ -5,6 +5,15 @@ import java.util.List;
 
 import org.json.JSONException;
 
+import se761.bestgroup.vsm.formpages.Page1Fragment;
+import se761.bestgroup.vsm.formpages.Page2Fragment;
+import se761.bestgroup.vsm.formpages.Page3Fragment;
+import se761.bestgroup.vsm.formpages.Page4Fragment;
+import se761.bestgroup.vsm.formpages.Page5Fragment;
+import se761.bestgroup.vsm.model.Keys;
+import se761.bestgroup.vsm.model.PatientModel;
+
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;

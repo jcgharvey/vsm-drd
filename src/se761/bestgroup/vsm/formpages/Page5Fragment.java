@@ -1,6 +1,9 @@
-package se761.bestgroup.vsm;
+package se761.bestgroup.vsm.formpages;
 
+import se761.bestgroup.vsm.AddAllergyDialogFragment;
 import se761.bestgroup.vsm.AddAllergyDialogFragment.AddAlergyDiaglogListener;
+import se761.bestgroup.vsm.R;
+import se761.bestgroup.vsm.model.PatientModel;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.ContextMenu;

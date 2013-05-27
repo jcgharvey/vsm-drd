@@ -1,9 +1,11 @@
-package se761.bestgroup.vsm;
+package se761.bestgroup.vsm.formpages;
 
 import java.util.Arrays;
 import java.util.Calendar;
 
-import se761.bestgroup.vsm.PatientModel.Gender;
+import se761.bestgroup.vsm.R;
+import se761.bestgroup.vsm.model.PatientModel;
+import se761.bestgroup.vsm.model.PatientModel.Gender;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Fragment;

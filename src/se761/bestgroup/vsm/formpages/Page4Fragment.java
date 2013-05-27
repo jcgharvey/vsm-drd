@@ -1,8 +1,11 @@
-package se761.bestgroup.vsm;
+package se761.bestgroup.vsm.formpages;
 
 import java.util.ArrayList;
 
+import se761.bestgroup.vsm.CountriesListDialogFragment;
 import se761.bestgroup.vsm.CountriesListDialogFragment.CountriesListDialogListener;
+import se761.bestgroup.vsm.R;
+import se761.bestgroup.vsm.model.PatientModel;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;

@@ -1,5 +1,6 @@
 package se761.bestgroup.vsm;
 
+import se761.bestgroup.vsm.model.PatientModel;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;

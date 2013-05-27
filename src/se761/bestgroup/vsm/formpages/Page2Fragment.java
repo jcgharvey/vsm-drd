@@ -1,8 +1,10 @@
-package se761.bestgroup.vsm;
+package se761.bestgroup.vsm.formpages;
 
 import java.util.Arrays;
 
-import se761.bestgroup.vsm.PatientModel.BloodType;
+import se761.bestgroup.vsm.R;
+import se761.bestgroup.vsm.model.PatientModel;
+import se761.bestgroup.vsm.model.PatientModel.BloodType;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.text.Editable;
