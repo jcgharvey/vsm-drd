@@ -203,7 +203,7 @@ public class PatientModel implements Serializable {
 	public JSONObject toJSON() {
 		JSONObject info = new JSONObject();
 		JSONObject json = new JSONObject();
-		
+
 		try {
 			info.put(Keys.CHECK_IN_TIME, _checkInTime);
 			info.put(Keys.WEIGHT_VALUE, _weight_value);
@@ -232,7 +232,7 @@ public class PatientModel implements Serializable {
 					: _gender.toString());
 			info.put(Keys.DOB,
 					_dob.get(Calendar.YEAR) + "-" + _dob.get(Calendar.MONTH)
-							+ "-" + _dob.get(Calendar.DAY_OF_MONTH));		
+							+ "-" + _dob.get(Calendar.DAY_OF_MONTH));
 
 			json.put(Keys.NHI, _nhiNumber);
 			json.put(Keys.VITAL_STATS_MODEL, info);
@@ -249,7 +249,7 @@ public class PatientModel implements Serializable {
 		_nhiNumber = json.getString(Keys.NHI);
 		// get json from json
 		json = json.getJSONObject(Keys.VITAL_STATS_MODEL);
-		//get all values
+		// get all values
 		_familyHistory = json.getString(Keys.FAMILY_HISTORY);
 		_medicalConditions = json.getString(Keys.MEDICAL_CONDITIONS);
 
@@ -368,7 +368,7 @@ public class PatientModel implements Serializable {
 	}
 
 	public void setDob(int year, int month, int day) {
-		_dob.set(year, month, day);
+		_dob.set(year, month + 1, day);
 	}
 
 	public String getFamilyHistory() {
