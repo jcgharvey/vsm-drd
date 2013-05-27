@@ -305,5 +305,6 @@
     <string name="transmit_vital_information">Transmit Vital Information</string>
     <string name="weight_label">Weight </string>
     <string name="height_label">Height </string>
+    <string name="change_dob">Change DoB</string>
 
 </resources>

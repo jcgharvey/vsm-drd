@@ -24,8 +24,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lastNameLabel"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:text="@string/lastNameLabel" />
 
         <EditText
             android:id="@+id/lastName"
@@ -37,8 +37,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/nhiLabel"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:text="@string/nhiLabel" />
 
         <EditText
             android:id="@+id/nhi"
@@ -50,8 +50,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/occupationLabel"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:text="@string/occupationLabel" />
 
         <EditText
             android:id="@+id/occupation"
@@ -63,8 +63,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp" >
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal" >
 
             <TextView
                 android:id="@+id/genderLabel"
@@ -82,22 +82,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp" >
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal" >
 
             <TextView
                 android:id="@+id/dob"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                />
+                android:textIsSelectable="false" />
 
             <Button
                 android:id="@+id/changeDobButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/calendar_icon"
-                android:text="Change DoB" />
+                android:text="@string/change_dob" />
         </LinearLayout>
     </LinearLayout>
 
