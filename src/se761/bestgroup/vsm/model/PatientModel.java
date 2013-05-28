@@ -33,7 +33,7 @@ public class PatientModel implements Serializable {
 
 	public enum BloodType {
 		A_POS("A+"), B_POS("B+"), O_POS("O+"), AB_POS("AB+"), A_NEG("A-"), B_NEG(
-				"B-"), O_NEG("O-"), AB_NEG("AB-"), UNKNOWN("Unknown");
+				"B-"), O_NEG("O-"), AB_NEG("AB-"), UNKNOWN("UNK");
 
 		private String _bloodType;
 
